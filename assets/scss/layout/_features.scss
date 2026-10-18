@@ -1,0 +1,240 @@
+@use '../abstracts/variables' as *;
+/*
+    features-1-start
+*/
+
+/* 1px of the 1920 design — it follows the viewport above 1800 and stops growing at 2560 */
+@function feat-u($px) {
+    @return calc(#{$px} * var(--dc-feat-u));
+}
+
+.dc-features-1 {
+    &-area {
+        --dc-feat-u: calc(min(100vw, 2560px) / 1920);
+
+        /* sizes of the 1920 design, every breakpoint below sets its own */
+        --dc-feat-cols: 36.25% repeat(3, minmax(0, 1fr));
+        --dc-feat-min-h: #{feat-u(370)};
+        --dc-feat-pad-y: #{feat-u(48)};
+        --dc-feat-pad-x: #{feat-u(44)};
+        --dc-feat-gap: #{feat-u(78)};
+        --dc-feat-icon: #{feat-u(68)};
+        --dc-feat-title-fs: #{feat-u(26)};
+        --dc-feat-title-lh: #{feat-u(28)};
+        --dc-feat-title-mb: #{feat-u(16)};
+        --dc-feat-disc-fs: #{feat-u(18)};
+        --dc-feat-disc-lh: #{feat-u(28)};
+
+        position: relative;
+        z-index: 1;
+        max-width: 2560px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fff;
+
+        @media #{$xxxl} {
+            --dc-feat-cols: 32% repeat(3, minmax(0, 1fr));
+            --dc-feat-min-h: 340px;
+            --dc-feat-pad-y: 40px;
+            --dc-feat-pad-x: 34px;
+            --dc-feat-gap: 48px;
+            --dc-feat-icon: 60px;
+            --dc-feat-title-fs: 24px;
+            --dc-feat-title-lh: 28px;
+            --dc-feat-title-mb: 14px;
+            --dc-feat-disc-fs: 16px;
+            --dc-feat-disc-lh: 26px;
+        }
+
+        @media #{$xxl} {
+            --dc-feat-cols: 28% repeat(3, minmax(0, 1fr));
+            --dc-feat-min-h: 330px;
+            --dc-feat-pad-y: 36px;
+            --dc-feat-pad-x: 30px;
+            --dc-feat-gap: 44px;
+            --dc-feat-icon: 56px;
+            --dc-feat-title-fs: 22px;
+            --dc-feat-title-lh: 26px;
+            --dc-feat-title-mb: 12px;
+            --dc-feat-disc-fs: 16px;
+            --dc-feat-disc-lh: 24px;
+        }
+
+        @media #{$xl} {
+            --dc-feat-cols: 25% repeat(3, minmax(0, 1fr));
+            --dc-feat-min-h: 320px;
+            --dc-feat-pad-y: 32px;
+            --dc-feat-pad-x: 28px;
+            --dc-feat-gap: 40px;
+            --dc-feat-icon: 52px;
+            --dc-feat-title-fs: 22px;
+            --dc-feat-title-lh: 26px;
+            --dc-feat-title-mb: 12px;
+            --dc-feat-disc-fs: 15px;
+            --dc-feat-disc-lh: 24px;
+        }
+
+        /* the photo moves above the three cards */
+        @media #{$lg} {
+            --dc-feat-cols: repeat(3, minmax(0, 1fr));
+            --dc-feat-min-h: 300px;
+            --dc-feat-pad-y: 32px;
+            --dc-feat-pad-x: 28px;
+            --dc-feat-gap: 56px;
+            --dc-feat-icon: 56px;
+            --dc-feat-title-fs: 24px;
+            --dc-feat-title-lh: 28px;
+            --dc-feat-title-mb: 14px;
+            --dc-feat-disc-fs: 16px;
+            --dc-feat-disc-lh: 26px;
+        }
+
+        /* the cards stack, icon on the left of the copy */
+        @media #{$md} {
+            --dc-feat-cols: minmax(0, 1fr);
+            --dc-feat-min-h: 0px;
+            --dc-feat-pad-y: 36px;
+            --dc-feat-pad-x: 32px;
+            --dc-feat-gap: 32px;
+            --dc-feat-icon: 56px;
+            --dc-feat-title-fs: 24px;
+            --dc-feat-title-lh: 28px;
+            --dc-feat-title-mb: 12px;
+            --dc-feat-disc-fs: 16px;
+            --dc-feat-disc-lh: 26px;
+        }
+
+        /* the cards stack, icon above the copy */
+        @media #{$xs} {
+            --dc-feat-cols: minmax(0, 1fr);
+            --dc-feat-min-h: 0px;
+            --dc-feat-pad-y: 32px;
+            --dc-feat-pad-x: 20px;
+            --dc-feat-gap: 36px;
+            --dc-feat-icon: 52px;
+            --dc-feat-title-fs: 22px;
+            --dc-feat-title-lh: 26px;
+            --dc-feat-title-mb: 12px;
+            --dc-feat-disc-fs: 16px;
+            --dc-feat-disc-lh: 24px;
+        }
+
+        @media #{$sm} {
+            --dc-feat-pad-y: 36px;
+            --dc-feat-pad-x: 32px;
+        }
+    }
+
+    &-wrap {
+        display: grid;
+        grid-template-columns: var(--dc-feat-cols);
+    }
+
+    /*
+        photo — the colour photo is shown in grey
+    */
+    &-video {
+        background-color: #151312;
+        filter: grayscale(1);
+
+        @media #{$lg} {
+            grid-column: 1 / -1;
+            height: 380px;
+        }
+
+        @media #{$md} {
+            height: 340px;
+        }
+
+        @media #{$xs} {
+            height: 240px;
+        }
+
+        @media #{$sm} {
+            height: 300px;
+        }
+    }
+
+    /*
+        cards — the hovered one (or the one marked is-active while none is hovered) turns peach
+    */
+    &-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--dc-feat-gap);
+        min-height: var(--dc-feat-min-h);
+        padding: var(--dc-feat-pad-y) var(--dc-feat-pad-x);
+        border-right: 1px solid rgb(21 19 18 / 20%);
+        border-bottom: 1px solid rgb(21 19 18 / 20%);
+
+        /* the lower half of the double-height gradient is the peach one, it slides up on hover */
+        background-color: #fff;
+        background-image: linear-gradient(180deg, #fff 0%, #fff 50%, #FFD8C9 100%);
+        background-size: 100% 200%;
+        background-position: 0 0;
+        transition: background-position .5s var(--dc-cube-1);
+
+        &:last-child {
+            border-right: 0;
+        }
+
+        &:hover,
+        &.is-active {
+            background-position: 0 100%;
+        }
+
+        .icon {
+            flex: 0 0 auto;
+            display: flex;
+            width: var(--dc-feat-icon);
+            height: var(--dc-feat-icon);
+            font-size: var(--dc-feat-icon);
+            line-height: 1;
+            color: #FF5B1B;
+        }
+
+        .title {
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: var(--dc-feat-title-fs);
+            line-height: var(--dc-feat-title-lh);
+            margin-bottom: var(--dc-feat-title-mb);
+        }
+
+        .disc {
+            font-size: var(--dc-feat-disc-fs);
+            line-height: var(--dc-feat-disc-lh);
+            font-optical-sizing: none;
+        }
+
+        /* the cut-off dots of the copy */
+        .dots {
+            color: #FF5B1B;
+        }
+
+        @media #{$md} {
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .content {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+        }
+
+        @media #{$md,$xs} {
+            border-right: 0;
+        }
+    }
+
+    /* while the pointer is on one card, the marked one steps back */
+    &-wrap:hover &-item.is-active:not(:hover) {
+        background-position: 0 0;
+    }
+}
+
+/*
+    features-1-end
+*/

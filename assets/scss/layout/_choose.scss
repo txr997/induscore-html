@@ -1,0 +1,391 @@
+@use '../abstracts/variables' as *;
+/*
+    choose-1-start
+*/
+
+/* 1px of the 1920 design — it follows the viewport and stops growing at 2560 */
+@function choose-u($px) {
+    @return calc(#{$px} * var(--dc-choose-u));
+}
+
+.dc-choose-1 {
+    &-area {
+        --dc-choose-u: calc(min(100vw, 2560px) / 1920);
+
+        /* the achievements never shrink below a readable size, the card and the worker follow the screen */
+        --dc-choose-hex: max(56px, #{choose-u(68)});
+        --dc-choose-num: max(48px, #{choose-u(68)});
+
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background-color: #FF5B1B;
+    }
+
+    /* the refinery photo is turned into orange light by the blend */
+    &-bg {
+        position: absolute;
+        inset: 0;
+        opacity: .36;
+        mix-blend-mode: luminosity;
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    &-wrap {
+        position: relative;
+        min-height: choose-u(926);
+    }
+
+    /*
+        left — the three achievements on a thin line
+    */
+    &-left {
+        position: relative;
+        padding: choose-u(132) 0 choose-u(132) choose-u(227);
+
+        /* the line runs through the middle of the hexagons */
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: calc(#{choose-u(227)} + var(--dc-choose-hex) / 2 - 1px);
+            width: 2px;
+            background-color: rgb(255 255 255 / 40%);
+        }
+    }
+
+    &-list {
+        position: relative;
+
+        .item {
+            display: flex;
+            align-items: flex-start;
+            gap: max(28px, #{choose-u(48)});
+
+            & + .item {
+                margin-top: max(60px, #{choose-u(98)});
+            }
+        }
+
+        /* the hexagon takes the colour of the section, so the line seems to pass behind it */
+        .hex {
+            position: relative;
+            flex: 0 0 auto;
+            width: var(--dc-choose-hex);
+            height: calc(var(--dc-choose-hex) * 80 / 68);
+
+            svg {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            i {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                display: flex;
+                font-size: calc(var(--dc-choose-hex) * 36 / 68);
+                line-height: 1;
+                color: #fff;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .content {
+            flex: 0 0 auto;
+            width: max(250px, #{choose-u(313)});
+        }
+
+        /* the figures sit on a line box as tall as they are, so the top is lifted to the digits */
+        .count {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            margin: -.15em 0 calc(max(14px, #{choose-u(24)}) - .15em);
+            font-size: var(--dc-choose-num);
+            line-height: 1;
+            color: #fff;
+
+            .num {
+                font-family: var(--dc-font-2);
+                font-weight: 600;
+                font-size: 1em;
+                letter-spacing: .02em;
+            }
+
+            .suffix {
+                font-family: var(--dc-font-2);
+                font-weight: 500;
+                font-size: .4706em;
+                color: var(--dc-clr-pr-1);
+            }
+        }
+
+        .title {
+            font-family: var(--dc-font-2);
+            font-size: max(17px, #{choose-u(20)});
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .disc {
+            font-size: max(14px, #{choose-u(16)});
+            line-height: 1.5;
+            color: #fff;
+            font-optical-sizing: none;
+        }
+    }
+
+    /*
+        card — the quote, the worker stands in front of it
+    */
+    &-card {
+        position: absolute;
+        top: choose-u(20);
+        right: choose-u(20);
+        bottom: choose-u(20);
+        width: choose-u(915);
+        display: flex;
+        justify-content: flex-end;
+        padding: choose-u(116) choose-u(100) 0 0;
+        border-radius: 20px;
+        background-color: #FAF5ED;
+    }
+
+    /* the 3D factory in the foot of the card — it is cut by the card's right and bottom edge */
+    &-card-bg {
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        pointer-events: none;
+
+        .img {
+            position: absolute;
+            left: choose-u(407);
+            top: choose-u(482);
+            width: choose-u(592);
+            aspect-ratio: 592 / 593;
+        }
+    }
+
+    &-quote {
+        position: relative;
+        z-index: 2;
+        width: choose-u(509);
+        text-align: right;
+
+        .text {
+            font-family: var(--dc-font-3);
+            font-size: max(17px, #{choose-u(26)});
+            line-height: 1.385;
+            color: var(--dc-clr-h-1);
+        }
+
+        .arrow {
+            display: flex;
+            justify-content: flex-end;
+            margin: choose-u(18) choose-u(66) choose-u(13) 0;
+
+            svg {
+                display: block;
+                width: choose-u(15);
+                height: choose-u(68);
+                min-width: 10px;
+                min-height: 45px;
+            }
+        }
+
+        .name {
+            font-family: var(--dc-font-2);
+            font-weight: 500;
+            font-size: max(20px, #{choose-u(28)});
+            line-height: 1.286;
+            color: var(--dc-clr-h-1);
+            margin-bottom: 5px;
+        }
+
+        .role {
+            font-family: var(--dc-font-3);
+            font-size: max(14px, #{choose-u(18)});
+            line-height: 1.556;
+            color: #FF5B1B;
+        }
+    }
+
+    /* the worker stands left of the card's edge and reaches down to the foot of the section */
+    &-man {
+        position: absolute;
+        left: choose-u(-425);
+        bottom: choose-u(-20);
+        z-index: 1;
+        width: choose-u(887);
+        aspect-ratio: 887 / 869;
+        pointer-events: none;
+    }
+
+    /*
+        below the desktop widths the card goes under the achievements and the worker stands inside it
+    */
+    @media #{$lg,$md,$sm,$xs} {
+        &-area {
+            --dc-choose-hex: 56px;
+            --dc-choose-num: 52px;
+        }
+
+        &-wrap {
+            min-height: 0;
+            padding-bottom: 24px;
+        }
+
+        &-left {
+            padding: 80px 24px 64px;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        &-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 32px 24px;
+
+            .item {
+                gap: 20px;
+
+                & + .item {
+                    margin-top: 0;
+                }
+            }
+
+            .content {
+                flex: 1 1 0;
+                width: auto;
+                min-width: 0;
+            }
+        }
+
+        &-card {
+            position: relative;
+            inset: auto;
+            flex-direction: column;
+            align-items: stretch;
+            width: auto;
+            margin: 0 24px;
+            padding: 48px 32px 0;
+            overflow: hidden;
+        }
+
+        /* behind the worker, peeking out at the right foot of the card */
+        &-card-bg .img {
+            left: auto;
+            right: -60px;
+            top: auto;
+            bottom: -80px;
+            width: 320px;
+        }
+
+        &-quote {
+            width: auto;
+            text-align: center;
+
+            .text {
+                font-size: 22px;
+                line-height: 1.4;
+            }
+
+            .arrow {
+                justify-content: center;
+                margin: 20px 0 14px;
+
+                svg {
+                    width: 15px;
+                    height: 68px;
+                }
+            }
+
+            .name {
+                font-size: 26px;
+            }
+
+            .role {
+                font-size: 17px;
+            }
+        }
+
+        &-man {
+            position: relative;
+            left: auto;
+            bottom: auto;
+            width: min(100%, 520px);
+            margin: 32px auto 0;
+        }
+    }
+
+    /* below the tablet widths the achievements follow each other again, on the line */
+    @media #{$md,$sm,$xs} {
+        &-left {
+            &::before {
+                display: block;
+                left: calc(24px + var(--dc-choose-hex) / 2 - 1px);
+            }
+        }
+
+        &-list {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 56px;
+        }
+    }
+
+    @media #{$xs} {
+        &-area {
+            --dc-choose-hex: 48px;
+            --dc-choose-num: 44px;
+        }
+
+        &-left {
+            padding: 64px 20px 48px;
+
+            &::before {
+                left: calc(20px + var(--dc-choose-hex) / 2 - 1px);
+            }
+        }
+
+        &-list {
+            gap: 44px;
+
+            .item {
+                gap: 20px;
+            }
+        }
+
+        &-card {
+            margin: 0 15px;
+            padding: 36px 20px 0;
+        }
+
+        &-card-bg {
+            display: none;
+        }
+
+        &-quote {
+            .text {
+                font-size: 18px;
+            }
+
+            .name {
+                font-size: 22px;
+            }
+        }
+    }
+}
+
+/*
+    choose-1-end
+*/

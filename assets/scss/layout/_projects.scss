@@ -1,0 +1,322 @@
+@use '../abstracts/variables' as *;
+/*
+    projects-1-start
+*/
+
+/* the ring text of the badge turns once around */
+@keyframes dc-projects-1-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.dc-projects-1 {
+    &-area {
+        /* 1 = the 1920 design: every card shrinks by this factor on the smaller screens */
+        --dc-pj-k: 1;
+        --dc-pj-title-fs: 28px;
+        --dc-pj-title-lh: 32px;
+        --dc-pj-disc-fs: 16px;
+        --dc-pj-disc-lh: 24px;
+        --dc-pj-tag-fs: 15px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+
+        @media #{$xxl} {
+        }
+
+        @media #{$xl} {
+            --dc-pj-k: .85;
+        }
+
+        @media #{$lg} {
+            --dc-pj-k: .72;
+            --dc-pj-title-fs: 24px;
+            --dc-pj-title-lh: 28px;
+            padding: 100px 0;
+        }
+
+        @media #{$md} {
+            --dc-pj-k: .62;
+            --dc-pj-title-fs: 22px;
+            --dc-pj-title-lh: 26px;
+            --dc-pj-tag-fs: 14px;
+        }
+
+        @media #{$xs} {
+            --dc-pj-k: .5;
+            --dc-pj-title-fs: 20px;
+            --dc-pj-title-lh: 24px;
+            --dc-pj-disc-fs: 15px;
+            --dc-pj-disc-lh: 22px;
+            --dc-pj-tag-fs: 13px;
+        }
+
+        @media #{$sm} {
+            --dc-pj-k: .52;
+        }
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 52px;
+
+        @media #{$xxl} {
+            margin-bottom: 48px;
+        }
+
+        @media #{$xl} {
+            margin-bottom: 44px;
+        }
+
+        @media #{$lg} {
+            margin-bottom: 40px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            flex-direction: column;
+            margin-bottom: 36px;
+        }
+    }
+
+    /* the lines are spaced by the width of the design, so they break at the same words at every size */
+    &-sec-title {
+        max-width: 15.5em;
+        flex: 0 1 auto;
+    }
+
+    /*
+        slider — the slides keep their own width, the row runs on past the right edge of the screen
+    */
+    &-slider {
+        overflow: visible;
+        cursor: grab;
+
+        /* cut at the left edge of the container, open to the right — a slide leaving to the left disappears there */
+        clip-path: inset(0 -100vw 0 0);
+    }
+
+    &-slide {
+        --dc-pj-w: 600px;
+        --dc-pj-ratio: 600 / 576;
+        --dc-pj-txt: 412px;
+
+        width: calc(var(--dc-pj-w) * var(--dc-pj-k));
+        height: auto;
+
+        &:is(.has-v2) {
+            --dc-pj-w: 448px;
+            --dc-pj-ratio: 448 / 316;
+            --dc-pj-txt: 342px;
+        }
+
+        &:is(.has-v3) {
+            --dc-pj-w: 448px;
+            --dc-pj-ratio: 448 / 576;
+            --dc-pj-txt: 342px;
+        }
+
+        &:is(.has-v4) {
+            --dc-pj-w: 580px;
+            --dc-pj-ratio: 580 / 428;
+            --dc-pj-txt: 400px;
+        }
+    }
+
+    &-item {
+        .img {
+            position: relative;
+            aspect-ratio: var(--dc-pj-ratio);
+            margin-bottom: 16px;
+            overflow: hidden;
+            background-color: #151312;
+        }
+
+        /* the photo turns grey when the card is on */
+        .photo {
+            position: absolute;
+            inset: 0;
+            transition: filter .6s var(--dc-cube-1);
+        }
+
+        /* the two flares — bottom left and top right — fade in with the grey */
+        .glow {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(ellipse 330px 280px at 0 100%, #FFFFD7 0, #FFFFD7 8%, #FFEC75 30%, #F9A02A 46%, #F78E3A 60%, rgb(247 142 58 / 60%) 72%, rgb(255 91 27 / 0%) 100%),
+                radial-gradient(ellipse 160px 190px at 100% 0, #FFFFD7 0, #FECF43 25%, #EE8D17 45%, rgb(255 91 27 / 60%) 65%, rgb(255 91 27 / 0%) 100%);
+            transition: opacity .6s var(--dc-cube-1);
+        }
+
+        .tags {
+            position: absolute;
+            left: 28px;
+            top: 28px;
+            z-index: 2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                padding: 0 15px;
+                border-radius: 5px;
+                background-color: #FAF5ED;
+                font-family: var(--dc-font-1);
+                font-size: var(--dc-pj-tag-fs);
+                line-height: 32px;
+                color: #FF5B1B;
+                font-optical-sizing: none;
+            }
+        }
+
+        /* the glass badge in the middle of the photo: turning text around a lit eye */
+        .view {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 128px;
+            height: 128px;
+            margin: -64px 0 0 -64px;
+            border-radius: 50%;
+            background-color: rgb(255 255 255 / 10%);
+            box-shadow: inset 0 4px 8px #FF5B1B, inset 0 -4px 8px #FFBC0C;
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            opacity: 0;
+            transform: scale(.6);
+            transition: opacity .5s var(--dc-cube-1), transform .5s var(--dc-cube-1);
+
+            .ring {
+                position: absolute;
+                left: 12px;
+                top: 12px;
+                width: 104px;
+                height: 104px;
+                animation: dc-projects-1-spin 14s linear infinite;
+
+                text {
+                    font-family: var(--dc-font-2);
+                    font-weight: 500;
+                    font-size: 11px;
+                    letter-spacing: .08em;
+                    fill: #fff;
+                }
+            }
+
+            .eye {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background: var(--dc-clr-gd-1);
+                box-shadow: inset 0 0 15px #fff;
+                font-size: 22px;
+                line-height: 1;
+                color: var(--dc-clr-h-1);
+            }
+        }
+
+        .content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .text {
+            flex: 0 1 auto;
+            width: calc(var(--dc-pj-txt) * var(--dc-pj-k));
+            min-width: 0;
+        }
+
+        .title {
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: var(--dc-pj-title-fs);
+            line-height: var(--dc-pj-title-lh);
+            margin-bottom: 12px;
+        }
+
+        .disc {
+            font-size: var(--dc-pj-disc-fs);
+            line-height: var(--dc-pj-disc-lh);
+            font-optical-sizing: none;
+        }
+
+        .year {
+            flex: 0 0 auto;
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 22px;
+            line-height: 32px;
+            color: #FF5B1B;
+            text-align: right;
+        }
+
+        @media #{$md,$sm,$xs} {
+            .tags {
+                left: 16px;
+                top: 16px;
+            }
+
+            .year {
+                font-size: 18px;
+                line-height: 24px;
+            }
+        }
+
+        @media #{$xs} {
+            .view {
+                transform: scale(.45);
+            }
+        }
+    }
+
+    /* on: the hovered card, and the first card of the row while the pointer is not on the slider */
+    &-item:hover,
+    &-slider:not(:hover) .swiper-slide-active &-item {
+        .photo {
+            filter: grayscale(1);
+        }
+
+        .glow {
+            opacity: 1;
+        }
+
+        .view {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @media #{$xs} {
+        &-item:hover .view,
+        &-slider:not(:hover) .swiper-slide-active &-item .view {
+            transform: scale(.7);
+        }
+    }
+}
+
+/*
+    projects-1-end
+*/

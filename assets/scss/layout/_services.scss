@@ -1,0 +1,557 @@
+@use '../abstracts/variables' as *;
+/*
+    services-1-start
+*/
+
+.dc-services-1 {
+    &-area {
+        position: relative;
+        background-color: #111111;
+        z-index: 1;
+
+        /* the background stays on the screen while the tall box of the cards scrolls */
+        .bg-elm {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bg-img {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-shape-1 {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+        }
+        .bg-shape-2 {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+    }
+
+    &-container {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+
+    /*
+        section-title
+    */
+    &-title-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 52px;
+
+        .left {
+            min-width: 0;
+        }
+
+        .right {
+            flex: 0 0 529px;
+            max-width: 100%;
+        }
+
+        @media #{$xxl} {
+            margin-bottom: 48px;
+
+            .right {
+                flex-basis: 480px;
+            }
+        }
+
+        @media #{$xl} {
+            margin-bottom: 44px;
+
+            .right {
+                flex-basis: 440px;
+            }
+        }
+
+        @media #{$lg} {
+            margin-bottom: 40px;
+
+            .right {
+                flex-basis: 400px;
+            }
+        }
+
+        @media #{$md,$sm,$xs} {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 36px;
+
+            .right {
+                flex: 0 0 auto;
+            }
+        }
+    }
+
+    /* the lines are spaced by the width of the design, so they break at the same words at every size */
+    &-sec-title {
+        color: #fff;
+    }
+
+    &-disc {
+        color: rgb(255 255 255 / 80%);
+        margin-bottom: 32px;
+        font-optical-sizing: none;
+
+        @media #{$lg,$md,$sm,$xs} {
+            font-size: 17px;
+            line-height: 26px;
+            margin-bottom: 24px;
+        }
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+
+    /*
+        cards — the tall box scrolls, the pin holds the cards still, and the cards lie on top of each other:
+        card 01 stays, the others wait below the pin and ride up one by one (script)
+    */
+    &-cards-height {
+        /* sizes of the 1920 design, every breakpoint below sets its own */
+        --dc-sv-body-h: 580px;
+        --dc-sv-body-pad: 40px 36px 40px 56px;
+        --dc-sv-body-gap: 65px;
+        --dc-sv-card-title-fs: 52px;
+        --dc-sv-card-title-lh: 56px;
+        --dc-sv-disc-fs: 18px;
+        --dc-sv-disc-lh: 28px;
+        --dc-sv-tag-fs: 16px;
+        --dc-sv-tab-px: 32px;
+
+        height: 400vh;
+
+        @media #{$xl} {
+            --dc-sv-body-h: 560px;
+            --dc-sv-body-pad: 36px 32px 36px 44px;
+            --dc-sv-body-gap: 48px;
+            --dc-sv-card-title-fs: 46px;
+            --dc-sv-card-title-lh: 50px;
+            --dc-sv-disc-fs: 17px;
+            --dc-sv-disc-lh: 26px;
+            --dc-sv-tab-px: 28px;
+        }
+
+        @media #{$lg} {
+            --dc-sv-body-h: 540px;
+            --dc-sv-body-pad: 32px 28px 32px 36px;
+            --dc-sv-body-gap: 36px;
+            --dc-sv-card-title-fs: 40px;
+            --dc-sv-card-title-lh: 44px;
+            --dc-sv-disc-fs: 16px;
+            --dc-sv-disc-lh: 26px;
+            --dc-sv-tag-fs: 15px;
+            --dc-sv-tab-px: 24px;
+        }
+
+        /* no stack below the desktop widths: the box is as tall as its cards and every card shows in full */
+        @media #{$md,$sm,$xs} {
+            --dc-sv-body-pad: 28px;
+            --dc-sv-body-gap: 28px;
+            --dc-sv-card-title-fs: 40px;
+            --dc-sv-card-title-lh: 44px;
+            --dc-sv-disc-fs: 16px;
+            --dc-sv-disc-lh: 26px;
+            --dc-sv-tag-fs: 15px;
+            --dc-sv-tab-px: 24px;
+
+            height: auto;
+        }
+
+        @media #{$xs} {
+            --dc-sv-body-pad: 18px;
+            --dc-sv-body-gap: 22px;
+            --dc-sv-card-title-fs: 30px;
+            --dc-sv-card-title-lh: 34px;
+            --dc-sv-disc-fs: 16px;
+            --dc-sv-disc-lh: 24px;
+            --dc-sv-tag-fs: 14px;
+            --dc-sv-tab-px: 20px;
+        }
+
+        @media #{$sm} {
+            --dc-sv-body-pad: 24px;
+            --dc-sv-card-title-fs: 34px;
+            --dc-sv-card-title-lh: 38px;
+        }
+    }
+
+    /* the pin sticks with the cards centred on the screen (tab 56px + body) */
+    &-cards-pin {
+        position: sticky;
+        top: max(24px, calc((100vh - var(--dc-sv-body-h) - 56px) / 2));
+
+        @media #{$md,$sm,$xs} {
+            position: static;
+        }
+    }
+
+    &-cards {
+        position: relative;
+        height: calc(var(--dc-sv-body-h) + 56px);
+
+        @media #{$md,$sm,$xs} {
+            height: auto;
+        }
+    }
+
+    &-card {
+        --dc-sv-i: 0;
+        --dc-sv-clr: #FFE2A1;
+        --dc-sv-clr-tx: #825B05;
+
+        position: absolute;
+        inset: 0;
+
+        &:is(.has-v2) {
+            --dc-sv-i: 1;
+            --dc-sv-clr: #B5DCFF;
+            --dc-sv-clr-tx: #074D8C;
+        }
+
+        &:is(.has-v3) {
+            --dc-sv-i: 2;
+            --dc-sv-clr: #B6FF9F;
+            --dc-sv-clr-tx: #248605;
+        }
+
+        &:is(.has-v4) {
+            --dc-sv-i: 3;
+            --dc-sv-clr: #FFC2AA;
+            --dc-sv-clr-tx: #CE3E06;
+        }
+
+        /* the four tabs sit side by side along the top, card 01 on the left */
+        .tab {
+            position: absolute;
+            top: 0;
+            left: calc(25% * var(--dc-sv-i));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 25%;
+            height: 56px;
+            padding: 0 var(--dc-sv-tab-px);
+            border-radius: 24px 24px 0 0;
+            background-color: var(--dc-sv-clr);
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 28px;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            color: var(--dc-sv-clr-tx);
+        }
+
+        /* the body starts below the tabs — the corner next to the first / last tab stays square */
+        .body {
+            position: absolute;
+            top: 56px;
+            left: 0;
+            right: 0;
+            height: var(--dc-sv-body-h);
+            display: grid;
+            grid-template-columns: minmax(0, 478fr) minmax(0, 565fr);
+            column-gap: var(--dc-sv-body-gap);
+            padding: var(--dc-sv-body-pad);
+            border-radius: 28px;
+            background-color: var(--dc-sv-clr);
+        }
+
+        &:is(.has-v1) .body {
+            border-top-left-radius: 0;
+        }
+
+        &:is(.has-v4) .body {
+            border-top-right-radius: 0;
+        }
+
+        /* left — title, copy and tags on top, the button at the foot */
+        .left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 40px;
+            min-width: 0;
+            padding: 24px 0 12px;
+        }
+
+        .title {
+            font-family: var(--dc-font-2);
+            font-weight: 700;
+            font-size: var(--dc-sv-card-title-fs);
+            line-height: var(--dc-sv-card-title-lh);
+            letter-spacing: -.01em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .disc {
+            font-size: var(--dc-sv-disc-fs);
+            line-height: var(--dc-sv-disc-lh);
+            font-optical-sizing: none;
+            margin-bottom: 40px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                font-family: var(--dc-font-1);
+                font-weight: 500;
+                font-size: var(--dc-sv-tag-fs);
+                line-height: 24px;
+                letter-spacing: .01em;
+                text-transform: uppercase;
+                color: var(--dc-clr-h-1);
+                font-optical-sizing: none;
+            }
+        }
+
+        .view-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 6px 6px 24px;
+            border-radius: 5px;
+            background-color: rgb(21 19 18 / 12%);
+            font-family: var(--dc-font-2);
+            font-weight: 500;
+            font-size: 17px;
+            line-height: 28px;
+            color: var(--dc-clr-h-1);
+            transition: background-color .5s var(--dc-cube-1);
+
+            .icon {
+                flex: 0 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 6px;
+                background-color: var(--dc-clr-h-1);
+                color: #fff;
+                overflow: hidden;
+
+                svg {
+                    display: block;
+                }
+            }
+
+            &:hover {
+                background-color: rgb(21 19 18 / 20%);
+            }
+        }
+
+        /* right — the photo cut by the notch mask, the notch carries the vertical name */
+        .right {
+            position: relative;
+            min-width: 0;
+        }
+
+        .img {
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+        }
+
+        .label {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 9.2%;
+            height: 62.6%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            .text {
+                display: flex;
+                gap: 16px;
+                writing-mode: vertical-rl;
+                transform: rotate(180deg);
+                font-family: var(--dc-font-1);
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 26px;
+                white-space: nowrap;
+                color: var(--dc-clr-h-1);
+                font-optical-sizing: none;
+            }
+
+            .num {
+                opacity: .32;
+            }
+        }
+
+        /* below the desktop widths the cards leave the stack and follow each other, each with its own tab */
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            inset: auto;
+            margin-bottom: 24px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .tab {
+                position: static;
+                width: min(100%, 300px);
+            }
+
+            .body {
+                position: static;
+                height: auto;
+                grid-template-columns: minmax(0, 1fr);
+                border-radius: 0 28px 28px 28px;
+            }
+
+            &:is(.has-v4) .body {
+                border-top-right-radius: 28px;
+            }
+
+            .right {
+                order: -1;
+            }
+
+            .img {
+                aspect-ratio: 565 / 500;
+                height: auto;
+            }
+
+            .left {
+                padding: 0;
+            }
+
+            .label .text {
+                font-size: 14px;
+                line-height: 20px;
+                gap: 10px;
+            }
+        }
+
+        @media #{$xs} {
+            .tab {
+                font-size: 16px;
+                letter-spacing: .06em;
+            }
+
+            .left {
+                gap: 28px;
+            }
+
+            .disc {
+                margin-bottom: 28px;
+            }
+
+            .label .text {
+                font-size: 12px;
+                line-height: 16px;
+                gap: 6px;
+            }
+        }
+    }
+
+    /*
+        trust pill
+    */
+    &-trust {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: fit-content;
+        max-width: 100%;
+        margin: 40px auto 0;
+        padding: 6px 24px 6px 6px;
+        border-radius: 50px;
+        background-color: rgb(255 255 255 / 6%);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+
+        .pill {
+            flex: 0 0 auto;
+            padding: 0 12px;
+            border-radius: 50px;
+            background-color: #FF5B1B;
+            font-family: var(--dc-font-1);
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 28px;
+            color: #fff;
+        }
+
+        .text {
+            font-family: var(--dc-font-1);
+            font-size: 16px;
+            line-height: 28px;
+            color: #fff;
+            font-optical-sizing: none;
+
+            b {
+                font-weight: 400;
+                color: var(--dc-clr-pr-1);
+            }
+        }
+
+        @media #{$xs} {
+            align-items: flex-start;
+            border-radius: 24px;
+            padding-right: 18px;
+
+            .pill {
+                margin-top: 6px;
+                margin-bottom: 6px;
+            }
+
+            .text {
+                padding: 6px 0;
+                line-height: 24px;
+            }
+        }
+    }
+}
+
+/*
+    services-1-end
+*/

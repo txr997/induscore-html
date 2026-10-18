@@ -1,0 +1,17 @@
+@use '../abstracts/variables' as *;
+/* 
+    custom-container-start
+*/
+
+@media (min-width: 1600px) {
+    .container{
+        &.dc-container-1 {
+            max-width: 1424px;
+        }
+
+    }
+}
+
+/* 
+    custom-container-end
+*/

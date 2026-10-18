@@ -1,0 +1,56 @@
+@use '../abstracts/variables' as *;
+/*
+    clip-anim-start
+*/
+
+$wa-clip-anim-mask: 9;
+$wa-clip-anim-step: 11.111%;
+/* columns overlap a hair so no seam shows between them */
+$wa-clip-anim-overlap: 0.6%;
+
+.wa_clip_anim {
+
+    /* the real image only feeds the masks its src */
+    .wa_clip_anim_img {
+        opacity: 0;
+    }
+
+    .mask {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: clip-path 1s var(--lt-cube-1);
+    }
+
+    /* every mask keeps its own column, closed on its left edge */
+    @for $i from 1 through $wa-clip-anim-mask {
+        $left: ($i - 1) * $wa-clip-anim-step;
+
+        .mask-#{$i} {
+            clip-path: inset(0 (100% - $left) 0 $left);
+            transition-delay: $i * .07s;
+        }
+    }
+
+    /* open left-to-right, one column after another */
+    &:is(.animated) {
+        @for $i from 1 through $wa-clip-anim-mask {
+            $left: ($i - 1) * $wa-clip-anim-step;
+            $right: ($wa-clip-anim-mask - $i) * $wa-clip-anim-step - $wa-clip-anim-overlap;
+
+            /* the last column has nothing left to overlap */
+            @if $i == $wa-clip-anim-mask {
+                $right: 0%;
+            }
+
+            .mask-#{$i} {
+                clip-path: inset(0 $right 0 $left);
+            }
+        }
+    }
+}
+
+/*
+    clip-anim-end
+*/

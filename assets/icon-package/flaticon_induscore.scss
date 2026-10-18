@@ -1,0 +1,297 @@
+$flaticon_induscore-font: "flaticon_induscore";
+
+@font-face {
+    font-family: $flaticon_induscore-font;
+    src: url("./flaticon_induscore.woff2?fe74d518eca066454d93c37bd6ea6721") format("woff2"),
+url("./flaticon_induscore.woff?fe74d518eca066454d93c37bd6ea6721") format("woff"),
+url("./flaticon_induscore.eot?fe74d518eca066454d93c37bd6ea6721#iefix") format("embedded-opentype"),
+url("./flaticon_induscore.ttf?fe74d518eca066454d93c37bd6ea6721") format("truetype"),
+url("./flaticon_induscore.svg?fe74d518eca066454d93c37bd6ea6721#flaticon_induscore") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon_induscore !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon_induscore-map: (
+    "pin": "\f101",
+    "email": "\f102",
+    "call": "\f103",
+    "facebook": "\f104",
+    "instagram-logo": "\f105",
+    "linkedin": "\f106",
+    "twitter": "\f107",
+    "cross": "\f108",
+    "cross-1": "\f109",
+    "laser-gun": "\f10a",
+    "semicircle": "\f10b",
+    "target": "\f10c",
+    "vision": "\f10d",
+    "mission": "\f10e",
+    "right-up": "\f10f",
+    "right": "\f110",
+    "arrow": "\f111",
+    "arrow-1": "\f112",
+    "eye": "\f113",
+    "shape": "\f114",
+    "left": "\f115",
+    "next": "\f116",
+    "quote": "\f117",
+    "down": "\f118",
+    "shape-1": "\f119",
+    "arrow-left": "\f11a",
+    "up-right-arrow": "\f11b",
+    "arrow-up": "\f11c",
+    "expertise": "\f11d",
+    "briefing": "\f11e",
+    "engineer": "\f11f",
+    "users": "\f120",
+    "automation": "\f121",
+    "factory": "\f122",
+    "labor-day": "\f123",
+    "menu": "\f124",
+    "triangles": "\f125",
+    "triangles-1": "\f126",
+    "user": "\f127",
+    "world-wide-web": "\f128",
+    "factory-1": "\f129",
+    "support": "\f12a",
+    "machinery": "\f12b",
+    "industrial-robot": "\f12c",
+    "oil-platform": "\f12d",
+    "welding": "\f12e",
+    "cutter-machine": "\f12f",
+    "automotive": "\f130",
+    "abstract": "\f131",
+    "abstract-1": "\f132",
+    "pattern": "\f133",
+    "letter-d": "\f134",
+    "abstract-shape": "\f135",
+    "factory-2": "\f136",
+    "lightening": "\f137",
+    "repair": "\f138",
+    "oil-pump": "\f139",
+    "healthy-food": "\f13a",
+    "flask": "\f13b",
+    "construction-site": "\f13c",
+    "steel": "\f13d",
+    "warehouse": "\f13e",
+    "engineer-1": "\f13f",
+    "minimize-sign": "\f140",
+    "customer-service": "\f141",
+    "user-groups": "\f142",
+    "quality-assurance": "\f143",
+    "implant": "\f144",
+);
+
+.flaticon-pin:before {
+    content: map-get($flaticon_induscore-map, "pin");
+}
+.flaticon-email:before {
+    content: map-get($flaticon_induscore-map, "email");
+}
+.flaticon-call:before {
+    content: map-get($flaticon_induscore-map, "call");
+}
+.flaticon-facebook:before {
+    content: map-get($flaticon_induscore-map, "facebook");
+}
+.flaticon-instagram-logo:before {
+    content: map-get($flaticon_induscore-map, "instagram-logo");
+}
+.flaticon-linkedin:before {
+    content: map-get($flaticon_induscore-map, "linkedin");
+}
+.flaticon-twitter:before {
+    content: map-get($flaticon_induscore-map, "twitter");
+}
+.flaticon-cross:before {
+    content: map-get($flaticon_induscore-map, "cross");
+}
+.flaticon-cross-1:before {
+    content: map-get($flaticon_induscore-map, "cross-1");
+}
+.flaticon-laser-gun:before {
+    content: map-get($flaticon_induscore-map, "laser-gun");
+}
+.flaticon-semicircle:before {
+    content: map-get($flaticon_induscore-map, "semicircle");
+}
+.flaticon-target:before {
+    content: map-get($flaticon_induscore-map, "target");
+}
+.flaticon-vision:before {
+    content: map-get($flaticon_induscore-map, "vision");
+}
+.flaticon-mission:before {
+    content: map-get($flaticon_induscore-map, "mission");
+}
+.flaticon-right-up:before {
+    content: map-get($flaticon_induscore-map, "right-up");
+}
+.flaticon-right:before {
+    content: map-get($flaticon_induscore-map, "right");
+}
+.flaticon-arrow:before {
+    content: map-get($flaticon_induscore-map, "arrow");
+}
+.flaticon-arrow-1:before {
+    content: map-get($flaticon_induscore-map, "arrow-1");
+}
+.flaticon-eye:before {
+    content: map-get($flaticon_induscore-map, "eye");
+}
+.flaticon-shape:before {
+    content: map-get($flaticon_induscore-map, "shape");
+}
+.flaticon-left:before {
+    content: map-get($flaticon_induscore-map, "left");
+}
+.flaticon-next:before {
+    content: map-get($flaticon_induscore-map, "next");
+}
+.flaticon-quote:before {
+    content: map-get($flaticon_induscore-map, "quote");
+}
+.flaticon-down:before {
+    content: map-get($flaticon_induscore-map, "down");
+}
+.flaticon-shape-1:before {
+    content: map-get($flaticon_induscore-map, "shape-1");
+}
+.flaticon-arrow-left:before {
+    content: map-get($flaticon_induscore-map, "arrow-left");
+}
+.flaticon-up-right-arrow:before {
+    content: map-get($flaticon_induscore-map, "up-right-arrow");
+}
+.flaticon-arrow-up:before {
+    content: map-get($flaticon_induscore-map, "arrow-up");
+}
+.flaticon-expertise:before {
+    content: map-get($flaticon_induscore-map, "expertise");
+}
+.flaticon-briefing:before {
+    content: map-get($flaticon_induscore-map, "briefing");
+}
+.flaticon-engineer:before {
+    content: map-get($flaticon_induscore-map, "engineer");
+}
+.flaticon-users:before {
+    content: map-get($flaticon_induscore-map, "users");
+}
+.flaticon-automation:before {
+    content: map-get($flaticon_induscore-map, "automation");
+}
+.flaticon-factory:before {
+    content: map-get($flaticon_induscore-map, "factory");
+}
+.flaticon-labor-day:before {
+    content: map-get($flaticon_induscore-map, "labor-day");
+}
+.flaticon-menu:before {
+    content: map-get($flaticon_induscore-map, "menu");
+}
+.flaticon-triangles:before {
+    content: map-get($flaticon_induscore-map, "triangles");
+}
+.flaticon-triangles-1:before {
+    content: map-get($flaticon_induscore-map, "triangles-1");
+}
+.flaticon-user:before {
+    content: map-get($flaticon_induscore-map, "user");
+}
+.flaticon-world-wide-web:before {
+    content: map-get($flaticon_induscore-map, "world-wide-web");
+}
+.flaticon-factory-1:before {
+    content: map-get($flaticon_induscore-map, "factory-1");
+}
+.flaticon-support:before {
+    content: map-get($flaticon_induscore-map, "support");
+}
+.flaticon-machinery:before {
+    content: map-get($flaticon_induscore-map, "machinery");
+}
+.flaticon-industrial-robot:before {
+    content: map-get($flaticon_induscore-map, "industrial-robot");
+}
+.flaticon-oil-platform:before {
+    content: map-get($flaticon_induscore-map, "oil-platform");
+}
+.flaticon-welding:before {
+    content: map-get($flaticon_induscore-map, "welding");
+}
+.flaticon-cutter-machine:before {
+    content: map-get($flaticon_induscore-map, "cutter-machine");
+}
+.flaticon-automotive:before {
+    content: map-get($flaticon_induscore-map, "automotive");
+}
+.flaticon-abstract:before {
+    content: map-get($flaticon_induscore-map, "abstract");
+}
+.flaticon-abstract-1:before {
+    content: map-get($flaticon_induscore-map, "abstract-1");
+}
+.flaticon-pattern:before {
+    content: map-get($flaticon_induscore-map, "pattern");
+}
+.flaticon-letter-d:before {
+    content: map-get($flaticon_induscore-map, "letter-d");
+}
+.flaticon-abstract-shape:before {
+    content: map-get($flaticon_induscore-map, "abstract-shape");
+}
+.flaticon-factory-2:before {
+    content: map-get($flaticon_induscore-map, "factory-2");
+}
+.flaticon-lightening:before {
+    content: map-get($flaticon_induscore-map, "lightening");
+}
+.flaticon-repair:before {
+    content: map-get($flaticon_induscore-map, "repair");
+}
+.flaticon-oil-pump:before {
+    content: map-get($flaticon_induscore-map, "oil-pump");
+}
+.flaticon-healthy-food:before {
+    content: map-get($flaticon_induscore-map, "healthy-food");
+}
+.flaticon-flask:before {
+    content: map-get($flaticon_induscore-map, "flask");
+}
+.flaticon-construction-site:before {
+    content: map-get($flaticon_induscore-map, "construction-site");
+}
+.flaticon-steel:before {
+    content: map-get($flaticon_induscore-map, "steel");
+}
+.flaticon-warehouse:before {
+    content: map-get($flaticon_induscore-map, "warehouse");
+}
+.flaticon-engineer-1:before {
+    content: map-get($flaticon_induscore-map, "engineer-1");
+}
+.flaticon-minimize-sign:before {
+    content: map-get($flaticon_induscore-map, "minimize-sign");
+}
+.flaticon-customer-service:before {
+    content: map-get($flaticon_induscore-map, "customer-service");
+}
+.flaticon-user-groups:before {
+    content: map-get($flaticon_induscore-map, "user-groups");
+}
+.flaticon-quality-assurance:before {
+    content: map-get($flaticon_induscore-map, "quality-assurance");
+}
+.flaticon-implant:before {
+    content: map-get($flaticon_induscore-map, "implant");
+}
