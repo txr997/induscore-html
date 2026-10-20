@@ -49,7 +49,7 @@
     color: #fff;
 
     /* the colour under the four panels — the gradient turned the other way */
-    background: #FF5B1B;
+    background: var(--dc-clr-h-1);
     border-radius: 8px;
     display: inline-flex;
     align-items: center;
@@ -157,20 +157,9 @@
     }
 }
 
-/* the arrow steps forward and comes back */
-@keyframes dc-sc-btn-1-arrow {
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    40% {
-        transform: translateX(7px);
-    }
-}
-
 /* the outlined twin of dc-pr-btn-1 — a gradient line around a light body */
 .dc-sc-btn-1 {
+    --dc-sc-body: #FAF5ED;
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -179,7 +168,8 @@
     font-size: 17px;
     line-height: 28px;
     color: var(--dc-clr-h-1);
-    background: linear-gradient(#FAF5ED, #FAF5ED) padding-box, var(--dc-clr-gd-1) border-box;
+    /* the gradient lies under the body panels — it is the line around them and what shows when they slice away */
+    background: var(--dc-clr-gd-1);
     border: 2px solid transparent;
     border-radius: 8px;
     display: inline-flex;
@@ -188,16 +178,40 @@
     padding: 4px 4px 4px 22px;
     transition: color .5s var(--dc-cube-1);
 
-    /* on hover the gradient wipes in from the left and leaves to the right */
-    &::before {
-        content: "";
+    /* four panels hold the body over the gradient; on hover the body is sliced through the middle and each panel slides off to its own side and fades, and back again on leave */
+    .bg {
         position: absolute;
         inset: 0;
         z-index: -1;
-        background: var(--dc-clr-gd-1);
-        transform: scaleX(0);
-        transform-origin: 100% 50%;
-        transition: transform .6s var(--dc-quart-1);
+        pointer-events: none;
+
+        span {
+            position: absolute;
+            width: calc(50% + 1px);
+            height: calc(50% + 1px);
+            background: #fff;
+            transition: transform .75s var(--dc-quart-1), opacity .75s var(--dc-quart-1);
+
+            &:nth-child(1) {
+                left: 0;
+                top: 0;
+            }
+
+            &:nth-child(2) {
+                right: 0;
+                top: 0;
+            }
+
+            &:nth-child(3) {
+                left: 0;
+                bottom: 0;
+            }
+
+            &:nth-child(4) {
+                right: 0;
+                bottom: 0;
+            }
+        }
     }
 
     .icon {
@@ -219,7 +233,7 @@
             inset: 0;
             background-color: var(--dc-clr-h-1);
             opacity: 0;
-            transition: opacity .6s var(--dc-quart-1);
+            transition: opacity .75s var(--dc-quart-1);
         }
 
         svg {
@@ -231,24 +245,40 @@
     &:hover {
         color: #fff;
 
-        &::before {
-            transform: scaleX(1);
-            transform-origin: 0 50%;
-        }
-
         .icon::before {
             opacity: 1;
         }
 
+        .bg span {
+            opacity: 0;
+
+            &:nth-child(1) {
+                transform: translateX(-100%);
+            }
+
+            &:nth-child(2) {
+                transform: translateY(-100%);
+            }
+
+            &:nth-child(3) {
+                transform: translateY(100%);
+            }
+
+            &:nth-child(4) {
+                transform: translateX(100%);
+            }
+        }
+
         .icon svg {
-            animation: dc-sc-btn-1-arrow .6s var(--dc-cube-1);
+            animation: dc-pr-btn-1-icon .7s var(--dc-cube-1);
         }
     }
 
-    /* on the dark sections: no body, a pale line */
+    /* on the dark sections: a dark body and a pale line */
     &:is(.has-dark) {
+        --dc-sc-body: #0B0B0B;
         color: #fff;
-        background: transparent;
+        background-clip: padding-box;
         border-color: rgb(255 255 255 / 40%);
     }
 }

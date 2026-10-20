@@ -814,9 +814,12 @@ $hero-io: cubic-bezier(.45, 0, .55, 1);
             transform: translateY(hero-u(60));
         }
 
-        .bg-glow span,
-        .bg-glow-2 span {
+        .bg-glow span {
             transform: translate(-50%, -50%) scale(.85);
+        }
+
+        .bg-glow-2 span {
+            transform: translate(-50%, -50%) scale(.5);
         }
 
         .dc-hero-1-title,
@@ -850,11 +853,29 @@ $hero-io: cubic-bezier(.45, 0, .55, 1);
             transition: opacity .8s $hero-in .3s, transform 1s $hero-in .3s;
         }
 
-        .bg-glow span,
-        .bg-glow-2 span {
+        .bg-glow span {
             opacity: 1;
             transform: translate(-50%, -50%);
             transition: opacity .9s $hero-io .1s, transform .9s $hero-io .1s;
+        }
+
+        /* the glow on the right lights up once the arrow has landed — the hot core first, the light spreading outwards, with a small flare */
+        .bg-glow-2 span {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 1s $hero-io 1s, transform 1.4s cubic-bezier(.34, 1.56, .64, 1) 1s;
+        }
+
+        .bg-glow-2 .elm-3 {
+            transition-delay: 1.14s;
+        }
+
+        .bg-glow-2 .elm-2 {
+            transition-delay: 1.28s;
+        }
+
+        .bg-glow-2 .elm-1 {
+            transition-delay: 1.42s;
         }
 
         .big-title {
