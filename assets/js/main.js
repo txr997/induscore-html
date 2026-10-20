@@ -48,6 +48,9 @@ function afterPreloader() {
 	// hero-1-intro — the slide entrance plays once the preloader clears
 	$(".dc-hero-1-area").addClass("is-ready");
 
+	// hero-2-intro
+	$(".dc-hero-2-area").addClass("is-ready");
+
 	/*
 		only-LTR-direction
 	*/
@@ -1251,6 +1254,46 @@ var dc_hero1_slider = new Swiper(".dc_hero1_slider", {
 	pagination: {
 		el: '.dc_hero1_slider_pagination',
 		clickable: true,
+	},
+});
+
+
+// hero-2-slider — the line on the left is its pagination. No loop: it rewinds, so there are no cloned slides
+// to swap in and replay the entrance. The slide that is going out is marked (is-leaving) while the next one comes in — see _hero.scss
+var dc_hero2_slider = new Swiper(".dc_hero2_slider", {
+	rewind: true,
+	// the wipe takes 2.25s, the leaving slide has to stay on screen until it is done
+	speed: 2600,
+	slidesPerView: 1,
+	effect: 'fade',
+	fadeEffect: {
+		crossFade: false
+	},
+	autoplay: {
+		delay: 7000,
+		disableOnInteraction: false,
+	},
+
+	pagination: {
+		el: '.dc_hero2_slider_pagination',
+		clickable: true,
+	},
+
+	on: {
+		slideChangeTransitionStart: function () {
+			var leaving = this.slides[this.previousIndex];
+			this.slides.forEach(function (slide) {
+				slide.classList.remove('is-leaving');
+			});
+			if (leaving) {
+				leaving.classList.add('is-leaving');
+			}
+		},
+		slideChangeTransitionEnd: function () {
+			this.slides.forEach(function (slide) {
+				slide.classList.remove('is-leaving');
+			});
+		},
 	},
 });
 

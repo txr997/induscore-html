@@ -283,6 +283,26 @@
     }
 }
 
+/* the flat, full-width call to action on dark glass */
+.dc-pr-btn-2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px;
+    font-family: var(--dc-font-2);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    background-color: #FF5B1B;
+    transition: .4s var(--dc-cube-1);
+
+    &:hover {
+        color: var(--dc-clr-h-1);
+        background-color: var(--dc-clr-pr-1);
+    }
+}
+
 .lt-pr-btn-1 {
     font-family: var(--lt-font-1);
     color: #fff;

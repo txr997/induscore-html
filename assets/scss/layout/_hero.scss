@@ -905,3 +905,739 @@ $hero-io: cubic-bezier(.45, 0, .55, 1);
 /*
     hero-1-end
 */
+
+/*
+    hero-2-start
+*/
+
+/* where the leading edge of the wipe stands, from 114% (still off the right side) to -2% (gone off the left) */
+@property --dc-hero-2-wipe {
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: 114%;
+}
+
+.dc-hero-2 {
+    &-area {
+        --dc-hero-u: calc(min(100vw, 2560px) / 1920);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        max-width: 2560px;
+        height: hero-u(980);
+        min-height: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #0B0B0B;
+
+        /* wider than 2560 the same dark carries on to both edges of the screen */
+        box-shadow: 0 0 0 100vmax #0B0B0B;
+        clip-path: inset(0 -100vmax);
+
+        @media #{$lg,$md,$sm,$xs} {
+            --dc-hero-u: calc(100vw / 1000);
+            height: auto;
+            min-height: 0;
+            padding-bottom: 100px;
+        }
+
+        @media #{$xs} {
+            padding-bottom: 90px;
+        }
+    }
+
+    /*
+        slider
+    */
+    &-slider {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+
+        .swiper-wrapper,
+        .swiper-slide {
+            height: 100%;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            inset: auto;
+        }
+    }
+
+    &-item {
+        position: relative;
+        height: 100%;
+
+        @media #{$lg,$md,$sm,$xs} {
+            padding: 140px 15px 0;
+        }
+
+        @media #{$xs} {
+            padding-top: 118px;
+        }
+    }
+
+    /*
+        the photo. It is solid, never see-through, so the new one covers the old one completely
+        while it wipes in; the 52% of the design is a dark layer lying over it instead. The wipe is a
+        slanted edge (a tenth and a bit of the width) that runs from right to left with --dc-hero-2-wipe
+    */
+    &-bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        clip-path: polygon(var(--dc-hero-2-wipe) 0, 100% 0, 100% 100%, calc(var(--dc-hero-2-wipe) - 14%) 100%);
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: rgb(11 11 11 / 48%);
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+        }
+    }
+
+    /* the photo is a little larger than the hero; it slides in behind the wipe and settles from a zoom */
+    &-bg-img {
+        position: absolute;
+        left: hero-u(-5);
+        top: 0;
+        width: hero-u(1931);
+        height: max(#{hero-u(1104)}, 100%);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+
+        @media #{$lg,$md,$sm,$xs} {
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    /* a thin hot line rides the edge of the wipe */
+    &-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(180deg, #FFA922 0%, #FF5B1B 100%);
+        clip-path: polygon(var(--dc-hero-2-wipe) 0, calc(var(--dc-hero-2-wipe) + 4px) 0, calc(var(--dc-hero-2-wipe) - 14% + 4px) 100%, calc(var(--dc-hero-2-wipe) - 14%) 100%);
+    }
+
+    &-overly {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: hero-u(259);
+        pointer-events: none;
+        background: linear-gradient(180deg, rgb(11 11 11 / 80%) 0%, rgb(11 11 11 / 0%) 100%);
+    }
+
+    /*
+        title
+    */
+    &-title {
+        position: absolute;
+        left: hero-u(258);
+        top: hero-u(217);
+        margin: 0;
+        font-family: var(--dc-font-2);
+        font-weight: 600;
+        font-size: 68px;
+        line-height: 68px;
+        letter-spacing: -.01em;
+        color: #fff;
+
+        /* the lines are broken by hand in the markup, each rises out of its own mask */
+        white-space: nowrap;
+
+        .line {
+            display: block;
+            overflow: hidden;
+
+            /* room for the letters that hang below the line — the margin takes it back */
+            padding-bottom: .14em;
+            margin-bottom: -.14em;
+        }
+
+        .text {
+            display: block;
+            transform-origin: 0 100%;
+        }
+
+        @media #{$xxxl} {
+            font-size: 62px;
+            line-height: 62px;
+        }
+
+        @media #{$xxl} {
+            font-size: 54px;
+            line-height: 54px;
+        }
+
+        @media #{$xl} {
+            font-size: 46px;
+            line-height: 48px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            left: auto;
+            top: auto;
+        }
+
+        @media #{$lg} {
+            font-size: 56px;
+            line-height: 58px;
+        }
+
+        @media #{$md} {
+            font-size: 48px;
+            line-height: 50px;
+        }
+
+        @media #{$xs} {
+            font-size: 34px;
+            line-height: 38px;
+            white-space: normal;
+        }
+
+        @media #{$sm} {
+            font-size: 40px;
+            line-height: 44px;
+        }
+    }
+
+    /*
+        feature list
+    */
+    &-feature {
+        position: absolute;
+        left: hero-u(260);
+        bottom: hero-u(128);
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 528px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            left: auto;
+            bottom: auto;
+            width: auto;
+            max-width: 528px;
+            margin-top: 36px;
+        }
+
+        @media #{$xs} {
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        &-item {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+
+            @media #{$xs} {
+                gap: 16px;
+            }
+        }
+
+        /* glass circle — the first one is lit from below in yellow, the others in white */
+        &-icon {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgb(255 255 255 / 18%);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0 -4px 4px rgb(255 255 255 / 30%);
+
+            svg {
+                display: block;
+                flex: none;
+            }
+
+            @media #{$xs} {
+                width: 52px;
+                height: 52px;
+            }
+        }
+
+        &-item:first-child &-icon {
+            box-shadow: inset 0 -4px 4px rgb(255 188 12 / 30%);
+        }
+
+        &-title {
+            margin-bottom: 8px;
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 28px;
+            color: #fff;
+
+            @media #{$xs} {
+                font-size: 18px;
+                line-height: 26px;
+            }
+        }
+
+        &-disc {
+            font-size: 16px;
+            line-height: 24px;
+            color: rgb(255 255 255 / 80%);
+            font-optical-sizing: none;
+        }
+    }
+
+    /*
+        video-card
+    */
+    &-card {
+        /* the stepped corner: an 8px square on the corner and a 16px square set 8px in are cut away */
+        --dc-hero-2-s: #{hero-u(8)};
+        --dc-hero-2-l: #{hero-u(24)};
+        position: absolute;
+        left: hero-u(1160);
+        bottom: hero-u(128);
+        z-index: 3;
+        isolation: isolate;
+        width: clamp(420px, #{hero-u(500)}, 500px);
+        padding: 24px;
+
+        /* the glass of the card */
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-color: rgb(21 19 18 / 32%);
+            -webkit-backdrop-filter: blur(34px);
+            backdrop-filter: blur(34px);
+            clip-path: polygon(
+                var(--dc-hero-2-s) 0,
+                calc(100% - var(--dc-hero-2-s)) 0,
+                calc(100% - var(--dc-hero-2-s)) var(--dc-hero-2-s),
+                calc(100% - var(--dc-hero-2-l)) var(--dc-hero-2-s),
+                calc(100% - var(--dc-hero-2-l)) var(--dc-hero-2-l),
+                calc(100% - var(--dc-hero-2-s)) var(--dc-hero-2-l),
+                calc(100% - var(--dc-hero-2-s)) var(--dc-hero-2-s),
+                100% var(--dc-hero-2-s),
+                100% calc(100% - var(--dc-hero-2-s)),
+                calc(100% - var(--dc-hero-2-s)) calc(100% - var(--dc-hero-2-s)),
+                calc(100% - var(--dc-hero-2-s)) calc(100% - var(--dc-hero-2-l)),
+                calc(100% - var(--dc-hero-2-l)) calc(100% - var(--dc-hero-2-l)),
+                calc(100% - var(--dc-hero-2-l)) calc(100% - var(--dc-hero-2-s)),
+                calc(100% - var(--dc-hero-2-s)) calc(100% - var(--dc-hero-2-s)),
+                calc(100% - var(--dc-hero-2-s)) 100%,
+                var(--dc-hero-2-s) 100%,
+                var(--dc-hero-2-s) calc(100% - var(--dc-hero-2-s)),
+                var(--dc-hero-2-l) calc(100% - var(--dc-hero-2-s)),
+                var(--dc-hero-2-l) calc(100% - var(--dc-hero-2-l)),
+                var(--dc-hero-2-s) calc(100% - var(--dc-hero-2-l)),
+                var(--dc-hero-2-s) calc(100% - var(--dc-hero-2-s)),
+                0 calc(100% - var(--dc-hero-2-s)),
+                0 var(--dc-hero-2-s),
+                var(--dc-hero-2-s) var(--dc-hero-2-s),
+                var(--dc-hero-2-s) var(--dc-hero-2-l),
+                var(--dc-hero-2-l) var(--dc-hero-2-l),
+                var(--dc-hero-2-l) var(--dc-hero-2-s),
+                var(--dc-hero-2-s) var(--dc-hero-2-s)
+            );
+        }
+
+        /* the photo has a stepped bite out of its lower left */
+        &-img {
+            --dc-hero-2-n1: #{hero-u(32)};
+            --dc-hero-2-n2: #{hero-u(108)};
+            aspect-ratio: 452 / 200;
+            clip-path: polygon(
+                0 0,
+                100% 0,
+                100% 100%,
+                var(--dc-hero-2-n1) 100%,
+                var(--dc-hero-2-n1) calc(100% - var(--dc-hero-2-n1)),
+                var(--dc-hero-2-n2) calc(100% - var(--dc-hero-2-n1)),
+                var(--dc-hero-2-n2) calc(100% - var(--dc-hero-2-n2)),
+                var(--dc-hero-2-n1) calc(100% - var(--dc-hero-2-n2)),
+                var(--dc-hero-2-n1) calc(100% - var(--dc-hero-2-n1)),
+                0 calc(100% - var(--dc-hero-2-n1))
+            );
+        }
+
+        &-disc {
+            margin: 20px 0;
+            font-size: 18px;
+            line-height: 28px;
+            color: #fff;
+            font-optical-sizing: none;
+        }
+
+        &-btn {
+            display: flex;
+            width: 100%;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            --dc-hero-2-s: 8px;
+            --dc-hero-2-l: 24px;
+            position: relative;
+            left: auto;
+            bottom: auto;
+            width: auto;
+            max-width: 520px;
+            margin: 40px 15px 0;
+
+            .dc-hero-2-card-img {
+                --dc-hero-2-n1: 32px;
+                --dc-hero-2-n2: 108px;
+            }
+        }
+
+        @media #{$xs} {
+            padding: 20px;
+
+            &-disc {
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+    }
+
+    /*
+        checker-shape — three rows of squares, the columns repeat every 243px of the design
+    */
+    &-checker {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 4;
+        height: hero-u(60);
+        pointer-events: none;
+        background-image:
+            linear-gradient(90deg, transparent 0 hero-u(93.5), #F2F2F0 0 hero-u(125.5), transparent 0 hero-u(187.5), #F2F2F0 0),
+            linear-gradient(90deg, #F2F2F0 0 hero-u(93.5), #151312 0 hero-u(125.5), #F2F2F0 0 hero-u(187.5), #151312 0),
+            linear-gradient(90deg, #151312 0 hero-u(93.5), #F2F2F0 0 hero-u(125.5), #151312 0 hero-u(187.5), #F2F2F0 0);
+        background-size: hero-u(243) hero-u(20);
+        background-position: hero-u(-55.5) 0, hero-u(-55.5) hero-u(20), hero-u(-55.5) hero-u(40);
+        background-repeat: repeat-x;
+    }
+
+    /*
+        pagination — a line with a thumb that slides along it
+    */
+    &-pagination.swiper-pagination {
+        --dc-hero-2-track: #{hero-u(300)};
+        --dc-hero-2-thumb: #{hero-u(72)};
+        --dc-hero-2-shift: 0px;
+        position: absolute;
+        left: max(15px, #{hero-u(60)});
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        z-index: 4;
+        display: flex;
+        flex-direction: column;
+        width: 4px;
+        height: var(--dc-hero-2-track);
+        transform: translateY(-50%);
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 1px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            border-radius: 8px;
+            background-color: rgb(255 255 255 / 20%);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: var(--dc-hero-2-thumb);
+            border-radius: 8px;
+            background-color: #fff;
+            transform: translateY(var(--dc-hero-2-shift));
+            transition: transform .6s var(--dc-cube-1);
+        }
+
+        /* the bullets only catch the clicks, one third of the line each */
+        .swiper-pagination-bullet {
+            position: relative;
+            z-index: 1;
+            flex: 1 1 0;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            border-radius: 0;
+            background: transparent;
+            opacity: 1;
+        }
+
+        &:has(.swiper-pagination-bullet:nth-child(2).swiper-pagination-bullet-active) {
+            --dc-hero-2-shift: calc((var(--dc-hero-2-track) - var(--dc-hero-2-thumb)) / 2);
+        }
+
+        &:has(.swiper-pagination-bullet:nth-child(3).swiper-pagination-bullet-active) {
+            --dc-hero-2-shift: calc(var(--dc-hero-2-track) - var(--dc-hero-2-thumb));
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            --dc-hero-2-track: 180px;
+            --dc-hero-2-thumb: 48px;
+            position: relative;
+            left: auto;
+            top: auto;
+            flex-direction: row;
+            width: var(--dc-hero-2-track);
+            height: 4px;
+            margin: 36px 15px 0;
+            transform: none;
+
+            &::before {
+                left: 0;
+                right: 0;
+                top: 1px;
+                bottom: auto;
+                width: auto;
+                height: 2px;
+            }
+
+            &::after {
+                width: var(--dc-hero-2-thumb);
+                height: 4px;
+                transform: translateX(var(--dc-hero-2-shift));
+            }
+        }
+    }
+
+    /*
+        intro — once the preloader is gone the card, the checker and the line arrive behind the first photo
+    */
+    &-card::before {
+        opacity: 0;
+    }
+
+    &-card-img,
+    &-card-disc,
+    &-card-btn {
+        opacity: 0;
+        transform: translateY(32px);
+    }
+
+    &-checker {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    &-pagination.swiper-pagination {
+        opacity: 0;
+    }
+
+    &-area.is-ready {
+        .dc-hero-2-card::before {
+            opacity: 1;
+            transition: opacity 1s $hero-in 2s;
+        }
+
+        .dc-hero-2-card-img,
+        .dc-hero-2-card-disc,
+        .dc-hero-2-card-btn {
+            opacity: 1;
+            transform: none;
+            transition: opacity .9s $hero-in 2.1s, transform 1s $hero-in 2.1s;
+        }
+
+        .dc-hero-2-card-disc {
+            transition-delay: 2.25s;
+        }
+
+        .dc-hero-2-card-btn {
+            transition-delay: 2.4s;
+        }
+
+        .dc-hero-2-checker {
+            clip-path: inset(0);
+            transition: clip-path 2s cubic-bezier(.65, 0, .35, 1) .8s;
+        }
+
+        .dc-hero-2-pagination.swiper-pagination {
+            opacity: 1;
+            transition: opacity .8s ease 2.2s;
+        }
+    }
+
+    /*
+        slide change — the new slide lies over the old one and never fades. Its photo is wiped in
+        by a slanted edge while the old photo stays whole, darkens and drifts away beneath it, the
+        title rises out of its masks line by line, then the list builds item by item. The leaving
+        slide (.is-leaving, set in main.js) lifts its copy away the other way
+    */
+    &-slider .swiper-slide {
+        /* the fade effect writes an inline opacity, the layers move by themselves instead */
+        opacity: 1 !important;
+        visibility: hidden;
+
+        /* the leaving slide hides at the end of the change (Swiper sets the duration) */
+        transition-property: visibility;
+
+        &.swiper-slide-active {
+            z-index: 2;
+            visibility: visible;
+        }
+
+        /* waiting state — every layer sits where it arrives from */
+        .dc-hero-2-item {
+            --dc-hero-2-wipe: 114%;
+        }
+
+        .dc-hero-2-bg-img {
+            translate: 8% 0;
+            scale: 1.25;
+        }
+
+        .dc-hero-2-title .text {
+            transform: translateY(118%) rotate(5deg);
+        }
+
+        .dc-hero-2-feature-item {
+            opacity: 0;
+            transform: translateY(36px);
+        }
+
+        .dc-hero-2-feature-icon {
+            transform: scale(.4) rotate(-90deg);
+        }
+    }
+
+    /* arriving — the photo opens first and settles for the whole stay, then the copy follows */
+    &-area.is-ready &-slider .swiper-slide-active {
+        .dc-hero-2-item {
+            --dc-hero-2-wipe: -2%;
+            transition: --dc-hero-2-wipe 2.2s cubic-bezier(.76, 0, .24, 1) .05s;
+        }
+
+        .dc-hero-2-bg-img {
+            translate: 0 0;
+            scale: 1;
+            transition: translate 2.6s cubic-bezier(.22, .61, .36, 1), scale 9s cubic-bezier(.16, .84, .44, 1);
+        }
+
+        .dc-hero-2-title .text {
+            transform: none;
+            transition: transform 1.2s cubic-bezier(.16, 1, .3, 1) 1.7s;
+        }
+
+        .dc-hero-2-title .line:nth-child(2) .text {
+            transition-delay: 1.85s;
+        }
+
+        .dc-hero-2-title .line:nth-child(3) .text {
+            transition-delay: 2s;
+        }
+
+        .dc-hero-2-feature-item {
+            opacity: 1;
+            transform: none;
+        }
+
+        .dc-hero-2-feature-icon {
+            transform: none;
+        }
+
+        @for $i from 1 through 3 {
+            .dc-hero-2-feature-item:nth-child(#{$i}) {
+                $delay: 2.1s + ($i - 1) * .16s;
+                transition: opacity .8s ease $delay, transform .9s $hero-in $delay;
+
+                .dc-hero-2-feature-icon {
+                    transition: transform 1s cubic-bezier(.34, 1.56, .64, 1) $delay + .1s;
+                }
+            }
+        }
+    }
+
+    /* leaving — the photo stays whole under the wipe of the next one, darkening and drifting off, the copy goes up and out */
+    &-slider .swiper-slide.is-leaving {
+        .dc-hero-2-item {
+            --dc-hero-2-wipe: -2%;
+            transition: none;
+        }
+
+        .dc-hero-2-bg::after {
+            background-color: rgb(11 11 11 / 80%);
+            transition: background-color 2.4s ease;
+        }
+
+        .dc-hero-2-bg-img {
+            translate: -4% 0;
+            scale: 1.12;
+            transition: translate 2.6s cubic-bezier(.4, 0, .2, 1), scale 2.6s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .dc-hero-2-title .text {
+            transform: translateY(-118%) rotate(-3deg);
+            transition: transform .7s cubic-bezier(.7, 0, .84, 0);
+        }
+
+        .dc-hero-2-title .line:nth-child(2) .text {
+            transition-delay: .06s;
+        }
+
+        .dc-hero-2-title .line:nth-child(3) .text {
+            transition-delay: .12s;
+        }
+
+        .dc-hero-2-feature-item {
+            opacity: 0;
+            transform: translateY(-24px);
+        }
+
+        .dc-hero-2-feature-icon {
+            transform: scale(.6);
+        }
+
+        @for $i from 1 through 3 {
+            .dc-hero-2-feature-item:nth-child(#{$i}) {
+                $delay: ($i - 1) * .06s;
+                transition: opacity .45s ease $delay, transform .5s cubic-bezier(.7, 0, .84, 0) $delay;
+
+                .dc-hero-2-feature-icon {
+                    transition: transform .5s ease $delay;
+                }
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dc-hero-2-area,
+    .dc-hero-2-area *,
+    .dc-hero-2-area *::before,
+    .dc-hero-2-area *::after {
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important;
+    }
+}
+
+/*
+    hero-2-end
+*/
