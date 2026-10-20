@@ -8,6 +8,19 @@
     @return calc(#{$px} * var(--dc-choose-u));
 }
 
+/* the achievements climb the line from below — they move straight up, so the hexagons stay on it */
+@keyframes dc-choose-1-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(90px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .dc-choose-1 {
     &-area {
         --dc-choose-u: calc(min(100vw, 2560px) / 1920);
@@ -32,6 +45,13 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+    }
+
+    &-rise {
+        animation-name: dc-choose-1-rise;
+        animation-duration: 1s;
+        animation-timing-function: var(--dc-cube-1);
+        animation-fill-mode: both;
     }
 
     &-wrap {
@@ -60,6 +80,9 @@
 
     &-list {
         position: relative;
+
+        /* the achievements lie over the worker, who reaches in from the card */
+        z-index: 2;
 
         .item {
             display: flex;

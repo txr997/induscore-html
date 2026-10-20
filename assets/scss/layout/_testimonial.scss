@@ -1,0 +1,310 @@
+@use '../abstracts/variables' as *;
+/*
+    testimonial-1-start
+*/
+
+.dc-testimonial-1 {
+    &-area {
+        /* the side thumbs, the gaps round the slide, the portrait and the quote type */
+        --dc-ts-thumb: 248px;
+        --dc-ts-gap-l: 20px;
+        --dc-ts-gap-r: 48px;
+        --dc-ts-img: 248px;
+        --dc-ts-gap: 48px;
+        --dc-ts-fs: 23px;
+        --dc-ts-lh: 33px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: 132px 0 0;
+        background-color: #fff;
+
+        @media #{$xxl} {
+            --dc-ts-thumb: 200px;
+            --dc-ts-gap-r: 32px;
+        }
+
+        @media #{$xl} {
+            --dc-ts-thumb: 150px;
+            --dc-ts-gap-l: 16px;
+            --dc-ts-gap-r: 24px;
+            --dc-ts-gap: 40px;
+            --dc-ts-fs: 21px;
+            --dc-ts-lh: 30px;
+            padding-top: 120px;
+        }
+
+        @media #{$lg} {
+            --dc-ts-thumb: 110px;
+            --dc-ts-gap-l: 16px;
+            --dc-ts-gap-r: 16px;
+            --dc-ts-img: 220px;
+            --dc-ts-gap: 32px;
+            --dc-ts-fs: 20px;
+            --dc-ts-lh: 29px;
+            padding-top: 100px;
+        }
+
+        @media #{$md} {
+            --dc-ts-fs: 20px;
+            --dc-ts-lh: 29px;
+            padding: 90px 0 80px;
+        }
+
+        @media #{$xs} {
+            --dc-ts-fs: 18px;
+            --dc-ts-lh: 27px;
+            padding: 70px 0 60px;
+        }
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 48px;
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        @media #{$md,$sm} {
+            flex-wrap: wrap;
+        }
+
+        @media #{$xs} {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 36px;
+        }
+    }
+
+    /* the lines are spaced by the width of the design, so they break at the same words at every size */
+    &-sec-title {
+        max-width: 13.25em;
+    }
+
+    /*
+        wrap — the previous thumb, the slide, the next thumb
+    */
+    &-wrap {
+        display: flex;
+        align-items: stretch;
+
+        @media #{$md,$sm,$xs} {
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    }
+
+    &-slider {
+        flex: 1 1 0;
+        min-width: 0;
+        margin: 0 var(--dc-ts-gap-r) 0 var(--dc-ts-gap-l);
+
+        @media #{$md,$sm,$xs} {
+            flex: 0 0 100%;
+            order: 1;
+            margin: 0;
+        }
+    }
+
+    /*
+        thumbs — the neighbour's photo, grey and out of focus, with its arrow on it
+    */
+    &-thumb {
+        position: relative;
+        flex: 0 0 var(--dc-ts-thumb);
+        height: 320px;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+
+        .img {
+            position: absolute;
+            inset: 0;
+            filter: grayscale(1);
+        }
+
+        .glass {
+            position: absolute;
+            inset: 0;
+            background-color: rgb(255 255 255 / 24%);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+
+        .arrow {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            display: flex;
+            width: 68px;
+            height: 68px;
+            margin: -34px 0 0 -34px;
+            color: #fff;
+            transition: transform .5s var(--dc-cube-1), color .5s var(--dc-cube-1);
+
+            svg {
+                display: block;
+            }
+        }
+
+        &:hover .arrow {
+            color: var(--dc-clr-pr-1);
+            transform: scale(1.12);
+        }
+
+        &.swiper-button-disabled {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        @media #{$lg} {
+            .arrow {
+                transform: scale(.75);
+            }
+
+            &:hover .arrow {
+                transform: scale(.85);
+            }
+        }
+
+        @media #{$md,$sm,$xs} {
+            flex: 0 0 calc(50% - 10px);
+            height: 220px;
+
+            &.has-prev {
+                order: 2;
+            }
+
+            &.has-next {
+                order: 3;
+            }
+        }
+
+        @media #{$xs} {
+            height: 150px;
+
+            .arrow {
+                transform: scale(.7);
+            }
+
+            &:hover .arrow {
+                transform: scale(.8);
+            }
+        }
+    }
+
+    /*
+        card — the portrait and the words
+    */
+    &-card {
+        display: flex;
+        align-items: center;
+        gap: var(--dc-ts-gap);
+        min-height: 320px;
+
+        .item-img {
+            flex: 0 0 var(--dc-ts-img);
+            height: 320px;
+            border-radius: 8px;
+        }
+
+        .content {
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 540px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .text {
+            margin: 0;
+            font-size: var(--dc-ts-fs);
+            line-height: var(--dc-ts-lh);
+            color: var(--dc-clr-h-1);
+            font-optical-sizing: none;
+        }
+
+        .dots {
+            display: flex;
+            gap: 10px;
+
+            span {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: #FF5B1B;
+            }
+        }
+
+        .author {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .name {
+            margin-bottom: 4px;
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 28px;
+        }
+
+        .role {
+            margin: 0;
+            font-size: 15px;
+            line-height: 22px;
+            color: var(--dc-clr-h-1);
+            opacity: .64;
+            font-optical-sizing: none;
+        }
+
+        .quote {
+            flex: 0 0 auto;
+
+            svg {
+                display: block;
+            }
+        }
+
+        @media #{$sm,$xs} {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 28px;
+
+            .item-img {
+                flex: none;
+                width: 100%;
+                max-width: 248px;
+                height: auto;
+                aspect-ratio: 248 / 320;
+            }
+
+            .content {
+                max-width: none;
+            }
+        }
+
+        @media #{$xs} {
+            .quote svg {
+                width: 52px;
+                height: 52px;
+            }
+        }
+    }
+}
+
+/*
+    testimonial-1-end
+*/

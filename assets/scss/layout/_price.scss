@@ -1,0 +1,574 @@
+@use '../abstracts/variables' as *;
+/*
+    price-1-start
+*/
+
+.dc-price-1 {
+    &-area {
+        /* 1px of the 1920 design — it follows the viewport and stops growing at 2560 */
+        --dc-pr-u: calc(min(100vw, 2560px) / 1920);
+
+        /* the type inside the cards */
+        --dc-pr-price-fs: 52px;
+        --dc-pr-per-fs: 18px;
+        --dc-pr-fs: 18px;
+        --dc-pr-lh: 28px;
+        --dc-pr-pad: 24px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background-color: #FAF5ED;
+
+        @media #{$xl} {
+            --dc-pr-price-fs: 46px;
+            --dc-pr-per-fs: 16px;
+            --dc-pr-fs: 16px;
+            --dc-pr-lh: 26px;
+            --dc-pr-pad: 20px;
+        }
+
+
+
+        @media #{$md} {
+            --dc-pr-price-fs: 46px;
+            --dc-pr-per-fs: 16px;
+            --dc-pr-fs: 16px;
+            --dc-pr-lh: 26px;
+            --dc-pr-pad: 20px;
+        }
+
+        @media #{$xs} {
+            --dc-pr-price-fs: 42px;
+            --dc-pr-per-fs: 15px;
+            --dc-pr-fs: 16px;
+            --dc-pr-lh: 26px;
+            --dc-pr-pad: 20px;
+        }
+    }
+
+    /*
+        bg — the faint plan lines at the top, the refinery at the foot (both pictures carry their own opacity)
+    */
+    &-bg-line,
+    &-bg-img {
+        position: absolute;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &-bg-line {
+        top: 0;
+        height: max(260px, calc(437 * var(--dc-pr-u)));
+        background-position: center top;
+    }
+
+    &-bg-img {
+        bottom: 0;
+        height: max(200px, calc(425 * var(--dc-pr-u)));
+        background-position: center bottom;
+    }
+
+    /*
+        section-title — the pill keeps to the left edge of the title box, as in the design
+    */
+    &-title-box {
+        position: relative;
+        z-index: 1;
+        max-width: 712px;
+        margin: 0 auto;
+        text-align: center;
+
+        .dc-subtitle-1 {
+            margin-bottom: 20px;
+        }
+    }
+
+    /* the lines are spaced by the width of the design, so they break at the same words at every size */
+    &-sec-title {
+        max-width: 12.71em;
+        margin: 0 auto 20px;
+    }
+
+    &-disc {
+        max-width: 712px;
+        margin: 0 auto;
+    }
+
+    /*
+        toggle — monthly / annually, the save tag and the arrow hang off its right corner
+    */
+    &-toggle {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        width: 285px;
+        margin: 27px auto 48px;
+        padding: 10px 18px;
+        border: 2px solid rgb(21 19 18 / 12%);
+        border-radius: 10px;
+
+        .label {
+            flex: 0 0 auto;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            font-family: var(--dc-font-1);
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 28px;
+            color: var(--dc-clr-p-1);
+            text-align: left;
+            font-optical-sizing: none;
+            transition: color .4s var(--dc-cube-1);
+
+            &:first-child {
+                width: 78px;
+            }
+
+            &:nth-child(3) {
+                width: 81px;
+            }
+
+            &.is-active {
+                font-weight: 500;
+                color: var(--dc-clr-h-1);
+            }
+        }
+
+        .switch {
+            position: relative;
+            flex: 0 0 auto;
+            width: 64px;
+            height: 36px;
+            padding: 0;
+            border: 0;
+            border-radius: 100px;
+            background-color: #F4F4F4;
+            box-shadow:
+                -.5px -.5px 0 rgb(0 0 0 / 12%),
+                5.9px 5.9px 8.3px -3px rgb(0 0 0 / 28%),
+                2.66px 2.66px 3.76px -2.25px rgb(0 0 0 / 28%),
+                inset -1px -1px 1px rgb(0 0 0 / 10%),
+                inset 1px 1px 1px #fff;
+        }
+
+        .knob {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: #FF5B1B;
+            box-shadow: 4px 4px 12px rgb(255 91 27 / 50%);
+            transition: transform .4s var(--dc-cube-1);
+        }
+
+        &.is-annually .knob {
+            transform: translateX(28px);
+        }
+
+        .save {
+            position: absolute;
+            left: 246px;
+            top: -17px;
+            padding: 0 16px;
+            border-radius: 8px;
+            background-color: var(--dc-clr-pr-1);
+            box-shadow: inset 0 0 9px rgb(255 255 255 / 45%), 4px 4px 14px rgb(0 0 0 / 25%);
+            font-family: var(--dc-font-2);
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 32px;
+            color: var(--dc-clr-h-1);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .arrow {
+            position: absolute;
+            left: 349px;
+            top: -61px;
+            width: 59px;
+            height: 105px;
+            pointer-events: none;
+        }
+
+        @media #{$xs} {
+            margin: 56px auto 40px;
+
+            .save {
+                left: auto;
+                right: 0;
+                top: -42px;
+            }
+
+            .arrow {
+                display: none;
+            }
+        }
+    }
+
+    /*
+        cards — the light one is a single column, the dark one carries the photo
+    */
+    &-cards {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 460fr 920fr;
+        gap: 20px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    &-card {
+        display: grid;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 16px;
+
+        &:is(.has-light) {
+            --dc-pr-head: #FFF2ED;
+            --dc-pr-icon: #FFDBCD;
+            --dc-pr-name: var(--dc-clr-h-1);
+            --dc-pr-text: var(--dc-clr-h-1);
+            --dc-pr-disc: var(--dc-clr-p-1);
+            --dc-pr-per: rgb(75 72 72 / 70%);
+            background-color: #fff;
+        }
+
+        &:is(.has-dark) {
+            --dc-pr-head: #2F2D2C;
+            --dc-pr-icon: #2F2D2C;
+            --dc-pr-name: #fff;
+            --dc-pr-text: #fff;
+            --dc-pr-disc: rgb(255 255 255 / 80%);
+            --dc-pr-per: rgb(255 255 255 / 70%);
+            grid-template-columns: 440fr 450fr;
+            background-color: var(--dc-clr-h-1);
+        }
+
+        .main {
+            min-width: 0;
+        }
+
+        .head {
+            padding: var(--dc-pr-pad);
+            border-radius: 12px;
+            background-color: var(--dc-pr-head);
+        }
+
+        .name {
+            margin-bottom: 18px;
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 28px;
+            color: var(--dc-pr-name);
+        }
+
+        .price {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 10px;
+            height: calc(var(--dc-pr-price-fs) + 4px);
+            white-space: nowrap;
+
+            .cur,
+            .amount {
+                font-family: var(--dc-font-2);
+                font-size: var(--dc-pr-price-fs);
+                line-height: calc(var(--dc-pr-price-fs) + 4px);
+            }
+
+            .cur {
+                font-weight: 300;
+                color: #FF5B1B;
+            }
+
+            .amount {
+                font-weight: 500;
+                color: var(--dc-pr-name);
+            }
+
+            .per {
+                margin-left: 2px;
+                font-family: var(--dc-font-2);
+                font-weight: 400;
+                font-size: var(--dc-pr-per-fs);
+                line-height: 1.4;
+                color: var(--dc-pr-per);
+            }
+        }
+
+        .disc {
+            font-size: var(--dc-pr-fs);
+            line-height: var(--dc-pr-lh);
+            color: var(--dc-pr-disc);
+            font-optical-sizing: none;
+        }
+
+        /* the glow rises from the foot of the button, the pale line round it lies under the glow */
+        .action {
+            position: relative;
+            isolation: isolate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 52px;
+            margin-top: 4px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--dc-clr-gd-1);
+            box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 20%);
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 28px;
+            color: #fff;
+            transition: transform .5s var(--dc-cube-1), color .5s var(--dc-cube-1);
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 13.2%;
+                top: 34px;
+                width: 73.6%;
+                height: 66px;
+                border-radius: 50%;
+                background-color: rgb(255 255 255 / 80%);
+                filter: blur(12px);
+                transition: transform .8s var(--dc-quart-1), opacity .8s var(--dc-quart-1);
+            }
+
+            .text {
+                position: relative;
+            }
+
+            /* the glow grows over the whole button; the light button turns pale, so its text goes dark */
+            &:hover {
+                color: var(--dc-clr-h-1);
+                transform: translateY(-2px);
+
+                &::before {
+                    transform: translateY(-41px) scale(2.6);
+                }
+            }
+        }
+
+        &:is(.has-dark) .action {
+            background: #2F2D2C;
+
+            &::before {
+                background: var(--dc-clr-gd-1);
+                opacity: .9;
+            }
+
+            /* the orange fills the whole button, the text stays white */
+            &:hover {
+                color: #fff;
+
+                &::before {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .list {
+            padding: 24px var(--dc-pr-pad) var(--dc-pr-pad);
+
+            .title {
+                margin-bottom: 20px;
+                font-family: var(--dc-font-4);
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 28px;
+                color: var(--dc-pr-text);
+                opacity: .4;
+            }
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            li {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: var(--dc-pr-text);
+
+                svg {
+                    flex: 0 0 auto;
+                    display: block;
+                    color: var(--dc-pr-icon);
+                }
+
+                .text {
+                    min-width: 0;
+                    font-family: var(--dc-font-1);
+                    font-size: var(--dc-pr-fs);
+                    line-height: var(--dc-pr-lh);
+                    font-optical-sizing: none;
+                }
+            }
+        }
+
+        /*
+            photo — the contact box lies on the foot of it as a glass with two lights
+        */
+        .photo {
+            position: relative;
+            min-height: 616px;
+            border-radius: 12px;
+
+            .img {
+                position: absolute;
+                inset: 0;
+                border-radius: 12px;
+            }
+        }
+
+        .contact {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            z-index: 2;
+            isolation: isolate;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: rgb(21 19 18 / 55%);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                border-radius: 50%;
+                filter: blur(43px);
+            }
+
+            &::before {
+                left: -42px;
+                top: -42px;
+                width: 154px;
+                height: 154px;
+                background-color: #FF5B1B;
+            }
+
+            &::after {
+                right: -61px;
+                bottom: -70px;
+                width: 181px;
+                height: 181px;
+                background-color: var(--dc-clr-pr-1);
+            }
+
+            .text {
+                max-width: 370px;
+                margin: 0;
+                font-family: var(--dc-font-2);
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 28px;
+                color: #fff;
+                text-align: center;
+            }
+
+            .link {
+                display: inline-flex;
+                align-items: center;
+                height: 40px;
+                padding: 0 18px;
+                border-radius: 8px;
+                background-color: var(--dc-clr-pr-1);
+                font-family: var(--dc-font-2);
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 28px;
+                color: var(--dc-clr-h-1);
+                transition: transform .5s var(--dc-cube-1);
+
+                &:hover {
+                    transform: translateY(-2px);
+                }
+            }
+        }
+
+        /* the contact box keeps to the photo, so on the narrow photo the text steps down a size */
+        @media #{$xl} {
+            .contact {
+                gap: 16px;
+                padding: 20px;
+
+                .text {
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+            }
+        }
+
+        /* the light card is wide now: the plan and the button on the left, the list on the right */
+        @media #{$lg,$md} {
+            &:is(.has-light) .main {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0 10px;
+                align-content: start;
+
+                .head,
+                .action {
+                    grid-column: 1;
+                }
+
+                .list {
+                    grid-column: 2;
+                    grid-row: 1 / span 2;
+                    padding-top: var(--dc-pr-pad);
+                }
+            }
+        }
+
+        /* one column: the photo goes under the plan */
+        @media #{$xs} {
+            &:is(.has-dark) {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .photo {
+                min-height: 460px;
+            }
+
+            .contact {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                padding: 20px 16px;
+            }
+        }
+    }
+}
+
+/*
+    price-1-end
+*/

@@ -182,6 +182,11 @@
         &:hover,
         &.is-active {
             background-position: 0 100%;
+
+            /* the icon turns a quarter and grows a little */
+            .icon {
+                transform: rotate(90deg) scale(1.12);
+            }
         }
 
         .icon {
@@ -192,6 +197,7 @@
             font-size: var(--dc-feat-icon);
             line-height: 1;
             color: #FF5B1B;
+            transition: transform .8s var(--dc-cube-1);
         }
 
         .title {
@@ -232,6 +238,10 @@
     /* while the pointer is on one card, the marked one steps back */
     &-wrap:hover &-item.is-active:not(:hover) {
         background-position: 0 0;
+
+        .icon {
+            transform: none;
+        }
     }
 }
 

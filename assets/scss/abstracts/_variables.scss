@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:wght@500&display=swap');
 
 :root {
   scroll-behavior: smooth;
@@ -8,6 +9,7 @@
   --dc-font-1: "Inter", sans-serif;
   --dc-font-2: "Bai Jamjuree", sans-serif;
   --dc-font-3: "Roboto", sans-serif;
+  --dc-font-4: "Mona Sans", "Inter", sans-serif;
 
   --dc-clr-pr-1: #FFBE2E;
   
@@ -17,6 +19,7 @@
   --dc-clr-gd-1: linear-gradient(90deg, #FF5B1B 0%, #FFA922 100%);
 
   --dc-cube-1: cubic-bezier(0.16, 1, 0.3, 1);
+  --dc-quart-1: cubic-bezier(0.77, 0, 0.175, 1);
 
 }
 

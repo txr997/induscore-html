@@ -1,0 +1,391 @@
+@use '../abstracts/variables' as *;
+/*
+    work-1-start
+*/
+
+/* 1px of the 1920 design — it follows the viewport and stops growing at 2560 */
+@function work-u($px) {
+    @return calc(#{$px} * var(--dc-work-u));
+}
+
+.dc-work-1 {
+    &-area {
+        --dc-work-u: calc(min(100vw, 2560px) / 1920);
+
+        /* the four steps: where the first one starts, the distance from one to the next, the height of the section */
+        --dc-work-top: #{work-u(132)};
+        --dc-work-pitch: #{work-u(174)};
+        --dc-work-h: #{work-u(901)};
+
+        /* one step: the number, the gap, the text */
+        --dc-work-ci: max(52px, #{work-u(64)});
+        --dc-work-gap: max(20px, #{work-u(40)});
+        --dc-work-txt: max(300px, #{work-u(440)});
+        --dc-work-title-fs: max(20px, #{work-u(24)});
+        --dc-work-disc-fs: max(15px, #{work-u(18)});
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        min-height: var(--dc-work-h);
+        background-color: #0B0B0B;
+
+        @media #{$xxl} {
+            --dc-work-top: 110px;
+            --dc-work-pitch: 140px;
+            --dc-work-h: 760px;
+            --dc-work-ci: 56px;
+            --dc-work-gap: 24px;
+            --dc-work-txt: 360px;
+            --dc-work-title-fs: 20px;
+            --dc-work-disc-fs: 15px;
+        }
+
+        @media #{$xl} {
+            --dc-work-top: 100px;
+            --dc-work-pitch: 140px;
+            --dc-work-h: 760px;
+            --dc-work-ci: 52px;
+            --dc-work-gap: 20px;
+            --dc-work-txt: 300px;
+            --dc-work-title-fs: 20px;
+            --dc-work-disc-fs: 15px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            --dc-work-ci: 56px;
+            --dc-work-gap: 20px;
+            --dc-work-title-fs: 22px;
+            --dc-work-disc-fs: 16px;
+            min-height: 0;
+            padding: 100px 0;
+        }
+
+        @media #{$md,$sm,$xs} {
+            padding: 80px 0;
+        }
+
+        @media #{$xs} {
+            --dc-work-ci: 48px;
+            --dc-work-title-fs: 20px;
+            --dc-work-disc-fs: 15px;
+            padding: 64px 0;
+        }
+    }
+
+    /*
+        bg — the refinery on the left, the angle in the middle, the light on the right edge
+    */
+    &-bg-img,
+    &-bg-angle,
+    &-bg-glow {
+        position: absolute;
+        pointer-events: none;
+        background-repeat: no-repeat;
+    }
+
+    /* the picture carries its own 23% — no opacity here */
+    &-bg-img {
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: work-u(1125);
+        background-position: left top;
+        background-size: cover;
+    }
+
+    /* the light behind the angle: four blurred ellipses laid along it, each turned 54.62° from its top left corner */
+    &-bg-color {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        /* the angle and its pale twin hold the light back — it comes through them only faintly */
+        &::after {
+            content: "";
+            position: absolute;
+            left: work-u(597);
+            top: work-u(-353);
+            width: work-u(655);
+            height: work-u(1513);
+            background-color: rgb(11 11 11 / 60%);
+            clip-path: polygon(0 0, 17.7% 0, 100% 50%, 17.7% 100%, 0 100%, .6% 82.5%, 54% 50%, .6% 17.5%);
+        }
+
+        span {
+            position: absolute;
+            left: calc(var(--dc-work-ex) * var(--dc-work-u));
+            top: calc(var(--dc-work-ey) * var(--dc-work-u));
+            width: calc(var(--dc-work-ew) * var(--dc-work-u));
+            height: calc(var(--dc-work-eh) * var(--dc-work-u));
+            border-radius: 50%;
+            background-color: var(--dc-work-ec);
+            filter: blur(calc(var(--dc-work-eb) * var(--dc-work-u)));
+            transform: rotate(-54.62deg);
+            transform-origin: 0 0;
+
+            &:nth-child(1) {
+                --dc-work-ex: 482;
+                --dc-work-ey: 948;
+                --dc-work-ew: 881;
+                --dc-work-eh: 259;
+                --dc-work-eb: 60;
+                --dc-work-ec: #FF5B1B;
+            }
+
+            &:nth-child(2) {
+                --dc-work-ex: 553;
+                --dc-work-ey: 917;
+                --dc-work-ew: 721;
+                --dc-work-eh: 174;
+                --dc-work-eb: 30;
+                --dc-work-ec: #FFBC0C;
+            }
+
+            &:nth-child(3) {
+                --dc-work-ex: 611;
+                --dc-work-ey: 881;
+                --dc-work-ew: 577;
+                --dc-work-eh: 119;
+                --dc-work-eb: 16;
+                --dc-work-ec: #FFF788;
+            }
+
+            &:nth-child(4) {
+                --dc-work-ex: 671;
+                --dc-work-ey: 825;
+                --dc-work-ew: 403;
+                --dc-work-eh: 83;
+                --dc-work-eb: 8;
+                --dc-work-ec: #FFFFD7;
+            }
+        }
+    }
+
+    /* the angle is taller than the section, the section cuts it at the top and at the foot */
+    &-bg-angle {
+        left: work-u(597);
+        top: work-u(-353);
+        width: work-u(655);
+        height: work-u(1513);
+        background-size: 100% 100%;
+    }
+
+    &-bg-glow {
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: work-u(159);
+        background-size: 100% 100%;
+    }
+
+    /*
+        left
+    */
+    &-left {
+        position: relative;
+        z-index: 2;
+        max-width: 498px;
+        padding: var(--dc-work-top) 0 60px;
+
+        .dc-subtitle-1 {
+            margin-bottom: 32px;
+        }
+
+        .btn-elm {
+            display: flex;
+        }
+    }
+
+    /* the lines are spaced by the width of the design, so they break at the same words at every size */
+    &-sec-title {
+        max-width: 8.66em;
+        margin-bottom: 32px;
+        color: #fff;
+    }
+
+    &-disc {
+        margin-bottom: 32px;
+        color: rgb(255 255 255 / 80%);
+        font-optical-sizing: none;
+    }
+
+    /*
+        steps — they step down along the angle
+    */
+    &-steps {
+        position: absolute;
+        left: 0;
+        top: var(--dc-work-top);
+        z-index: 2;
+
+        /* the box spans the section from its left edge, so it must not catch the pointer meant for the button */
+        pointer-events: none;
+    }
+
+    &-item {
+        pointer-events: auto;
+        display: flex;
+        align-items: flex-start;
+        gap: var(--dc-work-gap);
+        width: calc(var(--dc-work-ci) + var(--dc-work-gap) + var(--dc-work-txt));
+        height: var(--dc-work-pitch);
+        margin-left: calc(var(--dc-work-x, 0) * var(--dc-work-u));
+
+        &:nth-child(1) {
+            --dc-work-x: 1048;
+        }
+
+        &:nth-child(2) {
+            --dc-work-x: 1179;
+        }
+
+        &:nth-child(3) {
+            --dc-work-x: 1125;
+        }
+
+        &:nth-child(4) {
+            --dc-work-x: 1014;
+        }
+
+        /* the glass circle: the orange light comes up from its foot, a line of the same light runs round it */
+        .num {
+            position: relative;
+            isolation: isolate;
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--dc-work-ci);
+            height: var(--dc-work-ci);
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: rgb(255 255 255 / 10%);
+            -webkit-backdrop-filter: blur(44px);
+            backdrop-filter: blur(44px);
+            font-family: var(--dc-font-2);
+            font-weight: 500;
+            font-size: calc(var(--dc-work-ci) * 24 / 64);
+            line-height: 1;
+            color: #fff;
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 1.5%;
+                top: 58%;
+                z-index: -1;
+                width: 98.5%;
+                height: 69%;
+                border-radius: 50%;
+                background: var(--dc-clr-gd-1);
+                filter: blur(calc(var(--dc-work-ci) * 14.5 / 64));
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                padding: 1px;
+                border-radius: 50%;
+                background: var(--dc-clr-gd-1);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                mask-composite: exclude;
+                pointer-events: none;
+            }
+        }
+
+        .content {
+            flex: 0 0 auto;
+            width: var(--dc-work-txt);
+            min-width: 0;
+        }
+
+        .title {
+            margin-bottom: 15px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed rgb(255 255 255 / 32%);
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: var(--dc-work-title-fs);
+            line-height: 1.1667;
+            color: #fff;
+        }
+
+        .disc {
+            font-size: var(--dc-work-disc-fs);
+            line-height: 1.555;
+            color: rgb(255 255 255 / 80%);
+            font-optical-sizing: none;
+        }
+    }
+
+    /*
+        below the desktop widths the steps go under the text, in two columns and then in one
+    */
+    @media #{$lg,$md,$sm,$xs} {
+        &-bg-img {
+            width: 100%;
+        }
+
+        &-bg-angle,
+        &-bg-color {
+            display: none;
+        }
+
+        &-bg-glow {
+            width: 80px;
+        }
+
+        &-left {
+            padding: 0;
+        }
+
+        &-steps {
+            position: static;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 40px 32px;
+            margin-top: 56px;
+        }
+
+        &-item {
+            width: auto;
+            height: auto;
+            margin-left: 0;
+
+            .content {
+                flex: 1 1 0;
+                width: auto;
+            }
+        }
+    }
+
+    @media #{$md,$sm,$xs} {
+        &-steps {
+            margin-top: 48px;
+        }
+    }
+
+    @media #{$sm,$xs} {
+        &-steps {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 36px;
+        }
+    }
+
+    @media #{$xs} {
+        &-steps {
+            margin-top: 40px;
+        }
+
+        &-disc {
+            font-size: 16px;
+        }
+    }
+}
+
+/*
+    work-1-end
+*/

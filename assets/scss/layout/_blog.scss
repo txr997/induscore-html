@@ -1,0 +1,246 @@
+@use '../abstracts/variables' as *;
+/*
+    blog-1-start
+*/
+
+.dc-blog-1 {
+    &-area {
+        --dc-bl-fs: 16px;
+        --dc-bl-title-fs: 24px;
+        --dc-bl-title-lh: 28px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background: linear-gradient(180deg, #FAF5ED 0%, #fff 100%);
+
+        @media #{$xl} {
+            --dc-bl-fs: 15px;
+            --dc-bl-title-fs: 22px;
+        }
+
+        @media #{$lg} {
+            --dc-bl-fs: 14px;
+            --dc-bl-title-fs: 20px;
+            --dc-bl-title-lh: 26px;
+        }
+
+        @media #{$md} {
+            --dc-bl-title-fs: 22px;
+        }
+
+        @media #{$xs} {
+            --dc-bl-title-fs: 22px;
+        }
+    }
+
+    /* the slanted lines behind the button — the picture carries its own 8% */
+    &-bg-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 120px;
+        height: 76px;
+        pointer-events: none;
+        background-repeat: repeat-x;
+        background-position: center;
+        background-size: auto 100%;
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 48px;
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        @media #{$md,$sm,$xs} {
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 40px;
+        }
+    }
+
+    /* the lines are spaced by the width of the design, so they break at the same words at every size */
+    &-sec-title {
+        max-width: 13.25em;
+    }
+
+    /* it stands lower than the first line of the title, as in the design */
+    &-disc {
+        flex: 0 0 auto;
+        width: 517px;
+        max-width: 100%;
+        margin: 66px 0 0;
+        font-optical-sizing: none;
+
+        @media #{$xl} {
+            width: 400px;
+            font-size: 16px;
+            line-height: 26px;
+        }
+
+        @media #{$lg} {
+            width: 320px;
+            margin-top: 40px;
+            font-size: 16px;
+            line-height: 26px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            margin-top: 20px;
+        }
+    }
+
+    /*
+        cards — the heights of the photos differ, the cards start on one line
+    */
+    &-cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 25px;
+        align-items: start;
+
+        @media #{$lg} {
+            gap: 20px;
+        }
+
+        @media #{$md} {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 40px 24px;
+        }
+
+        @media #{$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 40px;
+        }
+    }
+
+    /*
+        card hover — the photo's box morphs into a leaf (two opposite corners round off)
+        while its colours wake up
+    */
+    &-card {
+        --dc-bl-leaf: 140px;
+
+        .img {
+            aspect-ratio: 450 / 384;
+            margin-bottom: 16px;
+            clip-path: inset(0 round 0 0 0 0);
+            filter: saturate(.85) contrast(.96);
+            transition: clip-path .9s var(--dc-cube-1), filter .9s var(--dc-cube-1);
+
+            &:is(.has-short) {
+                aspect-ratio: 450 / 260;
+            }
+        }
+
+        &:hover .img {
+            clip-path: inset(0 round var(--dc-bl-leaf) 0 var(--dc-bl-leaf) 0);
+            filter: saturate(1.2) contrast(1.04);
+        }
+
+        @media #{$lg} {
+            --dc-bl-leaf: 90px;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(21 19 18 / 16%);
+            font-family: var(--dc-font-1);
+            font-size: var(--dc-bl-fs);
+            line-height: 24px;
+            color: var(--dc-clr-h-1);
+            font-optical-sizing: none;
+        }
+
+        .left,
+        .read {
+            display: flex;
+            align-items: center;
+        }
+
+        .left {
+            gap: 8px;
+        }
+
+        .read {
+            gap: 12px;
+        }
+
+        .date {
+            color: #FF5B1B;
+        }
+
+        .dot {
+            flex: 0 0 auto;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--dc-clr-h-1);
+        }
+
+        .read .dot {
+            background-color: #FF5B1B;
+        }
+
+        .by {
+            color: rgb(21 19 18 / 32%);
+
+            .name {
+                color: var(--dc-clr-h-1);
+            }
+        }
+
+        .unit {
+            color: rgb(21 19 18 / 72%);
+        }
+
+        .title {
+            margin: 16px 0 0;
+            font-family: var(--dc-font-2);
+            font-weight: 500;
+            font-size: var(--dc-bl-title-fs);
+            line-height: var(--dc-bl-title-lh);
+
+            a {
+                color: inherit;
+                transition: color .4s var(--dc-cube-1);
+
+                &:hover {
+                    color: #FF5B1B;
+                }
+            }
+        }
+    }
+
+    /*
+        button
+    */
+    &-btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            margin-top: 48px;
+        }
+    }
+}
+
+/*
+    blog-1-end
+*/

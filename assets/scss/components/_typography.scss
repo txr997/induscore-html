@@ -22,9 +22,9 @@
 
 /* the pale pill above a section title — its text keeps running, both ends fade out */
 @keyframes dc-subtitle-1-marquee {
-    /* one pair (text + dot) is 153px, two pairs make the loop */
+    /* the track is six identical pairs (dot + text), half of it is exactly three pairs — whatever the text width, the loop is seamless */
     to {
-        transform: translateX(-306px);
+        transform: translateX(-50%);
     }
 }
 
@@ -34,7 +34,8 @@
     width: 148px;
     height: 32px;
     margin-bottom: 16px;
-
+    display: inline-flex;
+    
     &::before {
         content: "";
         position: absolute;
@@ -57,9 +58,12 @@
         width: max-content;
         height: 100%;
 
+        /* the last gap, so every pair is the same width and -50% lands exactly on a pair edge */
+        padding-right: 7px;
+
         /* the window shows the middle of the strip, it starts at the dot before the first text */
         margin-left: -81px;
-        animation: dc-subtitle-1-marquee 10s linear infinite;
+        animation: dc-subtitle-1-marquee 15s linear infinite;
     }
 
     .dot {

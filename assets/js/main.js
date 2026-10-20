@@ -18,8 +18,8 @@
 window.addEventListener('load', function(){
 
 
-	if (document.querySelectorAll(".lt-preloader-1").length) {
-		const loader = document.querySelector(".lt-preloader-1");
+	if (document.querySelectorAll(".dc-preloader-1").length) {
+		const loader = document.querySelector(".dc-preloader-1");
 		
 		setTimeout(() => {
 			loader.classList.add("loaded");
@@ -133,6 +133,106 @@ function afterPreloader() {
 				});
 
 			});
+		}
+
+
+		// choose-1-count: the figures count up from zero once the list scrolls into view
+		if($(".dc-choose-1-list .num").length) {
+			gsap.registerPlugin(ScrollTrigger);
+
+			$(".dc-choose-1-list .num").each(function (index, el) {
+				var dc_choose1_target = parseInt($(el).text(), 10);
+				var dc_choose1_count = { value: 0 };
+
+				$(el).text(0);
+
+				gsap.to(dc_choose1_count, {
+					scrollTrigger: {
+						trigger: el,
+						start: "top 88%",
+						once: true
+					},
+					value: dc_choose1_target,
+					duration: 1.8,
+					ease: "power2.out",
+					delay: .3 + index * .1,
+					onUpdate: function () {
+						$(el).text(Math.round(dc_choose1_count.value));
+					}
+				});
+			});
+		}
+
+
+		// work-1-bg: the angle sweeps in from the left, then the light behind it flares up and settles
+		if($(".dc-work-1-bg-angle").length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+			gsap.registerPlugin(ScrollTrigger);
+
+			var dc_work1_bg = gsap.timeline({
+				scrollTrigger: {
+					trigger: ".dc-work-1-area",
+					start: "top 70%",
+					once: true
+				}
+			});
+
+			dc_work1_bg
+				.from(".dc-work-1-bg-angle", {
+					xPercent: -25,
+					opacity: 0,
+					duration: 1.4,
+					ease: "power3.out"
+				})
+				.fromTo(".dc-work-1-bg-color", {
+					opacity: 0,
+					filter: "brightness(.4)"
+				}, {
+					opacity: 1,
+					filter: "brightness(1.5)",
+					duration: 1,
+					ease: "power2.in"
+				}, .5)
+				.to(".dc-work-1-bg-color", {
+					filter: "brightness(1)",
+					duration: .9,
+					ease: "power2.out",
+					clearProps: "filter"
+				});
+		}
+
+
+		// price-1-photo: the photo opens from the right while it settles from a zoom, then the contact box rises in
+		if($(".dc-price-1-card .photo").length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+			gsap.registerPlugin(ScrollTrigger);
+
+			var dc_price1_photo = ".dc-price-1-card .photo";
+
+			gsap.timeline({
+				scrollTrigger: {
+					trigger: dc_price1_photo,
+					start: "top 80%",
+					once: true
+				}
+			})
+				.fromTo(dc_price1_photo, {
+					clipPath: "inset(0% 0% 0% 100% round 12px)"
+				}, {
+					clipPath: "inset(0% 0% 0% 0% round 12px)",
+					duration: 1.2,
+					ease: "power3.inOut",
+					clearProps: "clipPath"
+				})
+				.from(dc_price1_photo + " .img", {
+					scale: 1.25,
+					duration: 1.6,
+					ease: "power2.out"
+				}, 0)
+				.from(dc_price1_photo + " .contact", {
+					y: 40,
+					opacity: 0,
+					duration: .8,
+					ease: "power3.out"
+				}, .9);
 		}
 
 
@@ -404,6 +504,36 @@ function afterPreloader() {
 					duration: .9,
 					ease: "power2.out"
 				}, "-=.5");
+		}
+
+
+		// footer-1-copy-name — once the word is really on screen, the letters rise from below, from the middle outwards, and overshoot lightly before they settle
+		if($(".dc-footer-1-copy .name").length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+			gsap.registerPlugin(ScrollTrigger, SplitText);
+
+			var dc_footer1_name = document.querySelector(".dc-footer-1-copy .name");
+			var dc_footer1_split = new SplitText(dc_footer1_name, {
+				type: "chars",
+				charsClass: "split-char"
+			});
+
+			gsap.from(dc_footer1_split.chars, {
+				scrollTrigger: {
+					trigger: dc_footer1_name,
+					start: "clamp(top 88%)",
+					once: true
+				},
+				yPercent: 60,
+				opacity: 0,
+				filter: "blur(10px)",
+				duration: 1.1,
+				ease: "back.out(2.4)",
+				stagger: {
+					each: .08,
+					from: "center"
+				},
+				clearProps: "filter"
+			});
 		}
 
 
@@ -986,6 +1116,43 @@ var lt_testimonial1_slider = new Swiper(".lt_testimonial1_slider", {
 });
 
 
+// testimonial-1-slider — the two thumbs beside the card preview the previous / next slide
+var dc_testimonial1_imgs = [];
+
+$('.dc_testimonial1_slider .swiper-slide .item-img img').each(function () {
+	dc_testimonial1_imgs.push($(this).attr('src'));
+});
+
+function dc_testimonial1_preview(swiper) {
+	var total = dc_testimonial1_imgs.length;
+	if (!total) return;
+
+	$('.dc-testimonial-1-thumb.has-prev img').attr('src', dc_testimonial1_imgs[(swiper.realIndex - 1 + total) % total]);
+	$('.dc-testimonial-1-thumb.has-next img').attr('src', dc_testimonial1_imgs[(swiper.realIndex + 1) % total]);
+}
+
+var dc_testimonial1_slider = new Swiper(".dc_testimonial1_slider", {
+	loop: true,
+	speed: 800,
+	spaceBetween: 0,
+	slidesPerView: 1,
+
+	navigation: {
+		prevEl: ".dc_testimonial1_slider_prev",
+		nextEl: ".dc_testimonial1_slider_next",
+	},
+
+	on: {
+		afterInit: function () {
+			dc_testimonial1_preview(this);
+		},
+		slideChange: function () {
+			dc_testimonial1_preview(this);
+		},
+	},
+});
+
+
 // shipping-1-form-select
 if ($('.lt-shipping-1-form .has-select select').length) {
 	$('.lt-shipping-1-form .has-select select').niceSelect();
@@ -1036,6 +1203,36 @@ $('.lt-price-1-toggle-btn .single-btn').on('click', function () {
 });
 
 
+// price-1-toggle — the knob slides over and the prices follow
+$('.dc-price-1-toggle').each(function () {
+	var $toggle = $(this);
+	var $switch = $toggle.find('.switch');
+	var $labels = $toggle.find('.label');
+	var $cards = $toggle.closest('.dc-price-1-area').find('.dc-price-1-card');
+
+	function dcPrice1Set(isAnnually) {
+		var plan = isAnnually ? 'annually' : 'monthly';
+
+		$toggle.toggleClass('is-annually', isAnnually);
+		$switch.attr('aria-checked', isAnnually);
+		$labels.each(function () {
+			$(this).toggleClass('is-active', $(this).data('plan') === plan);
+		});
+		$cards.find('.amount, .per').each(function () {
+			$(this).text($(this).data(plan));
+		});
+	}
+
+	$switch.on('click', function () {
+		dcPrice1Set(!$toggle.hasClass('is-annually'));
+	});
+
+	$labels.on('click', function () {
+		dcPrice1Set($(this).data('plan') === 'annually');
+	});
+});
+
+
 // hero-1-slider
 var dc_hero1_slider = new Swiper(".dc_hero1_slider", {
 	loop: true,
@@ -1060,10 +1257,10 @@ var dc_hero1_slider = new Swiper(".dc_hero1_slider", {
 
 // projects-1-slider — the slides keep their own width and the row runs past the edge
 var dc_projects1_slider = new Swiper(".dc_projects1_slider", {
+	loop: true,
 	slidesPerView: "auto",
 	spaceBetween: 24,
 	speed: 600,
-	grabCursor: true,
 });
 
 

@@ -1,0 +1,395 @@
+@use '../abstracts/variables' as *;
+/*
+    footer-1-start
+*/
+
+.dc-footer-1 {
+    &-area {
+        /* 1px of the 1920 design — it follows the viewport and stops growing at 2560 */
+        --dc-ft-u: calc(min(100vw, 2560px) / 1920);
+        --dc-ft-links: 367px;
+        --dc-ft-contact: 308px;
+        --dc-ft-fs: 18px;
+        --dc-ft-lh: 28px;
+        --dc-ft-copy: 132px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding-top: 132px;
+        background-color: #0B0B0B;
+
+        @media #{$xl} {
+            --dc-ft-links: 320px;
+            --dc-ft-contact: 290px;
+            --dc-ft-fs: 16px;
+            --dc-ft-lh: 26px;
+            --dc-ft-copy: 110px;
+            padding-top: 120px;
+        }
+
+        /* the glows keep one size below the desktop widths */
+        @media #{$lg,$md,$sm,$xs} {
+            --dc-ft-u: .5;
+            --dc-ft-links: 100%;
+            --dc-ft-contact: 100%;
+            --dc-ft-copy: 80px;
+            padding-top: 100px;
+        }
+
+        @media #{$md} {
+            --dc-ft-copy: 70px;
+            padding-top: 90px;
+        }
+
+        @media #{$xs} {
+            --dc-ft-copy: 50px;
+            --dc-ft-fs: 16px;
+            --dc-ft-lh: 26px;
+            padding-top: 70px;
+        }
+    }
+
+    /* the refinery at the foot — the picture carries its own opacity */
+    &-bg-img {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: max(260px, calc(522 * var(--dc-ft-u)));
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: cover;
+    }
+
+    /*
+        glow — four blurred ellipses, a hot band at the top edge and another at the foot
+    */
+    &-glow {
+        position: absolute;
+        left: 50%;
+        width: calc(1920 * var(--dc-ft-u));
+        height: calc(235 * var(--dc-ft-u));
+        margin-left: calc(-960 * var(--dc-ft-u));
+        pointer-events: none;
+
+        &:is(.has-up) {
+            top: calc(-220 * var(--dc-ft-u));
+        }
+
+        &:is(.has-down) {
+            bottom: calc(-189 * var(--dc-ft-u));
+        }
+
+        span {
+            position: absolute;
+            left: calc(var(--dc-ft-ex) * var(--dc-ft-u));
+            top: calc(var(--dc-ft-ey) * var(--dc-ft-u));
+            width: calc(var(--dc-ft-ew) * var(--dc-ft-u));
+            height: calc(var(--dc-ft-eh) * var(--dc-ft-u));
+            border-radius: 50%;
+            background-color: var(--dc-ft-ec);
+            filter: blur(calc(var(--dc-ft-eb) * var(--dc-ft-u)));
+
+            &:nth-child(1) {
+                --dc-ft-ex: 0;
+                --dc-ft-ey: 0;
+                --dc-ft-ew: 1920;
+                --dc-ft-eh: 235;
+                --dc-ft-eb: 50;
+                --dc-ft-ec: #FF5B1B;
+            }
+
+            &:nth-child(2) {
+                --dc-ft-ex: 176;
+                --dc-ft-ey: 38;
+                --dc-ft-ew: 1571;
+                --dc-ft-eh: 158;
+                --dc-ft-eb: 25;
+                --dc-ft-ec: #FFBC0C;
+            }
+
+            &:nth-child(3) {
+                --dc-ft-ex: 333;
+                --dc-ft-ey: 63;
+                --dc-ft-ew: 1258;
+                --dc-ft-eh: 108;
+                --dc-ft-eb: 13;
+                --dc-ft-ec: #FFF788;
+            }
+
+            &:nth-child(4) {
+                --dc-ft-ex: 521;
+                --dc-ft-ey: 80;
+                --dc-ft-ew: 878;
+                --dc-ft-eh: 75;
+                --dc-ft-eb: 7;
+                --dc-ft-ec: #FFFFD7;
+            }
+        }
+    }
+
+    /*
+        main — the words and the social, the links, the contact
+    */
+    &-main {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 40px;
+
+        @media #{$xl} {
+            gap: 32px;
+        }
+
+        @media #{$lg,$md} {
+            flex-wrap: wrap;
+            gap: 48px 32px;
+        }
+
+        @media #{$sm,$xs} {
+            flex-direction: column;
+            gap: 44px;
+        }
+    }
+
+    &-about {
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: 514px;
+
+        .disc {
+            margin: 40px 0 48px;
+            color: #fff;
+            opacity: .8;
+            font-size: var(--dc-ft-fs);
+            line-height: var(--dc-ft-lh);
+            font-optical-sizing: none;
+        }
+
+        @media #{$lg,$md} {
+            flex: 1 1 100%;
+            max-width: none;
+
+            .disc {
+                max-width: 514px;
+            }
+        }
+
+        @media #{$sm,$xs} {
+            flex: none;
+            width: 100%;
+            max-width: none;
+        }
+    }
+
+    &-logo {
+        width: 378px;
+        max-width: 100%;
+        aspect-ratio: 219 / 44;
+
+        a {
+            display: block;
+            height: 100%;
+        }
+    }
+
+    &-about .social {
+        display: flex;
+        gap: 4px;
+
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #222120;
+            font-size: 14px;
+            color: #fff;
+            transition: background-color .4s var(--dc-cube-1), color .4s var(--dc-cube-1), box-shadow .4s var(--dc-cube-1);
+
+            &:hover {
+                background-color: #FF5B1B;
+                color: #000;
+                box-shadow: 2px 4px 9px rgb(255 91 27 / 60%);
+            }
+        }
+    }
+
+    /*
+        links
+    */
+    &-links {
+        flex: 0 0 var(--dc-ft-links);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: var(--dc-ft-links);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            height: 52px;
+            padding: 0 20px;
+            background-color: rgb(255 255 255 / 8%);
+            font-family: var(--dc-font-1);
+            font-size: var(--dc-ft-fs);
+            line-height: 1.2;
+            color: #fff;
+            font-optical-sizing: none;
+            transition: background-color .4s var(--dc-cube-1);
+
+            svg {
+                flex: 0 0 auto;
+                display: block;
+                transition: transform .4s var(--dc-cube-1);
+            }
+
+            &:hover {
+                background-color: rgb(255 255 255 / 14%);
+                color: #fff;
+
+                svg {
+                    transform: translateX(4px);
+                }
+            }
+        }
+
+        @media #{$lg,$md} {
+            flex: 1 1 320px;
+            width: auto;
+        }
+
+        @media #{$sm,$xs} {
+            flex: none;
+        }
+    }
+
+    /*
+        contact
+    */
+    &-contact {
+        flex: 0 0 var(--dc-ft-contact);
+        width: var(--dc-ft-contact);
+
+        .title {
+            margin: -2px 0 37px;
+            font-family: var(--dc-font-3);
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 16px;
+            color: rgb(255 255 255 / 64%);
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+
+            svg {
+                flex: 0 0 auto;
+                display: block;
+            }
+        }
+
+        /* the lines are trimmed to the capitals, so a one-line row is as tall as its icon */
+        .text {
+            flex: 1 1 0;
+            min-width: 0;
+            margin: -6px 0 -9px;
+            font-size: var(--dc-ft-fs);
+            line-height: var(--dc-ft-lh);
+            color: #fff;
+            font-optical-sizing: none;
+
+            a {
+                color: inherit;
+                transition: color .4s var(--dc-cube-1);
+
+                &:hover {
+                    color: #FF5B1B;
+                }
+            }
+        }
+
+        @media #{$lg,$md} {
+            flex: 1 1 280px;
+            width: auto;
+        }
+
+        @media #{$sm,$xs} {
+            flex: none;
+        }
+    }
+
+    /*
+        copy — the year and the name, sized by the width of the container, as one line of glass
+    */
+    &-copy {
+        position: relative;
+        z-index: 1;
+        container-type: inline-size;
+        margin-top: var(--dc-ft-copy);
+
+        .year {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .64cqw;
+            margin-bottom: 1.28cqw;
+            color: rgb(255 255 255 / 36%);
+
+            svg {
+                flex: 0 0 auto;
+                display: block;
+                width: 4.56cqw;
+                height: 4.56cqw;
+            }
+
+            .text {
+                font-family: var(--dc-font-2);
+                font-weight: 700;
+                font-size: 5.7cqw;
+                line-height: .7;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+        }
+
+        /* the line box is as tall as the capitals, so the letters stand on the foot of the section */
+        .name {
+            position: relative;
+            top: -.025em;
+            margin: 0;
+            font-family: var(--dc-font-2);
+            font-weight: 700;
+            font-size: 17.25cqw;
+            line-height: .7;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: rgb(255 255 255 / 36%);
+        }
+    }
+}
+
+/*
+    footer-1-end
+*/

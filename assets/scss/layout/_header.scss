@@ -68,7 +68,13 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 13px;
+                font-size: 12px;
+                transition: .3s var(--dc-cube-1);
+
+                &:hover {
+                    background-color: var(--dc-clr-pr-1);
+                    border-color: transparent;
+                }
             }
         }
     }
@@ -107,6 +113,12 @@
         border-radius: 8px;
         line-height: 1.5;
         padding: 10px 21px;
+        transition: .3s var(--dc-cube-1);
+
+        &:hover {
+            background-color: #FF5B1B;
+            color: #fff;
+        }
     }
 
     &-action-link {

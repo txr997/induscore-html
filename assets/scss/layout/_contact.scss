@@ -1,0 +1,442 @@
+@use '../abstracts/variables' as *;
+/*
+    contact-1-start
+*/
+
+.dc-contact-1 {
+    &-area {
+        /* 1px of the 1920 design — it follows the viewport and stops growing at 2560 */
+        --dc-ct-u: calc(min(100vw, 2560px) / 1920);
+        --dc-ct-pt: 132px;
+
+        /* the form: its inner space, the field type and the head */
+        --dc-ct-pad: 40px;
+        --dc-ct-fpad: 24px;
+        --dc-ct-fs: 16px;
+        --dc-ct-head-fs: 36px;
+        --dc-ct-head-lh: 40px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: var(--dc-ct-pt) 0;
+        background-color: #fff;
+
+        @media #{$xl} {
+            --dc-ct-pad: 28px;
+            --dc-ct-fpad: 16px;
+            --dc-ct-fs: 15px;
+            --dc-ct-head-fs: 30px;
+            --dc-ct-head-lh: 36px;
+        }
+
+        /* the glows keep one size below the desktop widths */
+        @media #{$lg,$md,$sm,$xs} {
+            --dc-ct-u: .5;
+            --dc-ct-pt: 90px;
+        }
+
+        @media #{$xs} {
+            --dc-ct-pt: 70px;
+            --dc-ct-pad: 20px;
+            --dc-ct-fpad: 16px;
+            --dc-ct-head-fs: 26px;
+            --dc-ct-head-lh: 32px;
+        }
+    }
+
+    /*
+        bg — the photo starts where the head of the form ends; the white above it holds the title
+    */
+    &-bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 332px;
+        bottom: 0;
+        overflow: hidden;
+        pointer-events: none;
+
+        .photo {
+            position: absolute;
+            inset: 0;
+            background-repeat: no-repeat;
+            background-position: 70% center;
+            background-size: cover;
+        }
+
+        /* an amber light in the top left corner, an orange one in the bottom right */
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            width: calc(452 * var(--dc-ct-u));
+            height: calc(452 * var(--dc-ct-u));
+            border-radius: 50%;
+            filter: blur(calc(115 * var(--dc-ct-u)));
+        }
+
+        &::before {
+            left: calc(-236 * var(--dc-ct-u));
+            top: calc(-233 * var(--dc-ct-u));
+            background-color: var(--dc-clr-pr-1);
+        }
+
+        &::after {
+            right: calc(-192 * var(--dc-ct-u));
+            bottom: calc(-204 * var(--dc-ct-u));
+            background: var(--dc-clr-gd-1);
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            top: 0;
+        }
+    }
+
+    /*
+        wrap — the form on the left, the words and the contact on the right
+    */
+    &-wrap {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 648fr 641fr;
+        column-gap: 7.93%;
+        align-items: start;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    /*
+        form
+    */
+    &-form {
+        margin-top: 86px;
+        background-color: #fff;
+
+        .head {
+            padding: 40px var(--dc-ct-pad) 28px;
+            border-top: 6px solid #FF5B1B;
+            background-color: var(--dc-clr-h-1);
+        }
+
+        .title {
+            margin: 0;
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: var(--dc-ct-head-fs);
+            line-height: var(--dc-ct-head-lh);
+            color: #fff;
+        }
+
+        .body {
+            padding: 32px var(--dc-ct-pad) 40px;
+        }
+
+        .note {
+            margin-bottom: 39px;
+            opacity: .8;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 26px 12px;
+        }
+
+        /* the label sits on the line of the field, as if it cut it */
+        .field {
+            position: relative;
+
+            label {
+                position: absolute;
+                left: 16px;
+                top: -5px;
+                z-index: 1;
+                padding: 0 4px;
+                background-color: #fff;
+                font-family: var(--dc-font-2);
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 10px;
+                color: var(--dc-clr-h-1);
+                text-transform: uppercase;
+            }
+
+            input,
+            select,
+            textarea {
+                display: block;
+                width: 100%;
+                height: 56px;
+                padding: 0 var(--dc-ct-fpad);
+                border: 1px solid rgb(21 19 18 / 12%);
+                border-radius: 8px;
+                outline: 0;
+                background-color: #fff;
+                font-family: var(--dc-font-1);
+                font-size: var(--dc-ct-fs);
+                line-height: 28px;
+                color: var(--dc-clr-h-1);
+                font-optical-sizing: none;
+                transition: border-color .4s var(--dc-cube-1);
+
+                &:focus {
+                    border-color: #FF5B1B;
+                }
+            }
+
+            ::placeholder {
+                color: var(--dc-clr-p-1);
+                opacity: .52;
+            }
+
+            select {
+                appearance: none;
+                padding-right: 52px;
+                cursor: pointer;
+
+                /* nothing chosen yet: it reads like a placeholder */
+                &:required:invalid {
+                    color: rgb(75 72 72 / 52%);
+                }
+
+                option {
+                    color: var(--dc-clr-h-1);
+                }
+            }
+
+            textarea {
+                height: 146px;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                resize: none;
+            }
+        }
+
+        .has-select .chevron {
+            position: absolute;
+            right: 16px;
+            top: 18px;
+            display: flex;
+            color: #000;
+            pointer-events: none;
+        }
+
+        .has-message {
+            grid-column: 1 / -1;
+        }
+
+        .submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 56px;
+            margin-top: 20px;
+            padding: 0;
+            border: 0;
+            border-radius: 8px;
+            background: var(--dc-clr-gd-1);
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 28px;
+            color: #fff;
+            transition: transform .5s var(--dc-cube-1), box-shadow .5s var(--dc-cube-1);
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 24px rgb(255 91 27 / 32%);
+            }
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            width: 100%;
+            max-width: 648px;
+            margin-top: 48px;
+            order: 2;
+        }
+
+        @media #{$xl} {
+            .note {
+                font-size: 16px;
+                line-height: 26px;
+            }
+        }
+
+        @media #{$xs} {
+            .grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    }
+
+    /*
+        info — the title is above the photo, the words and the contact lie on it
+    */
+    &-info {
+        position: relative;
+        min-height: 753px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            min-height: 0;
+            order: 1;
+        }
+    }
+
+    &-title-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        /* on the stacked widths the white ground of the title spans the whole screen */
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 40px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: calc(var(--dc-ct-pt) * -1);
+                bottom: 0;
+                z-index: -1;
+                width: 100vw;
+                margin-left: -50vw;
+                background-color: #fff;
+            }
+        }
+    }
+
+    /* two lines at the width of the design */
+    &-sec-title {
+        white-space: nowrap;
+
+        @media #{$xxl} {
+            font-size: 50px;
+        }
+
+        @media #{$xl} {
+            font-size: 44px;
+        }
+
+        @media #{$xs} {
+            white-space: normal;
+        }
+    }
+
+    &-info .note {
+        position: absolute;
+        right: 0;
+        top: 232px;
+        width: 447px;
+        max-width: 100%;
+        margin: 0;
+        color: #fff;
+        font-optical-sizing: none;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            right: auto;
+            top: auto;
+            width: auto;
+            max-width: 447px;
+            margin-top: 40px;
+        }
+    }
+
+    &-info .arrow {
+        position: absolute;
+        right: -100px;
+        top: 447px;
+        width: 200px;
+        height: 134px;
+        pointer-events: none;
+
+        svg {
+            display: block;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    /*
+        cards — glass pills with an orange eye
+    */
+    &-info .cards {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        width: 343px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 9px;
+            border: 1px solid rgb(255 255 255 / 50%);
+            border-radius: 170px;
+            background-color: rgb(255 255 255 / 16%);
+            -webkit-backdrop-filter: blur(7px);
+            backdrop-filter: blur(7px);
+
+            &:last-child {
+                background-color: rgb(255 255 255 / 10%);
+            }
+        }
+
+        .icon {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background-color: #FF5B1B;
+
+            svg {
+                display: block;
+            }
+        }
+
+        .text {
+            flex: 1 1 0;
+            min-width: 0;
+            margin: 0;
+            color: #fff;
+            font-optical-sizing: none;
+
+            a {
+                display: block;
+                color: inherit;
+            }
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            max-width: 100%;
+            margin-top: 32px;
+        }
+    }
+}
+
+/*
+    contact-1-end
+*/

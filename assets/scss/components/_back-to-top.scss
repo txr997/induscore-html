@@ -10,7 +10,7 @@
     z-index: 4;
     width: 40px;
     height: 50px;
-    background-color: var(--lt-clr-pr-1);
+    background-color: var(--dc-clr-pr-1);
     transition: 0.3s;
     display: flex;
     align-items: center;
@@ -40,7 +40,7 @@
             transform: translateY(-20px);
             mix-blend-mode: difference;
             * {
-                fill: var(--lt-clr-pr-1);
+                fill: var(--dc-clr-pr-1);
             }
         }
     }
