@@ -320,3 +320,453 @@
 /*
     projects-1-end
 */
+
+
+/*
+    projects-2-start
+*/
+
+.dc-projects-2 {
+    /* no overflow on the area — it would stop the cards from sticking */
+    &-area {
+        /* where the cards stick, counted from the top of the screen */
+        --dc-pj2-top: 120px;
+        position: relative;
+        z-index: 1;
+        padding: 132px 0 136px;
+        background-color: #F2F2F0;
+
+        @media #{$xxxl} {
+            padding: 120px 0 124px;
+        }
+
+        @media #{$xxl} {
+            --dc-pj2-top: 110px;
+            padding: 110px 0 114px;
+        }
+
+        @media #{$xl} {
+            --dc-pj2-top: 110px;
+            padding: 100px 0 104px;
+        }
+
+        @media #{$lg} {
+            --dc-pj2-top: 100px;
+            padding: 90px 0;
+        }
+
+        @media #{$md} {
+            padding: 80px 0;
+        }
+
+        @media #{$xs} {
+            padding: 60px 0;
+        }
+    }
+
+    /* the faded power plant along the bottom edge */
+    &-bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        height: clamp(180px, 22.14vw, 425px);
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: cover;
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 877px;
+        margin: 0 auto 48px;
+        text-align: center;
+
+        @media #{$xxl} {
+            margin-bottom: 44px;
+        }
+
+        @media #{$xl,$lg} {
+            margin-bottom: 40px;
+        }
+
+        @media #{$md} {
+            margin-bottom: 36px;
+        }
+
+        @media #{$xs} {
+            margin-bottom: 32px;
+        }
+    }
+
+    &-sec-title {
+        font-size: 80px;
+        line-height: 1;
+
+        @media #{$xxl} {
+            font-size: 72px;
+        }
+
+        @media #{$xl} {
+            font-size: 64px;
+        }
+
+        @media #{$lg} {
+            font-size: 56px;
+        }
+
+        @media #{$md} {
+            font-size: 48px;
+        }
+
+        @media #{$xs} {
+            font-size: 34px;
+            line-height: 1.1;
+        }
+
+        @media #{$sm} {
+            font-size: 40px;
+        }
+    }
+
+    /*
+        cards — each one sticks a little lower than the one before, the next one slides over it
+    */
+    &-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        @media #{$md,$sm,$xs} {
+            gap: 24px;
+        }
+    }
+
+    &-card {
+        --dc-pj2-i: 0;
+        --dc-pj2-col: 520px;
+        --dc-pj2-pad: 40px;
+        --dc-pj2-title-fs: 36px;
+        --dc-pj2-title-lh: 40px;
+        --dc-pj2-text-fs: 18px;
+        --dc-pj2-text-lh: 28px;
+        position: sticky;
+        top: calc(var(--dc-pj2-top) + var(--dc-pj2-i) * 20px);
+        display: grid;
+        grid-template-columns: var(--dc-pj2-col) 1fr;
+        min-height: 600px;
+        border-radius: 16px;
+
+        @media #{$xxl} {
+            --dc-pj2-col: 480px;
+            --dc-pj2-pad: 36px;
+            --dc-pj2-title-fs: 34px;
+            --dc-pj2-title-lh: 38px;
+            --dc-pj2-text-fs: 17px;
+            --dc-pj2-text-lh: 27px;
+            min-height: 560px;
+        }
+
+        @media #{$xl} {
+            --dc-pj2-col: 440px;
+            --dc-pj2-pad: 32px;
+            --dc-pj2-title-fs: 32px;
+            --dc-pj2-title-lh: 36px;
+            --dc-pj2-text-fs: 16px;
+            --dc-pj2-text-lh: 26px;
+            min-height: 540px;
+        }
+
+        @media #{$lg} {
+            --dc-pj2-col: 380px;
+            --dc-pj2-pad: 28px;
+            --dc-pj2-title-fs: 28px;
+            --dc-pj2-title-lh: 32px;
+            --dc-pj2-text-fs: 15px;
+            --dc-pj2-text-lh: 24px;
+            min-height: 500px;
+        }
+
+        /* from here the card is a column — photo on top, text below — and the cards just scroll */
+        @media #{$md,$sm,$xs} {
+            --dc-pj2-pad: 32px;
+            --dc-pj2-title-fs: 32px;
+            --dc-pj2-title-lh: 36px;
+            --dc-pj2-text-fs: 17px;
+            --dc-pj2-text-lh: 27px;
+            position: static;
+            grid-template-columns: 1fr;
+            min-height: 0;
+        }
+
+        @media #{$xs} {
+            --dc-pj2-pad: 24px;
+            --dc-pj2-title-fs: 26px;
+            --dc-pj2-title-lh: 30px;
+            --dc-pj2-text-fs: 16px;
+            --dc-pj2-text-lh: 26px;
+        }
+
+        @media #{$sm} {
+            --dc-pj2-pad: 28px;
+            --dc-pj2-title-fs: 30px;
+            --dc-pj2-title-lh: 34px;
+        }
+    }
+
+    /* the dark panel runs 16px under the photo, so the rounded corners of the photo show dark and the card has one edge only */
+    &-card-content {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        margin-right: -16px;
+        padding: var(--dc-pj2-pad) calc(var(--dc-pj2-pad) + 16px) var(--dc-pj2-pad) var(--dc-pj2-pad);
+        border-radius: 16px 0 0 16px;
+        background-color: #151312;
+
+        @media #{$md,$sm,$xs} {
+            margin: -16px 0 0;
+            padding: calc(var(--dc-pj2-pad) + 16px) var(--dc-pj2-pad) var(--dc-pj2-pad);
+            border-radius: 0 0 16px 16px;
+        }
+    }
+
+    /* the orange tile — gradient fill, the same gradient turned over as a 3px edge, a dark ring around it */
+    &-card-icon {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 68px;
+        height: 68px;
+        border: 3px solid transparent;
+        border-radius: 10px;
+        font-size: 40px;
+        line-height: 1;
+        color: #000;
+        background:
+            linear-gradient(180deg, #FF5B1B 0%, #FFA922 100%) padding-box,
+            linear-gradient(180deg, #FFA922 0%, #FF5B1B 100%) border-box;
+        box-shadow: 0 0 0 4px #302D2C, 0 .9px 3.6px .9px #000, 0 2.7px 2.9px -1.35px #000, 0 0 .2px .67px #000, 0 0 .2px .2px #000;
+
+        i {
+            display: block;
+        }
+    }
+
+    /* the text sits on top, the two facts sit at the bottom — whatever the height of the card */
+    &-card-body {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 40px;
+        margin: 24px 0 40px;
+
+        @media #{$lg} {
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            flex: 0 0 auto;
+            margin: 28px 0 32px;
+        }
+    }
+
+    &-card-title {
+        margin: 0 0 19px;
+        font-family: var(--dc-font-2);
+        font-weight: 600;
+        font-size: var(--dc-pj2-title-fs);
+        line-height: var(--dc-pj2-title-lh);
+        letter-spacing: -1%;
+        color: #fff;
+
+        /* the link takes the colour of the title and turns orange on hover */
+        a {
+            color: inherit;
+            transition: color .4s var(--dc-cube-1);
+
+            &:hover {
+                color: var(--dc-clr-pr-2);
+            }
+        }
+
+        @media #{$lg} {
+            margin-bottom: 14px;
+        }
+    }
+
+    &-card-disc {
+        font-size: var(--dc-pj2-text-fs);
+        line-height: var(--dc-pj2-text-lh);
+        color: rgb(255 255 255 / 72%);
+
+        .dots {
+            color: var(--dc-clr-pr-2);
+        }
+    }
+
+    &-card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(255 255 255 / 12%);
+            font-family: var(--dc-font-1);
+            font-size: var(--dc-pj2-text-fs);
+            line-height: var(--dc-pj2-text-lh);
+            color: #fff;
+        }
+
+        .value {
+            margin-left: auto;
+            text-align: right;
+            color: rgb(255 255 255 / 72%);
+        }
+    }
+
+    &-card-btn {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 56px;
+        border-radius: 8px;
+        font-family: var(--dc-font-2);
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--dc-clr-pr-2);
+        background-color: rgb(255 255 255 / 12%);
+        transition: color .3s var(--dc-cube-1) .2s;
+
+        /* the box animation of dc-pr-btn-2 (same class, same script) — the boxes are the orange */
+        .boxes span {
+            background-color: var(--dc-clr-pr-2);
+        }
+
+        &:hover {
+            color: #fff;
+        }
+
+        &:not(:has(.boxes)):hover {
+            background-color: var(--dc-clr-pr-2);
+        }
+    }
+
+    /* the photo with the light squares stepping in from its corner */
+    &-card-img {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        border-radius: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+
+        @media #{$md,$sm,$xs} {
+            order: -1;
+            aspect-ratio: 880 / 600;
+        }
+    }
+
+    &-card-shape {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: block;
+        height: auto;
+        color: #F2F2F0;
+
+        &.is-1 {
+            width: 28.2955%;
+        }
+
+        &.is-2 {
+            width: 34.8864%;
+        }
+
+        &.is-3 {
+            top: 0;
+            bottom: auto;
+            width: 27.6136%;
+        }
+
+        &.is-4 {
+            width: 39.2045%;
+        }
+    }
+
+    /*
+        bottom-content
+    */
+    &-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        max-width: 862px;
+        margin: 48px auto 0;
+        text-align: center;
+
+        @media #{$xl,$lg} {
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            gap: 28px;
+            margin-top: 40px;
+        }
+    }
+
+    &-disc {
+        margin: 0;
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    &-btn {
+        flex: 0 0 auto;
+        gap: 5px;
+        padding: 16px 26px;
+        border-radius: 6px;
+
+        .icon {
+            flex: 0 0 auto;
+            display: inline-flex;
+            width: 20px;
+            height: 20px;
+
+            svg {
+                display: block;
+            }
+        }
+    }
+}
+
+/*
+    projects-2-end
+*/

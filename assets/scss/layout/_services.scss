@@ -131,6 +131,8 @@
                 flex: 0 0 auto;
             }
         }
+
+        
     }
 
     /* the lines are spaced by the width of the design, so they break at the same words at every size */
@@ -617,4 +619,477 @@
 
 /*
     services-1-end
+*/
+
+
+/*
+    services-2-start
+*/
+
+/* 1px of the 1920 design on the checker strips — they shrink on the small screens */
+@function sv2-u($px) {
+    @return calc(#{$px} * var(--dc-sv2-u));
+}
+
+/* the grey card and the orange hover one — everything that changes is a variable */
+@mixin dc-services-2-card-off {
+    --dc-sv2-card-bg: #242424;
+    --dc-sv2-content-bg: #0B0B0B;
+    --dc-sv2-title: #fff;
+    --dc-sv2-disc: rgb(255 255 255 / 80%);
+    --dc-sv2-line: rgb(255 255 255 / 12%);
+    --dc-sv2-icon-bg: #FF5B1B;
+    --dc-sv2-btn-bg: #0B0B0B;
+    --dc-sv2-btn-arrow: #FFBE2E;
+}
+
+@mixin dc-services-2-card-on {
+    --dc-sv2-card-bg: #FF5B1B;
+    --dc-sv2-content-bg: #fff;
+    --dc-sv2-title: #151312;
+    --dc-sv2-disc: rgb(21 19 18 / 80%);
+    --dc-sv2-line: rgb(21 19 18 / 12%);
+    --dc-sv2-icon-bg: #151312;
+    --dc-sv2-btn-bg: #FF5B1B;
+    --dc-sv2-btn-arrow: #fff;
+}
+
+.dc-services-2 {
+    &-area {
+        /* where the title and the slider start, counted from the left of the container */
+        --dc-subtitle-2-bg: rgb(255 255 255 / 8%);
+        --dc-sv2-u: 1px;
+        --dc-sv2-ml-title: 470px;
+        --dc-sv2-ml-slide: 260px;
+        --dc-sv2-card-w: 408px;
+        /* the photo ends 99px past the start of the slider */
+        --dc-sv2-box-w: min(619px, calc(50vw - 341px));
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: 132px 0;
+        background-color: #0B0B0B;
+
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        @media #{$xxxl} {
+            padding: 120px 0;
+        }
+
+        @media #{$xxl} {
+            --dc-sv2-ml-title: 400px;
+            --dc-sv2-ml-slide: 220px;
+            --dc-sv2-card-w: 380px;
+            --dc-sv2-box-w: min(619px, calc(50vw - 329px));
+            padding: 110px 0;
+        }
+
+        @media #{$xl} {
+            --dc-sv2-ml-title: 290px;
+            --dc-sv2-ml-slide: 170px;
+            --dc-sv2-card-w: 340px;
+            --dc-sv2-box-w: min(619px, calc(50vw - 289px));
+            padding: 100px 0;
+        }
+
+        /* from here on everything is stacked: photo, title, slider, arrows, text */
+        @media #{$lg,$md,$sm,$xs} {
+            --dc-sv2-ml-title: 0px;
+            --dc-sv2-ml-slide: 0px;
+            --dc-sv2-card-w: 340px;
+            --dc-sv2-box-w: min(100%, 520px);
+            padding: 0 0 90px;
+        }
+
+        @media #{$md} {
+            --dc-sv2-u: .6px;
+            --dc-sv2-box-w: min(100%, 460px);
+            padding: 0 0 80px;
+        }
+
+        @media #{$xs} {
+            --dc-sv2-u: .6px;
+            --dc-sv2-card-w: 300px;
+            --dc-sv2-box-w: min(88%, 340px);
+            padding: 0 0 60px;
+        }
+
+        @media #{$sm} {
+            --dc-sv2-card-w: 320px;
+            --dc-sv2-box-w: min(88%, 400px);
+        }
+    }
+
+    /*
+        checker-shape — three rows of squares, the columns repeat every 243px of the design
+    */
+    &-checker {
+        position: absolute;
+        left: sv2-u(-14);
+        right: sv2-u(-14);
+        z-index: 0;
+        height: sv2-u(60);
+        pointer-events: none;
+        background-image:
+            linear-gradient(90deg, transparent 0 sv2-u(93.5), #F2F2F0 0 sv2-u(125.5), transparent 0 sv2-u(187.5), #F2F2F0 0),
+            linear-gradient(90deg, #F2F2F0 0 sv2-u(93.5), #0B0B0B 0 sv2-u(125.5), #F2F2F0 0 sv2-u(187.5), #0B0B0B 0),
+            linear-gradient(90deg, #0B0B0B 0 sv2-u(93.5), #F2F2F0 0 sv2-u(125.5), #0B0B0B 0 sv2-u(187.5), #F2F2F0 0);
+        background-size: sv2-u(243) sv2-u(20);
+        background-position: sv2-u(-55.5) 0, sv2-u(-55.5) sv2-u(20), sv2-u(-55.5) sv2-u(40);
+        background-repeat: repeat-x;
+
+        &.is-top {
+            top: 0;
+        }
+
+        &.is-bottom {
+            bottom: 0;
+        }
+    }
+
+    /*
+        img-box — the big photo on the left edge, the light squares top-left and
+        the two dark steps cut out of its bottom-left corner
+    */
+    &-img-box {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: var(--dc-sv2-box-w);
+        aspect-ratio: 619 / 647;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        @media #{$md} {
+            margin-bottom: 50px;
+        }
+
+        @media #{$xs} {
+            margin-bottom: 40px;
+        }
+    }
+
+    &-img {
+        position: absolute;
+        inset: 0;
+        background-repeat: no-repeat;
+        background-position: center;
+        /* 30% bigger than the box, so the photo has room to travel inside it — wa_parallax_bg slides it from top to bottom while the page scrolls */
+        background-size: 130%;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 12.601% 100%, 12.601% 87.9444%, 32.9564% 87.9444%, 32.9564% 68.4699%, 12.601% 68.4699%, 12.601% 87.9444%, 0% 87.9444%);
+    }
+
+    &-img-shape {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+        width: 35.218%;
+        height: auto;
+        color: #F2F2F0;
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        max-width: 811px;
+        margin-left: var(--dc-sv2-ml-title);
+
+        .dc-subtitle-2 {
+            background-color: rgb(255 255 255 / 8%);
+        }
+    }
+
+    &-sec-title {
+        color: #fff;
+    }
+
+    /*
+        slider — the slides keep their own width, the row runs on past the right edge of the screen
+    */
+    &-slider-wrap {
+        position: relative;
+        margin: 48px 0 0 var(--dc-sv2-ml-slide);
+
+        @media #{$lg} {
+            margin-top: 44px;
+        }
+
+        @media #{$md} {
+            margin-top: 40px;
+        }
+
+        @media #{$xs} {
+            margin-top: 32px;
+        }
+    }
+
+    &-slider {
+        overflow: visible;
+        cursor: grab;
+
+        /* cut at the left edge of the slider, open to the right — a slide leaving to the left disappears there */
+        clip-path: inset(0 -100vw 0 0);
+    }
+
+    &-slide {
+        width: var(--dc-sv2-card-w);
+        height: auto;
+    }
+
+    &-arrows {
+        position: absolute;
+        right: 100%;
+        top: 340px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-right: 32px;
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            color: rgb(255 255 255 / 72%);
+            background-color: rgb(11 11 11 / 40%);
+            box-shadow: inset 0 0 0 1px rgb(255 255 255 / 20%);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            cursor: pointer;
+            transition: color .4s var(--dc-cube-1), background-color .4s var(--dc-cube-1), box-shadow .4s var(--dc-cube-1);
+
+            &:hover {
+                color: #fff;
+                background-color: #FF5B1B;
+                box-shadow: inset 0 0 0 1px #FF5B1B;
+            }
+
+            svg {
+                display: block;
+            }
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: static;
+            flex-direction: row;
+            margin: 28px 0 0;
+        }
+    }
+
+    /*
+        card — 12px frame, the photo on top, the dark text box underneath,
+        a round notch in both of them for the icon
+    */
+    &-card {
+        @include dc-services-2-card-off;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 33px;
+        height: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        background-color: var(--dc-sv2-card-bg);
+        transition: background-color .4s var(--dc-cube-1);
+
+        &:hover {
+            @include dc-services-2-card-on;
+
+            /* the photo turns into a duotone of the orange behind it */
+            .dc-services-2-card-img {
+                mix-blend-mode: luminosity;
+            }
+
+            .dc-services-2-card-btn .text {
+                max-width: 80px;
+                opacity: 1;
+            }
+        }
+    }
+
+    &-card-img {
+        flex: 0 0 247px;
+        height: 247px;
+        border-radius: 10px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        -webkit-mask-image: radial-gradient(circle at 50% calc(100% + 15px), transparent 0 49.5px, #000 50.5px);
+        mask-image: radial-gradient(circle at 50% calc(100% + 15px), transparent 0 49.5px, #000 50.5px);
+    }
+
+    /* the dashed hairline runs through the gap, behind the icon */
+    &-card-line {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 274px;
+        height: 1px;
+        background-image: repeating-linear-gradient(90deg, var(--dc-sv2-line) 0 4px, transparent 4px 8px);
+        background-position: -2px 0;
+    }
+
+    &-card-icon {
+        position: absolute;
+        left: 50%;
+        top: 236px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 76px;
+        height: 76px;
+        margin-left: -38px;
+        border-radius: 50%;
+        font-size: 32px;
+        line-height: 1;
+        color: #fff;
+        background-color: var(--dc-sv2-icon-bg);
+        box-shadow: inset 0 0 10px #fff;
+        transition: background-color .4s var(--dc-cube-1);
+
+        i {
+            display: block;
+        }
+    }
+
+    &-card-content {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 196px;
+        padding: 36px 20px 20px;
+        border-radius: 10px;
+        text-align: center;
+        background-color: var(--dc-sv2-content-bg);
+        -webkit-mask-image: radial-gradient(circle at 50% -18px, transparent 0 49.5px, #000 50.5px);
+        mask-image: radial-gradient(circle at 50% -18px, transparent 0 49.5px, #000 50.5px);
+        transition: background-color .4s var(--dc-cube-1);
+    }
+
+    &-card-title {
+        margin: 0 0 12px;
+        font-family: var(--dc-font-2);
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 28px;
+        color: var(--dc-sv2-title);
+        transition: color .4s var(--dc-cube-1);
+    }
+
+    &-card-disc {
+        margin: 0 0 16px;
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--dc-sv2-disc);
+        transition: color .4s var(--dc-cube-1);
+    }
+
+    /* only the arrow at rest, "Read More" slides out on hover */
+    &-card-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        height: 36px;
+        padding: 0 18px;
+        border-radius: 50px;
+        font-family: var(--dc-font-2);
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1;
+        color: #fff;
+        background-color: var(--dc-sv2-btn-bg);
+        box-shadow: inset 0 0 0 1px rgb(255 255 255 / 20%);
+        transition: background-color .4s var(--dc-cube-1);
+
+        .text {
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 0;
+            transition: max-width .4s var(--dc-cube-1), opacity .3s var(--dc-cube-1);
+        }
+
+        i {
+            font-size: 16px;
+            line-height: 1;
+            color: var(--dc-sv2-btn-arrow);
+            transition: color .4s var(--dc-cube-1);
+        }
+    }
+
+    /*
+        bottom-content
+    */
+    &-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        margin: 48px 0 0 var(--dc-sv2-ml-slide);
+
+        @media #{$lg,$md,$sm,$xs} {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 28px;
+            margin-top: 40px;
+        }
+
+        @media #{$xs} {
+            gap: 24px;
+            margin-top: 32px;
+        }
+    }
+
+    &-disc {
+        flex: 0 1 662px;
+        max-width: 662px;
+        color: rgb(255 255 255 / 80%);
+
+        /* in the stacked column the basis would become a height */
+        @media #{$lg,$md,$sm,$xs} {
+            flex: 0 0 auto;
+        }
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    &-btn {
+        flex: 0 0 auto;
+        gap: 5px;
+        padding: 16px 26px;
+        border-radius: 6px;
+
+        .icon {
+            flex: 0 0 auto;
+            display: inline-flex;
+            width: 20px;
+            height: 20px;
+
+            svg {
+                display: block;
+            }
+        }
+    }
+}
+
+/*
+    services-2-end
 */

@@ -176,7 +176,7 @@
     align-items: center;
     gap: 17px;
     padding: 4px 4px 4px 22px;
-    transition: color .5s var(--dc-cube-1);
+    transition: .4s ;
 
     /* four panels hold the body over the gradient; on hover the body is sliced through the middle and each panel slides off to its own side and fades, and back again on leave */
     .bg {
@@ -285,6 +285,9 @@
 
 /* the flat, full-width call to action on dark glass */
 .dc-pr-btn-2 {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -295,11 +298,46 @@
     line-height: 24px;
     color: #fff;
     background-color: #FF5B1B;
-    transition: .4s var(--dc-cube-1);
+    transition: color .3s var(--dc-cube-1) .2s;
+
+    /* the little boxes (main.js fills the grid): on hover each one turns and grows from nothing until the whole button is yellow */
+    .boxes {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        display: grid;
+        grid-template-columns: repeat(var(--cols, 1), 1fr);
+        grid-template-rows: repeat(var(--rows, 1), 1fr);
+        pointer-events: none;
+
+        span {
+            margin: -.5px;
+            background-color: var(--dc-clr-pr-1);
+            transform: scale(0) rotate(-180deg);
+            transition: transform .3s var(--dc-quart-1);
+        }
+    }
 
     &:hover {
         color: var(--dc-clr-h-1);
+
+        .boxes span {
+            transform: scale(1) rotate(0deg);
+            transition: transform .5s var(--dc-cube-1) var(--d, 0s);
+        }
+    }
+
+    /* without the boxes (no script) the yellow just comes in */
+    &:not(:has(.boxes)):hover {
         background-color: var(--dc-clr-pr-1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .boxes span,
+        &:hover .boxes span {
+            transition-duration: 0s;
+            transition-delay: 0s;
+        }
     }
 }
 

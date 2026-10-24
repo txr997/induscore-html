@@ -1,0 +1,390 @@
+@use '../abstracts/variables' as *;
+/*
+    faqs-2-start
+*/
+
+/* 1px of the 1920 design — it follows the viewport and stops growing at 1920 */
+@function fq2-u($px) {
+    @return calc(#{$px} * var(--dc-fq2-u));
+}
+
+/* the photo with its three light shapes cut out of the lower-left corner — and the same outline with the cut-outs folded flat onto the bottom edge (same points, so one turns into the other) */
+$fq2-clip-full: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    fq2-u(280) 100%,
+    fq2-u(140) calc(100% - #{fq2-u(138)}),
+    fq2-u(280) calc(100% - #{fq2-u(138)}),
+    fq2-u(280) calc(100% - #{fq2-u(278)}),
+    fq2-u(140) calc(100% - #{fq2-u(278)}),
+    fq2-u(140) calc(100% - #{fq2-u(138)}),
+    fq2-u(140) 100%,
+    0 100%,
+    0 calc(100% - #{fq2-u(138)}),
+    fq2-u(140) calc(100% - #{fq2-u(138)}),
+    0 calc(100% - #{fq2-u(278)})
+);
+
+$fq2-clip-flat: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    fq2-u(280) 100%,
+    fq2-u(140) 100%,
+    fq2-u(280) 100%,
+    fq2-u(280) 100%,
+    fq2-u(140) 100%,
+    fq2-u(140) 100%,
+    fq2-u(140) 100%,
+    0 100%,
+    0 100%,
+    fq2-u(140) 100%,
+    0 100%
+);
+
+.dc-faqs-2 {
+    &-area {
+        --dc-fq2-u: calc(min(100vw, 1920px) / 1920);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background-color: #F2F2F0;
+    }
+
+    /*
+        left-img — the photo takes the whole height, three light shapes are cut out of its lower-left corner
+    */
+    &-left-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 0;
+        width: fq2-u(632);
+        background-repeat: no-repeat;
+        background-position: center;
+        /* 30% taller than the box (the photo is as wide as the box or wider at that height), so it has room to travel — wa_parallax_bg slides it from top to bottom while the page scrolls */
+        background-size: auto 130%;
+        clip-path: $fq2-clip-full;
+
+        /* main.js sets .dc-clip-ani: the cut-outs wait folded flat onto the bottom edge, then rise as the photo scrolls into view */
+        &.dc-clip-ani {
+            clip-path: $fq2-clip-flat;
+            transition: clip-path 1.4s cubic-bezier(.65, 0, .35, 1);
+
+            &.is-in {
+                clip-path: $fq2-clip-full;
+            }
+        }
+
+        @media #{$lg} {
+            width: 280px;
+            --dc-fq2-u: .5;
+        }
+
+        @media #{$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    /* the 3D plant in the top-right corner — it reaches a little over the dark panel */
+    &-3d {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 3;
+        width: fq2-u(429);
+        pointer-events: none;
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-right {
+        position: relative;
+        margin-left: fq2-u(632);
+
+        @media #{$lg} {
+            margin-left: 280px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            margin-left: 0;
+        }
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        padding: fq2-u(132) 0 fq2-u(45) fq2-u(72);
+
+        @media #{$lg} {
+            padding: 90px 40px 45px 56px;
+        }
+
+        @media #{$md} {
+            padding: 80px 30px 44px;
+        }
+
+        @media #{$xs} {
+            padding: 60px 20px 36px;
+        }
+    }
+
+    &-sec-title {
+        max-width: fq2-u(764);
+        font-size: max(40px, #{fq2-u(56)});
+
+        @media #{$lg} {
+            max-width: 764px;
+            font-size: 44px;
+        }
+
+        @media #{$md} {
+            max-width: 764px;
+            font-size: 40px;
+        }
+
+        @media #{$xs} {
+            max-width: none;
+            font-size: 32px;
+        }
+
+        @media #{$sm} {
+            font-size: 36px;
+        }
+    }
+
+    /*
+        body — the dark panel with the accordion, the orange photo beside it
+    */
+    &-body {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) fq2-u(380);
+
+        @media #{$lg} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        @media #{$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    &-panel {
+        padding: fq2-u(60);
+        background-color: #0B0B0B;
+
+        @media #{$lg} {
+            padding: 56px 40px;
+        }
+
+        @media #{$md} {
+            padding: 48px 30px;
+        }
+
+        @media #{$xs} {
+            padding: 36px 20px;
+        }
+    }
+
+    &-photo {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background-color: #FF5B1B;
+
+        @media #{$lg,$md,$sm,$xs} {
+            height: 320px;
+        }
+
+        @media #{$lg} {
+            display: none;
+        }
+
+        @media #{$xs} {
+            height: 260px;
+        }
+    }
+
+    /* the photo is laid over the orange as a luminosity blend — the orange duotone of the design */
+    &-photo-img {
+        position: absolute;
+        inset: 0;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+        mix-blend-mode: luminosity;
+    }
+
+    /*
+        accordion — Bootstrap 5, restyled: a thin framed row, orange when open
+    */
+    &-accordion {
+        --bs-accordion-bg: transparent;
+        --bs-accordion-border-width: 0;
+        --bs-accordion-border-radius: 8px;
+        --bs-accordion-inner-border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    &-item.accordion-item {
+        border: 0;
+        border-radius: 0;
+        background-color: transparent;
+    }
+
+    &-accordion .accordion-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+        min-height: 60px;
+        padding: 16px 24px;
+        border: 1px solid rgb(255 255 255 / 20%);
+        border-radius: 8px;
+        font-family: var(--dc-font-2);
+        color: #fff;
+        text-align: left;
+        background-color: #0B0B0B;
+        box-shadow: none;
+        transition: background-color .4s var(--dc-cube-1), border-radius .4s var(--dc-cube-1);
+
+        /* Bootstrap's own chevron goes, the square icon below takes its place */
+        &::after {
+            display: none;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--dc-clr-pr-1);
+            outline-offset: 2px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .num {
+            flex: 0 0 auto;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 28px;
+            color: var(--dc-clr-pr-2);
+            transition: color .4s var(--dc-cube-1);
+        }
+
+        .text {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 28px;
+            color: #fff;
+        }
+
+        /* the square: two corners cut off, a plus that turns into a minus */
+        .icon {
+            position: relative;
+            flex: 0 0 auto;
+            width: 24px;
+            height: 24px;
+            border-radius: 2px;
+            background-color: #4B4848;
+            clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px, 4px 4px);
+            transition: background-color .4s var(--dc-cube-1);
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                border-radius: 1px;
+                background-color: #fff;
+                transition: transform .4s var(--dc-cube-1), width .4s var(--dc-cube-1);
+            }
+
+            &::before {
+                width: 10px;
+                height: 2px;
+                margin: -1px 0 0 -5px;
+            }
+
+            &::after {
+                width: 2px;
+                height: 10px;
+                margin: -5px 0 0 -1px;
+            }
+        }
+
+        &:not(.collapsed) {
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            background-color: #FF5B1B;
+            box-shadow: none;
+
+            .num {
+                color: #151312;
+            }
+
+            .text {
+                font-weight: 600;
+            }
+
+            .icon {
+                background-color: #151312;
+
+                &::before {
+                    width: 12px;
+                    margin-left: -6px;
+                }
+
+                &::after {
+                    transform: scaleY(0);
+                }
+            }
+        }
+
+        @media #{$xs} {
+            padding: 14px 16px;
+
+            .text {
+                font-size: 17px;
+                line-height: 24px;
+            }
+
+            .num {
+                font-size: 16px;
+            }
+        }
+    }
+
+    &-accordion .accordion-body {
+        padding: 20px 24px;
+        border-radius: 0 0 8px 8px;
+        font-family: var(--dc-font-1);
+        font-size: 16px;
+        line-height: 24px;
+        color: rgb(255 255 255 / 80%);
+        background-color: #1C1C1C;
+
+        @media #{$xs} {
+            padding: 16px;
+        }
+    }
+}
+
+/*
+    faqs-2-end
+*/

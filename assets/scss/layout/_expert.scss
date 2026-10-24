@@ -1,0 +1,302 @@
+@use '../abstracts/variables' as *;
+/*
+    expert-2-start
+*/
+
+/* 1px of the 1920 design on the checker strip — it shrinks on the small screens */
+@function ex2-u($px) {
+    @return calc(#{$px} * var(--dc-ex2-u));
+}
+
+/* the row is three identical sets, one set is a third of it — the loop never shows a seam */
+@keyframes dc-expert-2-marquee {
+    to {
+        transform: translateX(-33.3333%);
+    }
+}
+
+.dc-expert-2 {
+    &-area {
+        --dc-subtitle-2-bg: rgb(255 255 255 / 12%);
+        --dc-ex2-u: 1px;
+        --dc-ex2-icon: 48px;
+        --dc-ex2-fs: 20px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: 132px 0 60px;
+        background-color: #0B0B0B;
+
+        @media #{$xxxl} {
+            padding-top: 120px;
+        }
+
+        @media #{$xxl} {
+            padding-top: 110px;
+        }
+
+        @media #{$xl} {
+            padding-top: 100px;
+        }
+
+        @media #{$lg} {
+            padding-top: 90px;
+        }
+
+        @media #{$md} {
+            --dc-ex2-u: .6px;
+            --dc-ex2-icon: 44px;
+            --dc-ex2-fs: 18px;
+            padding-top: 80px;
+        }
+
+        @media #{$xs} {
+            --dc-ex2-u: .6px;
+            --dc-ex2-icon: 40px;
+            --dc-ex2-fs: 16px;
+            padding: 60px 0 50px;
+        }
+    }
+
+    /*
+        bg — the video runs at 40% over the dark, the overlay fades it out towards the bottom;
+        the photo (it already carries its 40%) stays only until the video really plays
+    */
+    &-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+
+        /* once the video plays the dark takes over from the photo */
+        &.is-playing::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #0B0B0B;
+        }
+    }
+
+    &-bg-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .8s var(--dc-cube-1);
+    }
+
+    &-bg.is-playing &-bg-video {
+        opacity: .4;
+    }
+
+    &-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(180deg, #0B0B0B 0%, rgb(11 11 11 / 0%) 100%);
+    }
+
+    /*
+        checker-shape — three rows of squares, the columns repeat every 243px of the design
+    */
+    &-checker {
+        position: absolute;
+        left: ex2-u(-14);
+        right: ex2-u(-14);
+        top: 0;
+        z-index: 2;
+        height: ex2-u(60);
+        pointer-events: none;
+        background-image:
+            linear-gradient(90deg, transparent 0 ex2-u(93.5), #F2F2F0 0 ex2-u(125.5), transparent 0 ex2-u(187.5), #F2F2F0 0),
+            linear-gradient(90deg, #F2F2F0 0 ex2-u(93.5), #0B0B0B 0 ex2-u(125.5), #F2F2F0 0 ex2-u(187.5), #0B0B0B 0),
+            linear-gradient(90deg, #0B0B0B 0 ex2-u(93.5), #F2F2F0 0 ex2-u(125.5), #0B0B0B 0 ex2-u(187.5), #F2F2F0 0);
+        background-size: ex2-u(243) ex2-u(20);
+        background-position: ex2-u(-55.5) 0, ex2-u(-55.5) ex2-u(20), ex2-u(-55.5) ex2-u(40);
+        background-repeat: repeat-x;
+    }
+
+    /* the text sits above the overlay */
+    &-area .container {
+        position: relative;
+        z-index: 3;
+    }
+
+    /*
+        content
+    */
+    &-content {
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    &-title-box {
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgb(255 255 255 / 16%);
+    }
+
+    &-sec-title {
+        max-width: 675px;
+        color: #fff;
+    }
+
+    &-disc {
+        width: 565px;
+        max-width: 100%;
+        margin: 28px 0 0 auto;
+        color: rgb(255 255 255 / 80%);
+
+        @media #{$md,$sm,$xs} {
+            width: 100%;
+        }
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    /*
+        marquee — two rows of chips running against each other, they leave the screen on both sides
+    */
+    &-marquee {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 199px;
+
+        @media #{$xxl} {
+            margin-top: 170px;
+        }
+
+        @media #{$xl} {
+            margin-top: 140px;
+        }
+
+        @media #{$lg} {
+            margin-top: 110px;
+        }
+
+        @media #{$md} {
+            margin-top: 80px;
+        }
+
+        @media #{$xs} {
+            gap: 10px;
+            margin-top: 56px;
+        }
+    }
+
+    &-row {
+        --dc-ex2-gap: 8px;
+
+        .track {
+            display: flex;
+            width: max-content;
+            animation: dc-expert-2-marquee 60s linear infinite;
+            will-change: transform;
+        }
+
+        &:hover .track {
+            animation-play-state: paused;
+        }
+
+        /* the two rows sit differently on the screen and run in opposite directions */
+        &.is-top {
+            --dc-ex2-gap: 14px;
+
+            .track {
+                margin-left: -365px;
+            }
+        }
+
+        &.is-bottom {
+            .track {
+                margin-left: -295px;
+                animation-direction: reverse;
+            }
+        }
+
+        .set {
+            display: flex;
+            flex: 0 0 auto;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .track {
+                animation: none;
+            }
+        }
+    }
+
+    &-chip {
+        --dc-ex2-icon-bg: #151312;
+        --dc-ex2-icon-clr: #fff;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: var(--dc-ex2-gap);
+        margin-right: 10px;
+        padding: calc(var(--dc-ex2-icon) / 6) 24px calc(var(--dc-ex2-icon) / 6) calc(var(--dc-ex2-icon) / 6);
+        border-radius: 8px;
+        background-color: rgb(242 242 240 / 8%);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        transition: background-color .4s var(--dc-cube-1), box-shadow .4s var(--dc-cube-1);
+
+        /* the tile is dark with an orange glow on its lower edge — it turns white on hover */
+        .icon {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--dc-ex2-icon);
+            height: var(--dc-ex2-icon);
+            border-radius: 6px;
+            font-size: calc(var(--dc-ex2-icon) * 28 / 48);
+            line-height: 1;
+            color: var(--dc-ex2-icon-clr);
+            background:
+                radial-gradient(ellipse 34px 26px at 50% 100%, rgb(255 91 27 / 85%) 0%, rgb(255 91 27 / 0%) 100%),
+                var(--dc-ex2-icon-bg);
+            transition: color .4s var(--dc-cube-1), background-color .4s var(--dc-cube-1);
+
+            i {
+                display: block;
+            }
+        }
+
+        .text {
+            font-family: var(--dc-font-2);
+            font-weight: 500;
+            font-size: var(--dc-ex2-fs);
+            line-height: 28px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: #fff;
+        }
+
+        &:hover {
+            --dc-ex2-icon-bg: #fff;
+            --dc-ex2-icon-clr: #151312;
+            background-color: #FF5B1B;
+            box-shadow: 8px 8px 19px #FF5B1B;
+        }
+
+        @media #{$xs} {
+            padding-right: 20px;
+        }
+    }
+}
+
+/*
+    expert-2-end
+*/

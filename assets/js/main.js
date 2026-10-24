@@ -51,6 +51,50 @@ function afterPreloader() {
 	// hero-2-intro
 	$(".dc-hero-2-area").addClass("is-ready");
 
+	// footer-2 wordmark — the letters rise out of the baseline one after another once it scrolls into view
+	$(".dc-footer-2-wordmark").each(function (index, el) {
+		$(el).addClass("dc-letters-ani");
+
+		ScrollTrigger.create({
+			trigger: el,
+			start: "top 92%",
+			once: true,
+			onEnter: function () {
+				$(el).addClass("is-in");
+			}
+		});
+	});
+
+	// light shapes — the squares turn and grow one after another, the notches of the faqs photo rise, each as its own element scrolls into view
+	$(".dc-clients-2-shape, .dc-choose-2-shape, .dc-projects-2-card-shape, .dc-services-2-img-shape, .dc-faqs-2-left-img").each(function (index, el) {
+		$(el).addClass($(el).hasClass("dc-faqs-2-left-img") ? "dc-clip-ani" : "dc-shape-ani");
+
+		ScrollTrigger.create({
+			trigger: el,
+			start: "top 90%",
+			once: true,
+			onEnter: function () {
+				$(el).addClass("is-in");
+			}
+		});
+	});
+
+	// checker strips — the boxes show up one by one once their strip scrolls into view (the hero's own waits for the first photo)
+	$(".dc-checker-ani").each(function (index, el) {
+		if ($(el).hasClass("dc-hero-2-checker")) {
+			el.style.setProperty("--dc-ck-delay", ".1s");
+		}
+
+		ScrollTrigger.create({
+			trigger: el,
+			start: "top 100%",
+			once: true,
+			onEnter: function () {
+				$(el).addClass("is-in");
+			}
+		});
+	});
+
 	/*
 		only-LTR-direction
 	*/
@@ -1317,6 +1361,114 @@ var dc_about1_slider = new Swiper(".dc_about1_slider", {
 	navigation: {
 		prevEl: ".dc_about1_slider_prev",
 		nextEl: ".dc_about1_slider_next",
+	},
+});
+
+
+// expert-2 bg video — the photo stays until the video really plays
+var dc_expert2_video = document.querySelector(".dc-expert-2-bg-video");
+if (dc_expert2_video) {
+	var dc_expert2_video_on = function () {
+		dc_expert2_video.parentElement.classList.add("is-playing");
+	};
+
+	dc_expert2_video.addEventListener("playing", dc_expert2_video_on);
+
+	/* it may already be running by the time this line is reached */
+	if (!dc_expert2_video.paused && dc_expert2_video.readyState > 2) {
+		dc_expert2_video_on();
+	}
+}
+
+
+// contact-2 bg parallax — the photo is taller than the section and drifts down while the page scrolls up
+if (document.querySelector(".dc-contact-2-bg") && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+	gsap.fromTo(".dc-contact-2-bg", {
+		yPercent: -12
+	}, {
+		yPercent: 12,
+		ease: "none",
+		scrollTrigger: {
+			trigger: ".dc-contact-2-area",
+			start: "top bottom",
+			end: "bottom top",
+			scrub: 0.5
+		}
+	});
+}
+
+
+// pr-btn-2 — the little boxes that turn and grow until they fill the button on hover
+document.querySelectorAll(".dc-pr-btn-2").forEach(function (btn) {
+	var size = 24;
+	var boxes = document.createElement("span");
+	boxes.className = "boxes";
+	boxes.setAttribute("aria-hidden", "true");
+	btn.insertBefore(boxes, btn.firstChild);
+
+	/* as many boxes as fit the button, every one with its own delay: a wave from the lower-left with a little chaos in it */
+	var build = function () {
+		var cols = Math.ceil(btn.offsetWidth / size);
+		var rows = Math.ceil(btn.offsetHeight / size);
+		if (!cols || !rows || boxes.dataset.grid === cols + "x" + rows) {
+			return;
+		}
+		boxes.dataset.grid = cols + "x" + rows;
+		boxes.style.setProperty("--cols", cols);
+		boxes.style.setProperty("--rows", rows);
+
+		var html = "";
+		for (var r = 0; r < rows; r++) {
+			for (var c = 0; c < cols; c++) {
+				var d = (c / cols) * 0.3 + ((rows - 1 - r) / rows) * 0.1 + Math.random() * 0.14;
+				html += '<span style="--d:' + d.toFixed(2) + 's"></span>';
+			}
+		}
+		boxes.innerHTML = html;
+	};
+
+	build();
+	if (window.ResizeObserver) {
+		new ResizeObserver(build).observe(btn);
+	} else {
+		window.addEventListener("load", build);
+		window.addEventListener("resize", build);
+	}
+});
+
+
+// choose-2-slider — the photo band, the dots under it are the pagination
+var dc_choose2_slider = new Swiper(".dc_choose2_slider", {
+	loop: true,
+	speed: 800,
+	effect: "fade",
+	fadeEffect: {
+		crossFade: true
+	},
+
+	autoplay: {
+		delay: 4500,
+		disableOnInteraction: false,
+		pauseOnMouseEnter: true,
+	},
+
+	pagination: {
+		el: ".dc_choose2_slider_dots",
+		clickable: true,
+	},
+});
+
+
+// services-2-slider — the slides keep their own width and the row runs past the edge
+var dc_services2_slider = new Swiper(".dc_services2_slider", {
+	loop: true,
+	slidesPerView: "auto",
+	spaceBetween: 20,
+	speed: 600,
+
+	navigation: {
+		prevEl: ".dc_services2_slider_prev",
+		nextEl: ".dc_services2_slider_next",
 	},
 });
 

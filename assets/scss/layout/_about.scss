@@ -615,3 +615,470 @@
 /*
     about-1-end
 */
+
+
+/*
+    about-2-start
+*/
+
+/* the resting grey card and the orange hover one — everything that changes is a variable */
+@mixin dc-about-2-card-off {
+    --dc-a2-card-bg: #EBEBE8;
+    --dc-a2-card-title: var(--dc-clr-h-1);
+    --dc-a2-card-disc: #4B4848;
+    --dc-a2-card-suffix:  var(--dc-clr-pr-2);
+    --dc-a2-card-icon-bg: var(--dc-clr-h-1);
+    --dc-a2-card-icon-clr: #fff;
+    --dc-a2-card-shadow: 0 0 0 rgb(0 0 0 / 0%);
+}
+
+@mixin dc-about-2-card-on {
+    --dc-a2-card-bg: var(--dc-clr-pr-2);
+    --dc-a2-card-title: #fff;
+    --dc-a2-card-disc: rgb(255 255 255 / 72%);
+    --dc-a2-card-suffix: var(--dc-clr-h-1);
+    --dc-a2-card-icon-bg: #fff;
+    --dc-a2-card-icon-clr: var(--dc-clr-pr-2);
+    --dc-a2-card-shadow: 8px 8px 28px rgb(0 0 0 / 25%);
+}
+
+.dc-about-2 {
+    &-area {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background-color: #F2F2F0;
+    }
+
+    &-sec-title {
+        margin-bottom: 24px;
+    }
+
+    &-disc {
+        margin-bottom: 30px;
+    }
+
+    /* the faded refinery in the bottom-left corner */
+    &-bg {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: -1;
+        width: 481px;
+        aspect-ratio: 481 / 708;
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        background-size: 100% 100%;
+        mix-blend-mode: luminosity;
+
+
+        @media #{$xl} {
+            width: 400px;
+        }
+
+        @media #{$lg} {
+            width: 340px;
+        }
+
+        @media #{$md} {
+            width: 280px;
+        }
+
+        @media #{$xs} {
+            width: 200px;
+        }
+    }
+
+    &-row {
+        position: relative;
+    }
+
+    /*
+        content
+    */
+    &-content {
+        width: 613px;
+        max-width: 100%;
+        padding-top: 9px;
+
+        @media #{$xxl} {
+            width: 540px;
+            padding-top: 0;
+        }
+
+        @media #{$xl} {
+            width: 480px;
+            padding-top: 0;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            width: 100%;
+            max-width: 613px;
+            padding-top: 0;
+        }
+    }
+
+    &-title-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 40px;
+
+
+    }
+
+    &-sec-title {
+        @media #{$xxl} {
+            font-size: 48px;
+        }
+
+        @media #{$xl} {
+            font-size: 42px;
+        }
+    }
+
+    &-disc {
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    &-btn {
+        gap: 5px;
+        border-radius: 6px;
+
+        .icon {
+            flex: 0 0 auto;
+            display: inline-flex;
+            width: 20px;
+            height: 20px;
+
+            svg {
+                display: block;
+            }
+        }
+    }
+
+    &-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--dc-font-2);
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 28px;
+            color: var(--dc-clr-h-1);
+
+            @media #{$xs} {
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+
+        .icon {
+            flex: 0 0 auto;
+            display: inline-flex;
+            width: 20px;
+            height: 20px;
+            color: #FF5B1B;
+
+            svg {
+                display: block;
+            }
+        }
+
+        @media #{$xs} {
+            gap: 14px;
+        }
+    }
+
+    /*
+        img — one 850 x 609 photo cut with the corner chamfers, the notch top-left,
+        the window on the right and the detached piece bottom-right
+    */
+    &-img {
+        --dc-a2-img-w: 850px;
+        position: absolute;
+        top: 0;
+        right: -143px;
+        width: var(--dc-a2-img-w);
+        aspect-ratio: 850 / 609;
+        background-repeat: no-repeat;
+        background-position: center;
+        /* 30% bigger than the shape, so the photo has room to travel inside it — wa_parallax_bg slides it from top to bottom while the page scrolls */
+        background-size: 130%;
+        clip-path: polygon(evenodd,
+            6.8235% 0%, 87.4118% 0%, 100% 17.5698%, 100% 49.9179%, 81.8824% 75.2053%, 100% 75.2053%, 100% 100%, 81.8824% 100%, 81.8824% 74.7126%,
+            81.8824% 49.4253%, 63.7647% 49.4253%, 63.7647% 74.7126%, 81.8824% 74.7126%,
+            63.7647% 100%, 17.0588% 100%, 0% 76.1905%, 0% 9.5238%, 6.7059% 9.5238%, 6.7059% 18.8834%, 13.5294% 18.8834%, 13.5294% 9.3596%, 6.8235% 9.3596%);
+
+        /* narrower than the design the photo steps in and sits in the middle of the text */
+        @media #{$xxxl,$xxl,$xl} {
+            top: 50%;
+            margin-top: calc(var(--dc-a2-img-w) * -609 / 1700);
+        }
+
+        @media #{$xxxl} {
+            --dc-a2-img-w: 760px;
+            right: -60px;
+        }
+
+        @media #{$xxl} {
+            --dc-a2-img-w: 680px;
+            right: -24px;
+        }
+
+        @media #{$xl} {
+            --dc-a2-img-w: 600px;
+            right: 0;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            top: auto;
+            right: auto;
+            width: 100%;
+            max-width: 760px;
+            margin: 48px 0 0 auto;
+        }
+
+        @media #{$xs} {
+            margin-top: 36px;
+        }
+    }
+
+    /*
+        cards
+    */
+    &-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-top: 44px;
+
+        @media #{$xxl} {
+            margin-top: 40px;
+        }
+
+        @media #{$xl} {
+            margin-top: 36px;
+        }
+
+        @media #{$lg} {
+            margin-top: 48px;
+        }
+
+        @media #{$md} {
+            grid-template-columns: repeat(2, 1fr);
+            margin-top: 48px;
+        }
+
+        @media #{$sm} {
+            grid-template-columns: repeat(2, 1fr);
+            margin-top: 40px;
+        }
+
+        @media #{$xs} {
+            grid-template-columns: 1fr;
+            margin-top: 36px;
+        }
+    }
+
+    &-card {
+        @include dc-about-2-card-off;
+        display: flex;
+        flex-direction: column;
+        padding: 33px 33px 35px;
+        border-radius: 8px;
+        background-color: var(--dc-a2-card-bg);
+        box-shadow: var(--dc-a2-card-shadow);
+        transition: background-color .4s var(--dc-cube-1), box-shadow .4s var(--dc-cube-1);
+
+        &:hover {
+            @include dc-about-2-card-on;
+        }
+
+        @media #{$xxl} {
+            padding: 30px 28px 32px;
+        }
+
+        @media #{$xl} {
+            padding: 26px 22px 28px;
+        }
+
+        @media #{$lg} {
+            padding: 24px 20px 26px;
+        }
+
+        @media #{$sm} {
+            padding: 28px 20px 30px;
+        }
+
+        @media #{$xs} {
+            padding: 28px 24px 30px;
+        }
+    }
+
+    /* icon on the left, count on the right, the hairline underneath */
+    &-card-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        height: 65px;
+        border-bottom: 1px solid rgb(21 19 18 / 16%);
+    }
+
+    /* the 52px glowing tile, with the small grey square tucked under its bottom-left corner */
+    &-card-icon {
+        position: relative;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        margin: 0 0 12px 12px;
+        border-radius: 6px 6px 6px 0;
+        color: var(--dc-a2-card-icon-clr);
+        background:
+            radial-gradient(circle at 5px -1px, rgb(255 190 46 / 55%) 0, rgb(255 190 46 / 0%) 36px),
+            radial-gradient(circle at 49px 51px, rgb(255 91 27 / 55%) 0, rgb(255 91 27 / 0%) 32px),
+            var(--dc-a2-card-icon-bg);
+        transition: color .4s var(--dc-cube-1), background-color .4s var(--dc-cube-1);
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            bottom: -12px;
+            width: 12px;
+            height: 12px;
+            background-color: rgb(21 19 18 / 16%);
+        }
+
+        svg {
+            display: block;
+        }
+    }
+
+    &-card-count {
+        display: flex;
+        align-items: baseline;
+        gap: 2px;
+        margin-top: -4px;
+        font-family: var(--dc-font-2);
+
+        .num {
+            font-weight: 600;
+            font-size: 56px;
+            line-height: 1.0714;
+            letter-spacing: -1%;
+            color: #fff;
+        }
+
+        .suffix {
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 1;
+            color: var(--dc-a2-card-suffix);
+            transition: color .4s var(--dc-cube-1);
+        }
+
+        @media #{$xl} {
+            margin-top: 0;
+
+            .num {
+                font-size: 48px;
+            }
+
+            .suffix {
+                font-size: 28px;
+            }
+        }
+
+        @media #{$lg} {
+            margin-top: 4px;
+
+            .num {
+                font-size: 40px;
+            }
+
+            .suffix {
+                font-size: 24px;
+            }
+        }
+
+        @media #{$sm} {
+            margin-top: 2px;
+
+            .num {
+                font-size: 44px;
+            }
+
+            .suffix {
+                font-size: 28px;
+            }
+        }
+
+        @media #{$xs} {
+            margin-top: 0;
+
+            .num {
+                font-size: 48px;
+            }
+
+            .suffix {
+                font-size: 28px;
+            }
+        }
+    }
+
+    &-card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+        margin-top: 16px;
+        text-align: right;
+    }
+
+    &-card-title {
+        margin: 0;
+        font-family: var(--dc-font-2);
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 28px;
+        color: var(--dc-a2-card-title);
+        transition: color .4s var(--dc-cube-1);
+
+        @media #{$lg} {
+            font-size: 17px;
+        }
+    }
+
+    &-card-disc {
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--dc-a2-card-disc);
+        transition: color .4s var(--dc-cube-1);
+
+        @media #{$lg} {
+            font-size: 15px;
+            line-height: 22px;
+        }
+    }
+}
+
+/*
+    about-2-end
+*/

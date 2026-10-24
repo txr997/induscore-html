@@ -1431,7 +1431,7 @@ $hero-io: cubic-bezier(.45, 0, .55, 1);
     }
 
     /*
-        intro — once the preloader is gone the card, the checker and the line arrive behind the first photo
+        intro — once the preloader is gone the card and the line arrive behind the first photo (the checker builds itself box by box, see checker-ani)
     */
     &-card::before {
         opacity: 0;
@@ -1442,10 +1442,6 @@ $hero-io: cubic-bezier(.45, 0, .55, 1);
     &-card-btn {
         opacity: 0;
         transform: translateY(32px);
-    }
-
-    &-checker {
-        clip-path: inset(0 100% 0 0);
     }
 
     &-pagination.swiper-pagination {
@@ -1472,11 +1468,6 @@ $hero-io: cubic-bezier(.45, 0, .55, 1);
 
         .dc-hero-2-card-btn {
             transition-delay: 2.4s;
-        }
-
-        .dc-hero-2-checker {
-            clip-path: inset(0);
-            transition: clip-path 2s cubic-bezier(.65, 0, .35, 1) .8s;
         }
 
         .dc-hero-2-pagination.swiper-pagination {

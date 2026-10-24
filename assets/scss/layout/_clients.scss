@@ -1,0 +1,173 @@
+@use '../abstracts/variables' as *;
+/*
+    clients-2-start
+*/
+
+.dc-clients-2 {
+    &-area {
+        --dc-subtitle-2-bg: rgb(255 255 255 / 32%);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: 100px 0;
+        background-color: #FFBE2E;
+
+        @media #{$xxl} {
+            padding: 90px 0;
+        }
+
+        @media #{$xl} {
+            padding: 80px 0;
+        }
+
+        @media #{$lg} {
+            padding: 70px 0;
+        }
+
+        @media #{$md} {
+            padding: 64px 0;
+        }
+
+        @media #{$xs} {
+            padding: 50px 0;
+        }
+    }
+
+    /* the workshop photo along the top — it already fades into the yellow */
+    &-bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 0;
+        height: clamp(150px, 13.44vw, 258px);
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+    }
+
+    /* the light steps in two corners */
+    &-shape {
+        position: absolute;
+        z-index: 1;
+        display: block;
+        height: auto;
+        color: #F2F2F0;
+        pointer-events: none;
+
+        &.is-top {
+            right: 0;
+            top: 0;
+            width: clamp(48px, 6.6vw, 127px);
+        }
+
+        &.is-bottom {
+            left: 0;
+            bottom: 0;
+            width: clamp(60px, 8.44vw, 162px);
+        }
+    }
+
+    &-area .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 811px;
+        margin: 0 auto 48px;
+        text-align: center;
+
+        @media #{$xl,$lg} {
+            margin-bottom: 40px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            margin-bottom: 36px;
+        }
+    }
+
+    /*
+        logos — five by two, every one in a thin frame with crop marks on its corners
+    */
+    &-list {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 24px 8px;
+        margin: 0 -1px;
+
+        @media #{$sm,$xs} {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px 8px;
+        }
+    }
+
+    &-item {
+        --dc-cl2-mark: #151312;
+        position: relative;
+        height: 108px;
+        margin: 7px;
+        border: 1px solid rgb(20 28 20 / 16%);
+
+        /* the glow that comes in on hover */
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse closest-side at 50% 50%, #FFBE2E 0%, #151312 100%);
+            opacity: 0;
+            transition: opacity .5s var(--dc-cube-1);
+        }
+
+        /* crop marks: an L on each corner, seven pixels out of the frame */
+        &::before {
+            content: "";
+            position: absolute;
+            inset: -7px;
+            z-index: 2;
+            pointer-events: none;
+            background:
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) right 0 top 7px / 8px 1px no-repeat,
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) right 7px top 0 / 1px 8px no-repeat,
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) left 0 top 7px / 8px 1px no-repeat,
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) left 7px top 0 / 1px 8px no-repeat,
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) right 0 bottom 6px / 8px 1px no-repeat,
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) right 7px bottom 0 / 1px 8px no-repeat,
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) left 0 bottom 6px / 8px 1px no-repeat,
+                linear-gradient(var(--dc-cl2-mark), var(--dc-cl2-mark)) left 7px bottom 0 / 1px 8px no-repeat;
+        }
+
+        &:hover {
+            --dc-cl2-mark: #FF5B1B;
+
+            &::after {
+                opacity: 1;
+            }
+        }
+
+        @media #{$xs} {
+            height: 92px;
+        }
+    }
+
+    &-logo {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+    }
+}
+
+/*
+    clients-2-end
+*/

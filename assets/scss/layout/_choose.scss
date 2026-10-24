@@ -412,3 +412,554 @@
 /*
     choose-1-end
 */
+
+
+/*
+    choose-2-start
+*/
+
+/* every photo of the band settles in: it starts zoomed in and slowly comes back to its size while the slide fades over the last */
+@keyframes dc-choose-2-zoom {
+    from {
+        transform: scale(1.22);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* the size of each of the five light squares on the icon tile — on hover they shrink away and grow back one after another */
+@property --dc-ch2-s1 {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 11px;
+}
+
+@property --dc-ch2-s2 {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 11px;
+}
+
+@property --dc-ch2-s3 {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 11px;
+}
+
+@property --dc-ch2-s4 {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 11px;
+}
+
+@property --dc-ch2-s5 {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 11px;
+}
+
+@keyframes dc-choose-2-sq1 {
+    0%,
+    100% {
+        --dc-ch2-s1: 11px;
+    }
+
+    40% {
+        --dc-ch2-s1: 0px;
+    }
+}
+
+@keyframes dc-choose-2-sq2 {
+    0%,
+    100% {
+        --dc-ch2-s2: 11px;
+    }
+
+    40% {
+        --dc-ch2-s2: 0px;
+    }
+}
+
+@keyframes dc-choose-2-sq3 {
+    0%,
+    100% {
+        --dc-ch2-s3: 11px;
+    }
+
+    40% {
+        --dc-ch2-s3: 0px;
+    }
+}
+
+@keyframes dc-choose-2-sq4 {
+    0%,
+    100% {
+        --dc-ch2-s4: 11px;
+    }
+
+    40% {
+        --dc-ch2-s4: 0px;
+    }
+}
+
+@keyframes dc-choose-2-sq5 {
+    0%,
+    100% {
+        --dc-ch2-s5: 11px;
+    }
+
+    40% {
+        --dc-ch2-s5: 0px;
+    }
+}
+
+.dc-choose-2 {
+    &-area {
+        --dc-ch2-pt: 132px;
+        --dc-ch2-pb: 132px;
+        /* the width of the cards on the right, and half of the container (the photo bleeds out to the screen edge) */
+        --dc-ch2-grid: 702px;
+        --dc-ch2-half: 700px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: var(--dc-ch2-pt) 0 var(--dc-ch2-pb);
+        background-color: #F2F2F0;
+
+        @media #{$xxxl} {
+            --dc-ch2-pt: 120px;
+            --dc-ch2-pb: 120px;
+        }
+
+        @media #{$xxl} {
+            --dc-ch2-pt: 110px;
+            --dc-ch2-pb: 110px;
+            --dc-ch2-grid: 640px;
+            --dc-ch2-half: 648px;
+        }
+
+        @media #{$xl} {
+            --dc-ch2-pt: 100px;
+            --dc-ch2-pb: 100px;
+            --dc-ch2-grid: 580px;
+            --dc-ch2-half: 558px;
+        }
+
+        @media #{$lg} {
+            --dc-ch2-pt: 90px;
+            --dc-ch2-pb: 90px;
+        }
+
+        @media #{$md} {
+            --dc-ch2-pt: 80px;
+            --dc-ch2-pb: 80px;
+        }
+
+        @media #{$xs} {
+            --dc-ch2-pt: 60px;
+            --dc-ch2-pb: 60px;
+        }
+    }
+
+    /* the faded chimneys in the bottom-right corner (they already carry their 16%) */
+    &-bg {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        width: 258px;
+        aspect-ratio: 258 / 703;
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: right bottom;
+        background-size: 100% 100%;
+        /* the design shows it neutral grey, the file has a slight blue cast */
+        filter: grayscale(1);
+
+        @media #{$xl} {
+            width: 200px;
+        }
+
+        @media #{$lg} {
+            width: 160px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            width: 120px;
+        }
+    }
+
+    &-wrap {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) var(--dc-ch2-grid);
+
+        @media #{$lg,$md,$sm,$xs} {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    /*
+        left
+    */
+    &-left {
+        position: relative;
+        min-width: 0;
+        padding-top: 9px;
+
+        @media #{$lg,$md,$sm,$xs} {
+            padding-top: 0;
+        }
+    }
+
+    &-content {
+        max-width: 620px;
+    }
+
+    &-sec-title {
+        @media #{$xl} {
+            font-size: 46px;
+        }
+    }
+
+    &-disc {
+        margin-top: 20px;
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    /* the photo runs out to the left edge of the screen and sits on the lower row of the cards */
+    &-img-box {
+        position: absolute;
+        right: 0;
+        bottom: -3px;
+        width: calc(100% + 50vw - var(--dc-ch2-half));
+        aspect-ratio: 957 / 406;
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            width: 100%;
+            margin-top: 44px;
+        }
+
+        @media #{$xs} {
+            margin-top: 36px;
+        }
+    }
+
+    &-slider {
+        position: absolute;
+        inset: 0;
+
+        .swiper-slide {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .swiper-slide-active .dc-choose-2-slide-img {
+            animation: dc-choose-2-zoom 6s cubic-bezier(.22, .61, .36, 1) both;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .swiper-slide-active .dc-choose-2-slide-img {
+                animation: none;
+            }
+        }
+    }
+
+    &-slide-img {
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    /* the light steps in the top-left corner of the photo */
+    &-shape {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        display: block;
+        /* as tall as the photo itself, and the squares at its top and bottom run 2px over the edge, so no line of the photo shows beside them */
+        width: auto;
+        height: 100%;
+        overflow: visible;
+        color: #F2F2F0;
+        pointer-events: none;
+    }
+
+    /* five dots, the current one sits in a ring */
+    &-dots.swiper-pagination {
+        --swiper-pagination-bullet-horizontal-gap: 0px;
+        position: absolute;
+        left: auto;
+        right: 28px;
+        bottom: 16px;
+        z-index: 3;
+        width: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .swiper-pagination-bullet {
+            position: relative;
+            width: 6px;
+            height: 6px;
+            margin: 0;
+            border-radius: 50%;
+            background-color: #fff;
+            opacity: 1;
+            transition: width .4s var(--dc-cube-1), height .4s var(--dc-cube-1), background-color .4s var(--dc-cube-1);
+        }
+
+        .swiper-pagination-bullet-active {
+            width: 24px;
+            height: 24px;
+            background-color: transparent;
+            box-shadow: inset 0 0 0 1px #fff;
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 6px;
+                height: 6px;
+                margin: -3px 0 0 -3px;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+        }
+
+        @media #{$xs} {
+            right: 16px;
+            bottom: 10px;
+        }
+    }
+
+    /*
+        cards — two columns, the hairlines run through them and out of the section
+    */
+    &-cards {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(403px, auto);
+
+        @media #{$lg,$md} {
+            margin-top: 56px;
+            grid-auto-rows: minmax(340px, auto);
+        }
+
+        @media #{$sm} {
+            margin-top: 48px;
+            grid-auto-rows: auto;
+        }
+
+        @media #{$xs} {
+            margin-top: 40px;
+            grid-template-columns: minmax(0, 1fr);
+            grid-auto-rows: auto;
+        }
+    }
+
+    /* a dark hairline with a white one beside it, like an engraved groove */
+    &-lines {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+
+        .line {
+            position: absolute;
+
+            &.is-v {
+                top: calc(-1 * var(--dc-ch2-pt));
+                bottom: calc(-1 * var(--dc-ch2-pb));
+                width: 3px;
+                background: linear-gradient(90deg, #D7D7D5 0 2px, #fff 2px 3px);
+            }
+
+            &.is-h {
+                left: 0;
+                width: calc(100% + 3px);
+                height: 3px;
+                background: linear-gradient(180deg, #D7D7D5 0 2px, #fff 2px 3px);
+            }
+
+            &.is-v1 {
+                left: 0;
+            }
+
+            &.is-v2 {
+                left: 50%;
+            }
+
+            &.is-v3 {
+                left: 100%;
+            }
+
+            &.is-h1 {
+                top: 0;
+            }
+
+            &.is-h2 {
+                top: 50%;
+            }
+
+            &.is-h3 {
+                top: 100%;
+            }
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            display: none;
+        }
+    }
+
+    &-card {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 36px;
+
+        /* the peach fade at the bottom of the card */
+        &::before {
+            content: "";
+            position: absolute;
+            left: 3px;
+            right: 0;
+            top: 88px;
+            bottom: 0;
+            z-index: -1;
+            background: linear-gradient(180deg, rgb(255 91 27 / 0%) 0%, rgb(255 91 27 / 24%) 100%);
+            opacity: 0;
+            transition: opacity .5s var(--dc-cube-1);
+        }
+
+        &.is-glow::before {
+            opacity: 1;
+        }
+
+        @media #{$xxl} {
+            padding: 32px;
+        }
+
+        @media #{$xl} {
+            padding: 28px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            gap: 56px;
+            padding: 32px;
+            box-shadow: inset 0 0 0 1px #D7D7D5;
+
+            &::before {
+                left: 0;
+                top: 0;
+            }
+        }
+
+        @media #{$xs} {
+            padding: 28px;
+        }
+    }
+
+    /* dark tile with a glow on its edges, light squares on two corners */
+    &-card-icon {
+        position: relative;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 7px;
+        font-size: 40px;
+        line-height: 1;
+        color: #fff;
+        background:
+            radial-gradient(ellipse 72% 58% at 50% 42%, #151312 0 70%, rgb(21 19 18 / 0%) 100%),
+            linear-gradient(180deg, #FF5B1B 0%, #FFA922 100%);
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(#F2F2F0, #F2F2F0) calc(69px + (11px - var(--dc-ch2-s1)) / 2) calc(0px + (11px - var(--dc-ch2-s1)) / 2) / var(--dc-ch2-s1) var(--dc-ch2-s1) no-repeat,
+                linear-gradient(#F2F2F0, #F2F2F0) calc(58px + (11px - var(--dc-ch2-s2)) / 2) calc(11px + (11px - var(--dc-ch2-s2)) / 2) / var(--dc-ch2-s2) var(--dc-ch2-s2) no-repeat,
+                linear-gradient(#F2F2F0, #F2F2F0) calc(69px + (11px - var(--dc-ch2-s3)) / 2) calc(22px + (11px - var(--dc-ch2-s3)) / 2) / var(--dc-ch2-s3) var(--dc-ch2-s3) no-repeat,
+                linear-gradient(#F2F2F0, #F2F2F0) calc(0px + (11px - var(--dc-ch2-s4)) / 2) calc(58px + (11px - var(--dc-ch2-s4)) / 2) / var(--dc-ch2-s4) var(--dc-ch2-s4) no-repeat,
+                linear-gradient(#F2F2F0, #F2F2F0) calc(11px + (11px - var(--dc-ch2-s5)) / 2) calc(69px + (11px - var(--dc-ch2-s5)) / 2) / var(--dc-ch2-s5) var(--dc-ch2-s5) no-repeat;
+        }
+
+
+        i {
+            position: relative;
+            display: block;
+        }
+    }
+
+    /* on hover each of the five squares shrinks to nothing and comes back, the next one a moment later */
+    &-card:hover &-card-icon::before {
+        animation:
+            dc-choose-2-sq1 .8s var(--dc-cube-1),
+            dc-choose-2-sq2 .8s var(--dc-cube-1) .08s,
+            dc-choose-2-sq3 .8s var(--dc-cube-1) .16s,
+            dc-choose-2-sq4 .8s var(--dc-cube-1) .24s,
+            dc-choose-2-sq5 .8s var(--dc-cube-1) .32s;
+    }
+
+    &-card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &-card-title {
+        margin: 0;
+        font-family: var(--dc-font-2);
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 32px;
+        color: var(--dc-clr-h-1);
+
+        @media #{$xl} {
+            font-size: 26px;
+            line-height: 30px;
+        }
+
+        @media #{$xs} {
+            font-size: 26px;
+            line-height: 30px;
+        }
+    }
+
+    &-card-disc {
+        font-size: 16px;
+        line-height: 24px;
+
+        @media #{$xl} {
+            font-size: 15px;
+            line-height: 23px;
+        }
+    }
+}
+
+/*
+    choose-2-end
+*/

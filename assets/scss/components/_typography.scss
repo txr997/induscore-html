@@ -89,6 +89,31 @@
 }
 
 
+/* the white pill above a section title — dot, text, dot */
+.dc-subtitle-2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
+    font-family: var(--dc-font-1);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--dc-clr-pr-2);
+    /* solid white on the light sections, a glass tint of white on the dark and the yellow ones */
+    background-color: var(--dc-subtitle-2-bg, #fff);
+    margin-bottom: 16px;
+
+    .dot {
+        flex: 0 0 auto;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--dc-clr-pr-2);
+    }
+}
+
 .dc-sec-title-1 {
     font-family: var(--dc-font-2);
     font-weight: 600;

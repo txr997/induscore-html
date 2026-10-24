@@ -12,6 +12,8 @@
 @use  './components/preloader';
 @use  './components/wow-plus';
 @use  './components/clip-anim';
+@use  './components/checker-ani';
+@use  './components/shape-ani';
 @use  './components/elements';
 @use  './components/back-to-top';
 /* 
@@ -25,6 +27,9 @@
 @use  './layout/team';
 @use  './layout/choose';
 @use  './layout/projects';
+@use  './layout/expert';
+@use  './layout/clients';
+@use  './layout/faqs';
 @use  './layout/work';
 @use  './layout/price';
 @use  './layout/testimonial';

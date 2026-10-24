@@ -1,0 +1,38 @@
+@use '../abstracts/variables' as *;
+/*
+    shape-ani-start
+*/
+
+/*
+    the SVG shapes made of light squares (services-2, choose-2, projects-2, clients-2) — main.js sets .dc-shape-ani on them,
+    the squares are folded away until the shape scrolls into view (.is-in), then they turn and grow one after another
+*/
+.dc-shape-ani {
+    rect {
+        transform-box: fill-box;
+        transform-origin: center;
+        transform: scale(0) rotate(-90deg);
+        transition: transform .8s var(--dc-cube-1);
+
+        @for $i from 1 through 6 {
+            &:nth-child(#{$i}) {
+                transition-delay: #{($i - 1) * .1}s;
+            }
+        }
+    }
+
+    &.is-in rect {
+        transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        rect {
+            transition-duration: 0s;
+            transition-delay: 0s;
+        }
+    }
+}
+
+/*
+    shape-ani-end
+*/

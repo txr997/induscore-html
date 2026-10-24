@@ -440,3 +440,274 @@
 /*
     contact-1-end
 */
+
+
+/*
+    contact-2-start
+*/
+
+/* 1px of the 1920 design on the checker strips and the glass panel — it follows the viewport and stops growing at 1920 */
+@function ct2-u($px) {
+    @return calc(#{$px} * var(--dc-ct2-u));
+}
+
+.dc-contact-2 {
+    &-area {
+        --dc-ct2-u: calc(min(100vw, 1920px) / 1920);
+        --dc-subtitle-2-bg: rgb(255 255 255 / 12%);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background-color: #0B0B0B;
+
+        @media #{$md,$sm,$xs} {
+            --dc-ct2-u: .6px;
+        }
+    }
+
+    /* the furnace photo fills the whole section — the glass panel lies over its left half. It is 18% taller than the section above and below (the area clips it), main.js slides it against the scroll */
+    &-bg {
+        position: absolute;
+        inset: -18% 0;
+        z-index: 0;
+        will-change: transform;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    /*
+        checker-shape — three rows of squares, the columns repeat every 243px of the design
+    */
+    &-checker {
+        position: absolute;
+        left: ct2-u(-14);
+        right: ct2-u(-14);
+        z-index: 3;
+        height: ct2-u(60);
+        pointer-events: none;
+        background-image:
+            linear-gradient(90deg, transparent 0 ct2-u(93.5), #F2F2F0 0 ct2-u(125.5), transparent 0 ct2-u(187.5), #F2F2F0 0),
+            linear-gradient(90deg, #F2F2F0 0 ct2-u(93.5), #0B0B0B 0 ct2-u(125.5), #F2F2F0 0 ct2-u(187.5), #0B0B0B 0),
+            linear-gradient(90deg, #0B0B0B 0 ct2-u(93.5), #F2F2F0 0 ct2-u(125.5), #0B0B0B 0 ct2-u(187.5), #F2F2F0 0);
+        background-size: ct2-u(243) ct2-u(20);
+        background-position: ct2-u(-55.5) 0, ct2-u(-55.5) ct2-u(20), ct2-u(-55.5) ct2-u(40);
+        background-repeat: repeat-x;
+
+        &.is-top {
+            top: 0;
+        }
+
+        &.is-bottom {
+            bottom: 0;
+        }
+    }
+
+    /*
+        panel — frosted glass, darkened 48%, with an orange glow bleeding in from the lower-left and the upper-right
+    */
+    &-panel {
+        position: relative;
+        z-index: 2;
+        width: ct2-u(918);
+        padding: 132px ct2-u(120);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        background:
+            radial-gradient(circle 600px at 70px calc(100% + 46px), rgb(255 91 27 / 100%) 0, rgb(255 91 27 / 88%) 100px, rgb(255 91 27 / 61%) 200px, rgb(255 91 27 / 32%) 300px, rgb(255 91 27 / 13%) 400px, rgb(255 91 27 / 4%) 500px, rgb(255 91 27 / 0%) 600px),
+            radial-gradient(circle 560px at calc(100% - 107px) 40px, rgb(255 91 27 / 85%) 0, rgb(255 91 27 / 74%) 100px, rgb(255 91 27 / 48%) 200px, rgb(255 91 27 / 24%) 300px, rgb(255 91 27 / 8%) 400px, rgb(255 91 27 / 2%) 500px, rgb(255 91 27 / 0%) 560px),
+            rgb(11 11 11 / 48%);
+
+        @media #{$xxxl,$xxl,$xl} {
+            padding-top: 120px;
+            padding-bottom: 120px;
+        }
+
+        @media #{$lg} {
+            width: 58vw;
+            padding: 100px 48px;
+        }
+
+        @media #{$md} {
+            width: 100%;
+            padding: 100px 40px;
+        }
+
+        @media #{$sm} {
+            width: 100%;
+            padding: 90px 28px;
+        }
+
+        @media #{$xs} {
+            width: 100%;
+            padding: 80px 20px 70px;
+        }
+    }
+
+    /*
+        section-title
+    */
+    &-title-box {
+        margin-bottom: 32px;
+    }
+
+    &-sec-title {
+        max-width: 678px;
+        color: #fff;
+        font-size: max(40px, #{ct2-u(56)});
+
+        @media #{$lg} {
+            font-size: 44px;
+        }
+
+        @media #{$md} {
+            font-size: 40px;
+        }
+
+        @media #{$xs} {
+            font-size: 32px;
+        }
+
+        @media #{$sm} {
+            font-size: 36px;
+        }
+    }
+
+    &-disc {
+        max-width: 678px;
+        margin: 20px 0 0;
+        color: rgb(255 255 255 / 80%);
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    /*
+        form
+    */
+    &-form {
+        max-width: 678px;
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+
+            @media #{$xs} {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .field {
+            position: relative;
+
+            &.has-message {
+                grid-column: 1 / -1;
+            }
+        }
+
+        input,
+        select,
+        textarea {
+            display: block;
+            width: 100%;
+            height: 56px;
+            padding: 0 24px;
+            border: 1px solid rgb(255 255 255 / 56%);
+            border-radius: 6px;
+            font-family: var(--dc-font-1);
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #fff;
+            background-color: rgb(255 255 255 / 8%);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            outline: 0;
+            box-shadow: none;
+            transition: border-color .4s var(--dc-cube-1), background-color .4s var(--dc-cube-1);
+
+            &::placeholder {
+                color: rgb(255 255 255 / 60%);
+                opacity: 1;
+            }
+
+            &:focus {
+                border-color: var(--dc-clr-pr-2);
+                background-color: rgb(255 255 255 / 12%);
+            }
+        }
+
+        textarea {
+            height: 160px;
+            padding: 16px 24px;
+            resize: none;
+        }
+
+        /* the native select, dressed like the other fields — the chevron is the only arrow */
+        select {
+            padding-right: 56px;
+            font-weight: 500;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+
+            option {
+                color: #151312;
+                background-color: #fff;
+            }
+        }
+
+        .chevron {
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            display: flex;
+            margin-top: -10px;
+            color: #fff;
+            pointer-events: none;
+
+            svg {
+                display: block;
+            }
+        }
+
+        .submit {
+            display: block;
+            width: 100%;
+            height: 56px;
+            margin-top: 12px;
+            padding: 0 24px;
+            border: 0;
+            border-radius: 8px;
+            font-family: var(--dc-font-2);
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: #fff;
+            background-color: var(--dc-clr-pr-2);
+            transition: color .3s var(--dc-cube-1) .2s;
+
+            /* the yellow comes in as the little boxes of dc-pr-btn-2 (same class, same script) */
+            &:hover {
+                color: var(--dc-clr-h-1);
+            }
+
+            /* by keyboard there is no hover, so it just turns */
+            &:focus-visible {
+                color: var(--dc-clr-h-1);
+                background-color: var(--dc-clr-pr-1);
+            }
+
+            &:not(:has(.boxes)):hover {
+                background-color: var(--dc-clr-pr-1);
+            }
+        }
+    }
+}
+
+/*
+    contact-2-end
+*/

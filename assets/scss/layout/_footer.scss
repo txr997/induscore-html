@@ -393,3 +393,577 @@
 /*
     footer-1-end
 */
+
+
+/*
+    footer-2-start
+*/
+
+.dc-footer-2 {
+    &-area {
+        position: relative;
+        z-index: 1;
+        padding: 132px 0 32px;
+        background-color: #F2F2F0;
+
+        @media #{$xxxl} {
+            padding-top: 120px;
+        }
+
+        @media #{$xxl} {
+            padding-top: 110px;
+        }
+
+        @media #{$xl} {
+            padding-top: 100px;
+        }
+
+        @media #{$lg} {
+            padding-top: 90px;
+        }
+
+        @media #{$md} {
+            padding-top: 80px;
+        }
+
+        @media #{$xs} {
+            padding: 60px 0 28px;
+        }
+    }
+
+    /*
+        subscribe — the title, the mail field and the orange send button, a hairline under them
+    */
+    &-subscribe {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 52px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgb(21 19 18 / 16%);
+
+        @media #{$lg,$md,$sm,$xs} {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            padding-bottom: 36px;
+        }
+    }
+
+    &-subscribe-title {
+        max-width: 729px;
+        margin: 0;
+        font-family: var(--dc-font-2);
+        font-weight: 600;
+        font-size: 44px;
+        line-height: 48px;
+        color: var(--dc-clr-h-1);
+
+        @media #{$xxl,$xl} {
+            font-size: 40px;
+            line-height: 44px;
+        }
+
+        @media #{$lg} {
+            font-size: 36px;
+            line-height: 40px;
+        }
+
+        @media #{$md} {
+            font-size: 34px;
+            line-height: 38px;
+        }
+
+        @media #{$xs} {
+            font-size: 28px;
+            line-height: 33px;
+        }
+    }
+
+    &-subscribe-form {
+        flex: 0 0 442px;
+        display: flex;
+        gap: 6px;
+        width: 442px;
+
+        @media #{$xl} {
+            flex-basis: 400px;
+            width: 400px;
+        }
+
+        /* in the column the basis would become a height */
+        @media #{$lg,$md,$sm,$xs} {
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 442px;
+        }
+
+        input {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 56px;
+            padding: 0 20px;
+            border: 2px solid rgb(21 19 18 / 20%);
+            border-radius: 12px;
+            font-family: var(--dc-font-1);
+            font-size: 18px;
+            line-height: 28px;
+            color: var(--dc-clr-h-1);
+            background-color: transparent;
+            outline: 0;
+            transition: border-color .4s var(--dc-cube-1);
+
+            &::placeholder {
+                color: rgb(21 19 18 / 48%);
+                opacity: 1;
+            }
+
+            &:focus {
+                border-color: var(--dc-clr-h-1);
+            }
+        }
+
+        button {
+            flex: 0 0 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            padding: 0;
+            border: 0;
+            border-radius: 12px;
+            font-size: 22px;
+            color: #fff;
+            background-color: var(--dc-clr-pr-2);
+            transition: color .4s var(--dc-cube-1), background-color .4s var(--dc-cube-1);
+
+            &:hover,
+            &:focus-visible {
+                color: var(--dc-clr-h-1);
+                background-color: var(--dc-clr-pr-1);
+            }
+        }
+    }
+
+    /*
+        main — about on the left, three link columns on the right
+    */
+    &-main {
+        display: flex;
+        gap: 128px;
+        margin-top: 80px;
+
+        @media #{$xxl} {
+            gap: 64px;
+        }
+
+        @media #{$xl} {
+            gap: 48px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            flex-direction: column;
+            gap: 48px;
+            margin-top: 60px;
+        }
+
+        @media #{$xs} {
+            gap: 40px;
+            margin-top: 48px;
+        }
+    }
+
+    &-about {
+        flex: 0 0 453px;
+
+        @media #{$xxl} {
+            flex-basis: 380px;
+        }
+
+        @media #{$xl} {
+            flex-basis: 300px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            flex: 0 0 auto;
+            max-width: 453px;
+        }
+    }
+
+    &-logo {
+        width: 96px;
+        margin-bottom: 16px;
+
+        a {
+            display: block;
+        }
+    }
+
+    &-disc {
+        margin: 0 0 28px;
+        color: rgb(21 19 18 / 80%);
+
+        @media #{$xs} {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+
+    &-social {
+        display: flex;
+        gap: 4px;
+
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 14px;
+            color: var(--dc-clr-h-1);
+            background-color: rgb(21 19 18 / 8%);
+            transition: color .4s var(--dc-cube-1), background-color .4s var(--dc-cube-1), box-shadow .4s var(--dc-cube-1);
+
+            &:hover {
+                color: #fff;
+                background-color: var(--dc-clr-pr-2);
+                box-shadow: 2px 4px 9px var(--dc-clr-pr-2);
+            }
+        }
+    }
+
+    &-cols {
+        display: flex;
+        flex: 1 1 auto;
+        gap: 80px;
+
+        @media #{$xxl} {
+            gap: 56px;
+        }
+
+        @media #{$xl} {
+            gap: 40px;
+        }
+
+        @media #{$lg} {
+            gap: 56px;
+        }
+
+        @media #{$md} {
+            flex-wrap: wrap;
+            gap: 40px 56px;
+        }
+
+        @media #{$sm,$xs} {
+            flex-direction: column;
+            gap: 40px;
+        }
+    }
+
+    /* the three columns keep their own width — links as wide as they are, then 256 and 307 */
+    &-col {
+        flex: 0 0 auto;
+        min-width: 0;
+
+        &:nth-child(2) {
+            flex: 0 0 256px;
+        }
+
+        &:nth-child(3) {
+            flex: 0 0 307px;
+        }
+
+        /* in the column direction the basis would become a height */
+        @media #{$sm,$xs} {
+            &:nth-child(2),
+            &:nth-child(3) {
+                flex: 0 0 auto;
+                max-width: 307px;
+            }
+        }
+    }
+
+    &-title {
+        margin: 0 0 22px;
+        font-family: var(--dc-font-2);
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 16px;
+        white-space: nowrap;
+        color: rgb(21 19 18 / 64%);
+    }
+
+    &-links,
+    &-services,
+    &-contact {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    /* a column of plain links, a small orange chevron behind most of them */
+    &-links {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--dc-font-1);
+            font-size: 18px;
+            line-height: 28px;
+            color: var(--dc-clr-h-1);
+            transition: color .4s var(--dc-cube-1);
+
+            i {
+                font-size: 9px;
+                color: var(--dc-clr-pr-2);
+            }
+
+            &:hover {
+                color: var(--dc-clr-pr-2);
+            }
+        }
+    }
+
+    &-services {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--dc-font-1);
+            font-size: 20px;
+            line-height: 28px;
+            color: var(--dc-clr-h-1);
+            transition: color .4s var(--dc-cube-1);
+
+            .dot {
+                flex: 0 0 auto;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: rgb(75 72 72 / 40%);
+                transition: background-color .4s var(--dc-cube-1);
+            }
+
+            &:hover {
+                color: var(--dc-clr-pr-2);
+
+                .dot {
+                    background-color: var(--dc-clr-pr-2);
+                }
+            }
+        }
+
+        @media #{$xs} {
+            a {
+                font-size: 18px;
+            }
+        }
+    }
+
+    &-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        /* the orange outline icons sit on the first line of their text */
+        i {
+            flex: 0 0 16px;
+            margin-top: 6px;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+            color: var(--dc-clr-pr-2);
+        }
+
+        .text {
+            margin: 0;
+            font-family: var(--dc-font-1);
+            font-size: 18px;
+            line-height: 28px;
+            color: var(--dc-clr-h-1);
+
+            a {
+                color: inherit;
+                transition: color .4s var(--dc-cube-1);
+
+                &:hover {
+                    color: var(--dc-clr-pr-2);
+                }
+            }
+        }
+    }
+
+    /*
+        bottom — the hairline, the big wordmark and the factory photo that climbs out over the line
+    */
+    &-bottom {
+        position: relative;
+        min-height: 225px;
+        margin-top: 80px;
+        padding-top: 56px;
+        border-top: 1px solid rgb(21 19 18 / 16%);
+
+        @media #{$xxl} {
+            min-height: 210px;
+        }
+
+        @media #{$xl} {
+            min-height: 190px;
+            margin-top: 70px;
+        }
+
+        @media #{$lg} {
+            min-height: 170px;
+            margin-top: 60px;
+            padding-top: 44px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            min-height: 0;
+            margin-top: 56px;
+            padding-top: 40px;
+        }
+
+        @media #{$xs} {
+            margin-top: 44px;
+            padding-top: 32px;
+        }
+    }
+
+    &-wordmark {
+        width: min(920px, calc(100% - 480px));
+
+        svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /*
+            the letters (main.js sets .dc-letters-ani, then .is-in once the wordmark scrolls into view): every one waits below the baseline,
+            tilted, and rises into place — I first, then n, d, u, s, c, o, r, e. The orange ones overshoot a little and settle
+        */
+        &.dc-letters-ani {
+            path {
+                transform-box: fill-box;
+                transform-origin: 0 100%;
+                transform: translateY(110%) rotate(8deg);
+                transition: transform 1s var(--dc-cube-1);
+            }
+
+            path:nth-child(-n + 4) {
+                transition-timing-function: cubic-bezier(.34, 1.45, .64, 1);
+            }
+
+            path:nth-child(1) {
+                transition-delay: 0.56s;
+            }
+
+            path:nth-child(2) {
+                transition-delay: 0.49s;
+            }
+
+            path:nth-child(3) {
+                transition-delay: 0.42s;
+            }
+
+            path:nth-child(4) {
+                transition-delay: 0.35s;
+            }
+
+            path:nth-child(5) {
+                transition-delay: 0.28s;
+            }
+
+            path:nth-child(6) {
+                transition-delay: 0.21s;
+            }
+
+            path:nth-child(7) {
+                transition-delay: 0.14s;
+            }
+
+            path:nth-child(8) {
+                transition-delay: 0.07s;
+            }
+
+            path:nth-child(9) {
+                transition-delay: 0.00s;
+            }
+
+            &.is-in path {
+                transform: none;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                path {
+                    transition-duration: 0s;
+                    transition-delay: 0s;
+                }
+            }
+        }
+
+        @media #{$xxl} {
+            width: calc(100% - 420px);
+        }
+
+        @media #{$xl} {
+            width: calc(100% - 340px);
+        }
+
+        @media #{$lg} {
+            width: calc(100% - 300px);
+        }
+
+        @media #{$md,$sm,$xs} {
+            width: 100%;
+        }
+    }
+
+    &-img {
+        position: absolute;
+        right: 0;
+        top: -18px;
+        width: 440px;
+
+        @media #{$xxl} {
+            width: 400px;
+        }
+
+        @media #{$xl} {
+            width: 300px;
+        }
+
+        @media #{$lg} {
+            width: 260px;
+        }
+
+        @media #{$md,$sm,$xs} {
+            position: relative;
+            right: auto;
+            top: auto;
+            width: min(100%, 360px);
+            margin: 32px 0 0 auto;
+        }
+    }
+}
+
+/*
+    footer-2-end
+*/

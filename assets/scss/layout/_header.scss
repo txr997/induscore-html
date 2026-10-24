@@ -556,8 +556,16 @@
             display: inline-block;
         }
 
+        /* the box animation of dc-pr-btn-2 (same markup class, same script) — here the boxes are the dark */
+        .boxes span {
+            background-color: var(--dc-clr-h-1);
+        }
+
         &:hover {
             color: #fff;
+        }
+
+        &:not(:has(.boxes)):hover {
             background-color: var(--dc-clr-h-1);
         }
     }
